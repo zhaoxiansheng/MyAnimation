@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyAnimation</string>
+    <string name="scroll_anim">滚动动画</string>
+    <string name="start_anim">开始动画</string>
+    <string name="end_anim">结束动画</string>
+    <string name="custom_weekdays">周</string>
+    <string name="custom_months">月</string>
 </resources>
