@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         Button scrollBtn = (Button) findViewById(R.id.scroll_anim_btn);
+        Button calendarBtn = (Button) findViewById(R.id.calendar_view);
         scrollBtn.setOnClickListener(this);
+        calendarBtn.setOnClickListener(this);
     }
 
     @Override
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.scroll_anim_btn:
                 ScrollAnimationActivity.startActivity(this);
+                break;
+            case R.id.calendar_view:
+                CalendarActivity.startActivity(this);
                 break;
             default:
                 break;

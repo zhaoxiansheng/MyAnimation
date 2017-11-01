@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.zy.myanimation.R;
+import com.example.zy.myanimation.utils.ToolUtils;
 
 /**
  * Created  on 2017/10/31.
@@ -136,6 +137,8 @@ public class ScrollAnimView extends View {
     private void drawText(Canvas canvas) {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
+        mPaint.setDither(true);
         mPaint.setColor(roundColor);
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, roundRadius, mPaint);
         mPaint.setColor(textColor);
@@ -151,34 +154,7 @@ public class ScrollAnimView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
-    }
-
-    private int measureWidth(int measureSpec) {
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-        //设置一个默认值，就是这个View的默认宽度为500，这个看我们自定义View的要求
-        int result = 500;
-        //相当于我们设置为wrap_content
-        if (specMode == MeasureSpec.AT_MOST) {
-            result = specSize;
-            //相当于我们设置为match_parent或者为一个具体的值
-        } else if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize;
-        }
-        return result;
-    }
-
-    private int measureHeight(int measureSpec) {
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-        int result = 500;
-        if (specMode == MeasureSpec.AT_MOST) {
-            result = specSize;
-        } else if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize;
-        }
-        return result;
+        setMeasuredDimension(ToolUtils.measureWidth(widthMeasureSpec, 500), ToolUtils.measureHeight(heightMeasureSpec, 500));
     }
 
     /**
@@ -265,14 +241,5 @@ public class ScrollAnimView extends View {
     private String getRandom() {
         int random = (int) (Math.random() * 9);
         return String.valueOf(random);
-    }
-
-    private StartAnim startAnim;
-    public void setStartAnim(StartAnim startAnim) {
-        this.startAnim = startAnim;
-    }
-
-    public interface StartAnim{
-        void running(ValueAnimator leftAnim, ValueAnimator middleAnim, ValueAnimator rightAnim);
     }
 }

@@ -6,4 +6,11 @@
         <attr name="text_color" format="color" />
         <attr name="text_size" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="CalendarView">
+        <attr name="round_radius" format="dimension" />
+        <attr name="round_color" format="color" />
+        <attr name="text_color" format="color" />
+        <attr name="text_size" format="dimension" />
+    </declare-styleable>
 </resources>

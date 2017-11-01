@@ -20,10 +20,11 @@
             android:textSize="14sp" />
 
         <Button
+            android:id="@+id/calendar_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/scroll_anim"
+            android:text="@string/calendar"
             android:textSize="14sp" />
 
     </LinearLayout>
