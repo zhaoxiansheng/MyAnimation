@@ -10,10 +10,11 @@
         android:id="@+id/calendar_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:round_color="@color/colorPrimary"
-        app:text_color="@color/black"
-        app:text_size="16sp"
-        app:round_radius="10dp">
+        android:layout_centerInParent="true"
+        app:circle_color="@color/colorPrimary"
+        app:date_color="@color/gray"
+        app:date_size="14sp"
+        app:circle_radius="10dp">
     </com.example.zy.myanimation.view.calendar.CalendarView>
 
 </RelativeLayout>

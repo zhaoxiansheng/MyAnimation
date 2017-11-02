@@ -1,5 +1,7 @@
 package com.example.zy.myanimation.view.calendar;
 
+import com.example.zy.myanimation.utils.ToolUtils;
+
 import java.util.Calendar;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Calendar;
 public class WheelCalendar {
 
     public int year, month, day, hour, minute, week;
+    public String weekDay;
 
     public WheelCalendar(long millseconds) {
         initDate(millseconds);
@@ -29,5 +32,6 @@ public class WheelCalendar {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         week = calendar.get(Calendar.WEEK_OF_YEAR);
+        weekDay = ToolUtils.chineseWeekDay(millseconds);
     }
 }

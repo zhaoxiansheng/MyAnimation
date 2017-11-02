@@ -21,7 +21,9 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         WheelCalendar wheelCalendar = new WheelCalendar(System.currentTimeMillis());
-        Toast.makeText(this, wheelCalendar.year + "/" + wheelCalendar.month + "/" + wheelCalendar.day + "/" + wheelCalendar.hour + "/" + wheelCalendar.minute + "/" + wheelCalendar.week, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, wheelCalendar.year + "/" + wheelCalendar.month + "/" + wheelCalendar.day + "/"
+                + wheelCalendar.hour + "/" + wheelCalendar.minute + "/" + wheelCalendar.week + "/"
+                + wheelCalendar.weekDay, Toast.LENGTH_SHORT).show();
     }
 
     public static void startActivity(Activity activity) {
