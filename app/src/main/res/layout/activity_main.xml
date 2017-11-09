@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_color"
     android:orientation="vertical"
     tools:context="com.example.zy.myanimation.activity.MainActivity">
 
@@ -32,16 +33,23 @@
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:mcv_showOtherDates="all"
+        android:layout_height="wrap_content"
         app:mcv_arrowColor="?attr/colorPrimary"
-        app:mcv_selectionColor="?attr/colorPrimary"
-        app:mcv_headerTextAppearance="?android:attr/textAppearanceMedium"
-        app:mcv_weekDayTextAppearance="?android:attr/textAppearanceMedium"
-        app:mcv_weekDayLabels="@string/custom_weekdays"
-        app:mcv_monthLabels="@string/custom_months"
-        app:mcv_tileSize="50dp"
+        app:mcv_calendarMode="week"
         app:mcv_firstDayOfWeek="sunday"
-        app:mcv_calendarMode="month"
-        />
+        app:mcv_headerTextAppearance="?android:attr/textAppearanceMedium"
+        app:mcv_monthLabels="@string/custom_months"
+        app:mcv_selectionColor="?attr/colorPrimary"
+        app:mcv_showOtherDates="all"
+        app:mcv_tileSize="50dp"
+        app:mcv_weekDayLabels="@string/custom_weekdays"
+        app:mcv_weekDayTextAppearance="?android:attr/textAppearanceMedium" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+    </android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

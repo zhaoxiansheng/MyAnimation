@@ -27,7 +27,7 @@ public class ToolUtils {
         int specSize = View.MeasureSpec.getSize(measureSpec);
         //相当于我们设置为wrap_content
         if (specMode == View.MeasureSpec.AT_MOST) {
-            result = specSize;
+            return result;
             //相当于我们设置为match_parent或者为一个具体的值
         } else if (specMode == View.MeasureSpec.EXACTLY) {
             result = specSize;
@@ -46,7 +46,7 @@ public class ToolUtils {
         int specMode = View.MeasureSpec.getMode(measureSpec);
         int specSize = View.MeasureSpec.getSize(measureSpec);
         if (specMode == View.MeasureSpec.AT_MOST) {
-            result = specSize;
+            return result;
         } else if (specMode == View.MeasureSpec.EXACTLY) {
             result = specSize;
         }
@@ -55,6 +55,7 @@ public class ToolUtils {
 
     /**
      * 获取当前星期几
+     *
      * @param millseconds 时间
      * @return 返回中文星期
      */
@@ -68,6 +69,7 @@ public class ToolUtils {
 
     /**
      * 获取当前星期几
+     *
      * @param millseconds 时间
      * @return 返回数字
      */
@@ -80,17 +82,19 @@ public class ToolUtils {
 
     /**
      * 获取当前月份
+     *
      * @param month 月份
      * @return 返回中文月份
      */
-    public static String monthDay(int month){
+    public static String monthDay(int month) {
         String[] monthDays = {"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"};
         return monthDays[month - 1];
     }
 
     /**
      * 把获取某年某月第一天的毫秒数
-     * @param year 年份
+     *
+     * @param year  年份
      * @param month 月份
      * @return 毫秒数
      * @throws ParseException
@@ -102,7 +106,8 @@ public class ToolUtils {
 
     /**
      * 获取某年某月的最后一天
-     * @param year 年
+     *
+     * @param year  年
      * @param month 月
      * @return 最后一天
      */
@@ -126,6 +131,7 @@ public class ToolUtils {
 
     /**
      * 是否闰年
+     *
      * @param year 年
      * @return
      */
