@@ -16,5 +16,6 @@
         <attr name="date_col_height" format="dimension" />
         <attr name="date_color" format="color" />
         <attr name="date_size" format="dimension" />
+        <attr name="calendar_mode" format="string" />
     </declare-styleable>
 </resources>

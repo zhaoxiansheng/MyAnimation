@@ -130,6 +130,10 @@ public class CalendarView extends View {
 
     }
 
+    /**
+     * 周title
+     * @param canvas
+     */
     private void drawWeek(Canvas canvas) {
         initPaint();
         String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
@@ -141,6 +145,11 @@ public class CalendarView extends View {
         textLength = textRect.width();
     }
 
+    /**
+     * 画出每一天
+     * @param canvas
+     * @throws ParseException
+     */
     private void drawMonth(Canvas canvas) throws ParseException {
         initPaint();
         int weekCount = ToolUtils.numberWeekDay(ToolUtils.millSeconds(wheelCalendar.year, wheelCalendar.month));

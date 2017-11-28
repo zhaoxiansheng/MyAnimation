@@ -30,21 +30,6 @@
 
     </LinearLayout>
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:mcv_arrowColor="?attr/colorPrimary"
-        app:mcv_calendarMode="week"
-        app:mcv_firstDayOfWeek="sunday"
-        app:mcv_headerTextAppearance="?android:attr/textAppearanceMedium"
-        app:mcv_monthLabels="@string/custom_months"
-        app:mcv_selectionColor="?attr/colorPrimary"
-        app:mcv_showOtherDates="all"
-        app:mcv_tileSize="50dp"
-        app:mcv_weekDayLabels="@string/custom_weekdays"
-        app:mcv_weekDayTextAppearance="?android:attr/textAppearanceMedium" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
