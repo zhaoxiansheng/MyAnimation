@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        RecyclerView mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
         //创建默认的线性LayoutManager
         LinearLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -44,10 +44,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //创建并设置Adapter
         TestAdapter mAdapter = new TestAdapter(list);
         mRecyclerView.setAdapter(mAdapter);
-        Button scrollBtn = (Button) findViewById(R.id.scroll_anim_btn);
-        Button calendarBtn = (Button) findViewById(R.id.calendar_view);
+        Button scrollBtn = findViewById(R.id.scroll_anim_btn);
+        Button calendarBtn = findViewById(R.id.calendar_view);
+        Button messengerBtn = findViewById(R.id.messenger_btn);
         scrollBtn.setOnClickListener(this);
         calendarBtn.setOnClickListener(this);
+        messengerBtn.setOnClickListener(this);
     }
 
     private void initData() {
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.calendar_view:
                 CalendarActivity.startActivity(this);
+                break;
+            case R.id.messenger_btn:
+                MessengerActivity.startActivity(this);
                 break;
             default:
                 break;

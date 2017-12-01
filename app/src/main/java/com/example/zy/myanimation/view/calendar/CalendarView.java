@@ -2,51 +2,49 @@ package com.example.zy.myanimation.view.calendar;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.utils.ToolUtils;
-
-import java.text.ParseException;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created on 2017/11/1.
  *
  * @author zhaoy
  */
-public class CalendarView extends View {
+public class CalendarView extends ViewGroup {
 
     /**
      * 圆的颜色
      */
     private int circleColor;
     /**
-     * 数字的颜色
+     * 日期的颜色
      */
-    private int dateColor;
+    private int dateDayColor;
     /**
-     * 数字字体大小
+     * title的颜色
      */
-    private float dateSize;
+    private int dateTitleColor;
+    /**
+     * 日期字体大小
+     */
+    private float dateDaySize;
+    private float dateTitleSize;
     /**
      * 圆的半径
      */
     private float circleRadius;
-    /**
-     * 默认的行数
-     */
-    private int col = 6;
-    /**
-     * 默认的列数
-     */
-    private int row = 7;
 
     /**
      * 默认行列宽高
@@ -55,18 +53,32 @@ public class CalendarView extends View {
     private float colWidth;
     private float rowHeight;
     private float rowWidth;
-    /**
-     * 自定义画笔
-     */
-    private Paint mPaint;
-    /**
-     * title
-     */
-    private Rect textRect;
-    private int textLength;
-    private String year, month;
 
     private WheelCalendar wheelCalendar;
+
+    /**
+     * 头布局
+     */
+    private CalendarViewPager pager;
+    private ImageView imgPast;
+    private ImageView imgFuture;
+    private TextView title;
+    private LinearLayout topBar;
+    private Drawable rightArrowMask;
+    private Drawable leftArrowMask;
+
+    private final OnClickListener onClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v == imgFuture) {
+                pager.setCurrentItem(pager.getCurrentItem() + 1, true);
+                Logger.d("??????????????????");
+            } else if (v == imgPast) {
+                pager.setCurrentItem(pager.getCurrentItem() - 1, true);
+                Logger.d("////////////////////");
+            }
+        }
+    };
 
     public CalendarView(Context context) {
         super(context);
@@ -83,122 +95,161 @@ public class CalendarView extends View {
         initAttrs(context, attrs, defStyleAttr);
     }
 
+
     private void initAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
+        wheelCalendar = new WheelCalendar(System.currentTimeMillis());
+        imgPast = new ImageView(getContext());
+        imgPast.setContentDescription(getContext().getString(R.string.previous));
+        imgFuture = new ImageView(getContext());
+        imgFuture.setContentDescription(getContext().getString(R.string.next));
+        title = new TextView(getContext());
+        topBar = new LinearLayout(getContext());
+        topBar.setOrientation(LinearLayout.HORIZONTAL);
+        topBar.setClipChildren(false);
+        topBar.setClipToPadding(false);
+
+        pager = new CalendarViewPager(getContext());
+
+        imgPast.setOnClickListener(onClickListener);
+        imgFuture.setOnClickListener(onClickListener);
+
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CalendarView, defStyleAttr, 0);
-        circleColor = array.getColor(R.styleable.CalendarView_circle_color, ContextCompat.getColor(context, R.color.colorPrimary));
-        circleRadius = array.getDimension(R.styleable.CalendarView_circle_radius, 10);
-        dateColor = array.getColor(R.styleable.CalendarView_date_color, Color.WHITE);
-        dateSize = array.getDimension(R.styleable.CalendarView_date_size, 30);
-        rowHeight = array.getDimension(R.styleable.CalendarView_date_row_height, 35);
-        rowWidth = array.getDimension(R.styleable.CalendarView_date_row_height, 25);
-        colHeight = array.getDimension(R.styleable.CalendarView_date_col_width, 35);
-        colWidth = array.getDimension(R.styleable.CalendarView_date_col_width, 25);
-        array.recycle();
-
-        mPaint = new Paint();
-        textRect = new Rect();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        drawTitle(canvas);
-        drawWeek(canvas);
         try {
-            drawMonth(canvas);
-        } catch (ParseException e) {
+            circleColor = array.getColor(R.styleable.CalendarView_circle_color, ContextCompat.getColor(context, R.color.colorPrimary));
+            circleRadius = array.getDimension(R.styleable.CalendarView_circle_radius, 10);
+
+            dateDayColor = array.getColor(R.styleable.CalendarView_date_day_color, Color.WHITE);
+            dateDaySize = array.getDimension(R.styleable.CalendarView_date_day_size, 20);
+            dateTitleColor = array.getColor(R.styleable.CalendarView_date_title_color, Color.WHITE);
+            dateTitleSize = array.getDimensionPixelSize(R.styleable.CalendarView_date_title_size, 30);
+
+            rowHeight = array.getDimension(R.styleable.CalendarView_date_row_height, 35);
+            rowWidth = array.getDimension(R.styleable.CalendarView_date_row_height, 25);
+            colHeight = array.getDimension(R.styleable.CalendarView_date_col_width, 35);
+            colWidth = array.getDimension(R.styleable.CalendarView_date_col_width, 25);
+
+            Drawable leftMask = array.getDrawable(R.styleable.CalendarView_calendar_img_previous);
+            if (leftMask == null) {
+                leftMask = ContextCompat.getDrawable(getContext(), R.drawable.mcv_action_previous);
+            }
+            setLeftArrowMask(leftMask);
+
+            Drawable rightMask = array.getDrawable(R.styleable.CalendarView_calendar_img_next);
+            if (rightMask == null) {
+                rightMask = ContextCompat.getDrawable(getContext(), R.drawable.mcv_action_next);
+            }
+            setRightArrowMask(rightMask);
+
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            array.recycle();
         }
+
+        setupChildren();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(ToolUtils.measureWidth(widthMeasureSpec, 500), ToolUtils.measureHeight(heightMeasureSpec, 500));
-    }
 
-    private void drawTitle(Canvas canvas) {
-        wheelCalendar = new WheelCalendar(System.currentTimeMillis());
-        year = String.valueOf(wheelCalendar.year) + "年";
-        month = ToolUtils.monthDay(wheelCalendar.month);
-        String title = year + " " + month;
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        initPaint();
-        mPaint.getTextBounds(title, 0, title.length(), textRect);
-        canvas.drawText(year + " " + month, getMeasuredWidth() / 2 - textRect.width() / 2,
-                getMeasuredHeight() / 2 - textRect.height() / 2, mPaint);
+        // 如果是warp_content情况下，记录宽和高
+        int width = 0;
+        int height = 0;
 
-    }
+        //记录最大宽度
+        int lineHeight = 0;
 
-    /**
-     * 周title
-     * @param canvas
-     */
-    private void drawWeek(Canvas canvas) {
-        initPaint();
-        String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
-        for (int i = 0; i < weekDays.length; i++) {
-            mPaint.getTextBounds(weekDays[i], 0, weekDays[i].length(), textRect);
-            canvas.drawText(weekDays[i], getMeasuredWidth() / 2 - textRect.width() / 2 - textRect.width() * (3 - i) - colWidth * (3 - i),
-                    getMeasuredHeight() / 2 + textRect.height() / 2 + rowHeight, mPaint);
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View childView = getChildAt(i);
+            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
+            MarginLayoutParams lp = (MarginLayoutParams) childView.getLayoutParams();
+
+            int childWidth = childView.getMeasuredWidth() + lp.leftMargin
+                    + lp.rightMargin;
+            // 当前子空间实际占据的高度
+            int childHeight = childView.getMeasuredHeight() + lp.topMargin
+                    + lp.bottomMargin;
+
+            // 取最大的
+            height = Math.max(lineHeight, childHeight);
+            // 重新开始记录
+            lineHeight = childHeight;
+            // 叠加当前宽度，
+            width += childWidth;
         }
-        textLength = textRect.width();
+        setMeasuredDimension((widthMode == MeasureSpec.EXACTLY) ? sizeWidth
+                : width, (heightMode == MeasureSpec.EXACTLY) ? sizeHeight
+                : height);
     }
 
-    /**
-     * 画出每一天
-     * @param canvas
-     * @throws ParseException
-     */
-    private void drawMonth(Canvas canvas) throws ParseException {
-        initPaint();
-        int weekCount = ToolUtils.numberWeekDay(ToolUtils.millSeconds(wheelCalendar.year, wheelCalendar.month));
-        int monthCount = ToolUtils.getLastDayOfMonth(wheelCalendar.year, wheelCalendar.month);
-        if (weekCount + monthCount + 1 > row * 5) {
-            col = 6;
-        } else {
-            col = 5;
-        }
-        for (int j = 0; j < col; j++) {
-            for (int i = 0; i < row; i++) {
-                if (j == 0) {
-                    if (i > weekCount - 1 && i < 7) {
-                        mPaint.getTextBounds(String.valueOf(i + 1 - weekCount), 0, String.valueOf(i + 1 - weekCount).length(), textRect);
-                        canvas.drawText(String.valueOf(i + 1 - weekCount),
-                                getMeasuredWidth() / 2 - textRect.width() / 2 - textLength * (weekCount - i) - colWidth * (weekCount - i),
-                                getMeasuredHeight() / 2 + textRect.height() / 2 + rowHeight * (j + 2), mPaint);
-                    }
-                } else {
-                    if (j == col - 1) {
-                        if ((j + 1) * (i + 1) + weekCount <= monthCount) {
-                            mPaint.getTextBounds(String.valueOf(i + j * 7 + 1 - weekCount), 0, String.valueOf(i + j * 7 + 1 - weekCount).length(), textRect);
-                            canvas.drawText(String.valueOf(i + j * 7 + 1 - weekCount),
-                                    getMeasuredWidth() / 2 - textRect.width() / 2 - textLength * (3 - i) - colWidth * (3 - i),
-                                    getMeasuredHeight() / 2 + textRect.height() / 2 + rowHeight * (j + 2), mPaint);
-                        }
-                    } else {
-                        mPaint.getTextBounds(String.valueOf(i + j * 7 + 1 - weekCount), 0, String.valueOf(i + j * 7 + 1 - weekCount).length(), textRect);
-                        canvas.drawText(String.valueOf(i + j * 7 + 1 - weekCount),
-                                getMeasuredWidth() / 2 - textRect.width() / 2 - textLength * (3 - i) - colWidth * (3 - i),
-                                getMeasuredHeight() / 2 + textRect.height() / 2 + rowHeight * (j + 2), mPaint);
-                    }
-                }
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        final int count = getChildCount();
+
+        final int parentLeft = getPaddingLeft();
+        final int parentWidth = right - left - parentLeft - getPaddingRight();
+
+        int childTop = getPaddingTop();
+
+        for (int i = 0; i < count; i++) {
+            final View child = getChildAt(i);
+            if (child.getVisibility() == View.GONE) {
+                continue;
             }
+
+            final int width = child.getMeasuredWidth();
+            final int height = child.getMeasuredHeight();
+
+            int delta = (parentWidth - width) / 2;
+            int childLeft = parentLeft + delta;
+
+            child.layout(childLeft, childTop, childLeft + width, childTop + height);
+
+            childTop += height;
         }
     }
 
     /**
-     * 初始化画笔
+     * 设置头布局
      */
-    private void initPaint() {
-        if (mPaint != null) {
-            mPaint.reset();
-            mPaint.setColor(dateColor);
-            mPaint.setTextSize(dateSize);
-            mPaint.setAntiAlias(true);
-            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
-            mPaint.setDither(true);
-        }
+    private void setupChildren() {
+        topBar = new LinearLayout(getContext());
+        topBar.setOrientation(LinearLayout.HORIZONTAL);
+        topBar.setClipChildren(false);
+        topBar.setClipToPadding(false);
+        addView(topBar, new MarginLayoutParams(LayoutParams.MATCH_PARENT, 100));
+
+        imgPast.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        topBar.addView(imgPast, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
+
+        title.setGravity(Gravity.CENTER);
+        title.setText(String.valueOf(wheelCalendar.year) + "年" + String.valueOf(wheelCalendar.month) + "月");
+        title.setTextColor(dateTitleColor);
+        title.setTextSize(dateTitleSize);
+        topBar.addView(title, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 5));
+
+        imgFuture.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        topBar.addView(imgFuture, new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1));
+
+        pager.setId(R.id.mcv_pager);
+        pager.setOffscreenPageLimit(1);
+        addView(pager, new MarginLayoutParams(LayoutParams.MATCH_PARENT, 200));
+    }
+
+    public void setLeftArrowMask(Drawable icon) {
+        leftArrowMask = icon;
+        imgPast.setImageDrawable(icon);
+    }
+
+    public void setRightArrowMask(Drawable icon) {
+        rightArrowMask = icon;
+        imgFuture.setImageDrawable(icon);
     }
 }

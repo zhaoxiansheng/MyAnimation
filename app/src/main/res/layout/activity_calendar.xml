@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.example.zy.myanimation.activity.CalendarActivity">
 
     <com.example.zy.myanimation.view.calendar.CalendarView
         android:id="@+id/calendar_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:circle_color="@color/colorPrimary"
-        app:date_color="@color/gray"
-        app:date_size="14sp"
-        app:circle_radius="10dp">
+        app:date_day_color="@color/gray"
+        app:date_title_size="16sp"
+        app:circle_radius="10dp"
+        app:calendar_img_previous="@drawable/mcv_action_previous"
+        app:calendar_img_next="@drawable/mcv_action_next">
     </com.example.zy.myanimation.view.calendar.CalendarView>
 
 </RelativeLayout>
