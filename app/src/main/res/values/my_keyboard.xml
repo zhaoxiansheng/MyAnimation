@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="keycode_stock_num_000">-10200</integer>
+    <integer name="keycode_stock_num_all">-10201</integer>
+    <integer name="keycode_stock_num_half">-10202</integer>
+    <integer name="keycode_stock_num_1_3">-10203</integer>
+    <integer name="keycode_stock_num_1_4">-10204</integer>
+    <integer name="keycode_stock_num_sell">-10205</integer>
+    <integer name="keycode_hide_keyboard">-10206</integer>
+    <integer name="keycode_empty_text">-10207</integer>
+</resources>
