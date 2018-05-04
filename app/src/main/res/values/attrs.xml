@@ -24,4 +24,15 @@
         <attr name="calendar_img_previous" format="reference"/>
         <attr name="calendar_img_next" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="MyView">
+        <!--字体大小-->
+        <attr name="my_view_text_size" format="integer"/>
+        <!--控件背景颜色-->
+        <attr name="my_view_bg_color" format="color"/>
+        <!--字体颜色-->
+        <attr name="my_view_text_color" format="color"/>
+        <!--文本-->
+        <attr name="my_view_text" format="string"/>
+    </declare-styleable>
 </resources>
