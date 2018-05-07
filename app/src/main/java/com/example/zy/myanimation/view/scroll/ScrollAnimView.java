@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -15,8 +16,10 @@ import android.view.View;
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.utils.ToolUtils;
 
+import java.util.Random;
+
 /**
- * Created  on 2017/10/31.
+ * Created  on 2018/5/4.
  *
  * @author zhaoy
  */
@@ -53,28 +56,30 @@ public class ScrollAnimView extends View {
     /**
      * 是否是第一次初始化
      */
-    private boolean isFirstInit = false;
-    /**
-     * 左侧数字实时点
-     */
-    private MyPoint leftPoint;
+    private boolean isFirstInit = true;
     /**
      * 中间的数字的实时点
      */
     private MyPoint middlePoint;
+
+    private String middleNum = "0";
+    private String winningNum = "5";
+
     /**
-     * 右边数字实时点
+     * 圆心坐标
      */
-    private MyPoint rightPoint;
+    private Point circleCenter;
+
     /**
-     * 中间数字动画
+     * 执行时间
      */
-    private ValueAnimator leftAnim;
+    private long firstTime;
     private ValueAnimator middleAnim;
-    private ValueAnimator rightAnim;
-    private String leftNum = "9";
-    private String middleNum = "9";
-    private String rightNum = "9";
+
+    /**
+     * 中间数字滚动的次数
+     */
+    private int count;
 
     public ScrollAnimView(Context context) {
         super(context);
@@ -92,41 +97,53 @@ public class ScrollAnimView extends View {
     }
 
     private void initAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
+        circleCenter = new Point();
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ScrollAnimView, defStyleAttr, 0);
         roundColor = array.getColor(R.styleable.ScrollAnimView_round_color, ContextCompat.getColor(context, R.color.colorPrimary));
-        roundRadius = array.getDimension(R.styleable.ScrollAnimView_round_radius, 50);
         textColor = array.getColor(R.styleable.ScrollAnimView_text_color, Color.WHITE);
         textSize = array.getDimension(R.styleable.ScrollAnimView_text_size, 30);
         array.recycle();
+
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setTextSize(textSize);
         textRect = new Rect();
         //得到数字矩形的宽高，以用来画数字的时候纠正数字的位置
         mPaint.getTextBounds(middleNum, 0, middleNum.length(), textRect);
-        mPaint.getTextBounds(leftNum, 0, leftNum.length(), textRect);
-        mPaint.getTextBounds(rightNum, 0, rightNum.length(), textRect);
-
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (!isFirstInit) {
-            leftPoint = new MyPoint(getMeasuredWidth() / 2 - roundRadius / 2 - textRect.width() / 2,
-                    getMeasuredHeight() / 2 - roundRadius / 2);
-            middlePoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2,
-                    getMeasuredHeight() / 2 - roundRadius + textRect.height());
-            rightPoint = new MyPoint(getMeasuredWidth() / 2 + roundRadius / 2 - textRect.width() / 2,
-                    getMeasuredHeight() / 2 - roundRadius / 2);
-            drawText(canvas);
-            //开始动画
-            startLeftAnimation();
-            startMiddleAnimation();
-            startRightAnimation();
-            isFirstInit = true;
-        } else {
-            drawText(canvas);
+        if (isFirstInit) {
+            firstTime = System.currentTimeMillis();
         }
+        long currentTime = System.currentTimeMillis();
+
+        //10秒后停止
+        if (currentTime - firstTime > 1000) {
+            mPaint.setAntiAlias(true);
+            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+            //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
+            mPaint.setDither(true);
+            mPaint.setColor(roundColor);
+            canvas.drawCircle(circleCenter.x, circleCenter.y, roundRadius, mPaint);
+
+            mPaint.setColor(textColor);
+            mPaint.setTextSize(textSize);
+            canvas.drawText(winningNum, circleCenter.x - textRect.width() / 2, circleCenter.y + textRect.height() / 2, mPaint);
+            stopMiddleAnimation();
+        } else {
+            if (isFirstInit) {
+                middlePoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2,
+                        getMeasuredHeight() / 2 - roundRadius + textRect.height());
+                drawText(canvas);
+                //开始动画
+                startMiddleAnimation(100);
+                isFirstInit = false;
+            } else {
+                drawText(canvas);
+            }
+        }
+
     }
 
     /**
@@ -140,53 +157,38 @@ public class ScrollAnimView extends View {
         //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
         mPaint.setDither(true);
         mPaint.setColor(roundColor);
-        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, roundRadius, mPaint);
+        canvas.drawCircle(circleCenter.x, circleCenter.y, roundRadius, mPaint);
         mPaint.setColor(textColor);
         mPaint.setTextSize(textSize);
         if (isMiddleNumInvalidate) {
-            canvas.drawText(leftNum, leftPoint.getX(), leftPoint.getY(), mPaint);
-            canvas.drawText(middleNum, middlePoint.getX(), middlePoint.getY(), mPaint);
-            canvas.drawText(rightNum, rightPoint.getX(), rightPoint.getY(), mPaint);
+            canvas.drawText(String.valueOf(count), middlePoint.getX(), middlePoint.getY(), mPaint);
             isMiddleNumInvalidate = false;
         }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(ToolUtils.measureWidth(widthMeasureSpec, 500), ToolUtils.measureHeight(heightMeasureSpec, 500));
+        int width = ToolUtils.measureWidth(widthMeasureSpec, 100);
+        int height = ToolUtils.measureHeight(heightMeasureSpec, 100);
+
+        int x = width / 2;
+        int y = height / 2;
+
+        if (x > y) {
+            roundRadius = y;
+        } else {
+            roundRadius = x;
+        }
+
+        circleCenter.set(x, y);
+
+        setMeasuredDimension(width, height);
     }
 
     /**
      * 开始动画
      */
-    private void startLeftAnimation() {
-        //初始化中间数字的开始点的位置
-        final MyPoint startPoint = new MyPoint(getMeasuredWidth() / 2 - roundRadius / 2 - textRect.width() / 2,
-                getMeasuredHeight() / 2 - roundRadius / 2);
-        //初始化中间数字的结束点的位置
-        final MyPoint endPoint = new MyPoint(getMeasuredWidth() / 2 - roundRadius / 2 - textRect.width() / 2,
-                getMeasuredHeight() / 2 + roundRadius / 2);
-        leftAnim = ValueAnimator.ofObject(new CustomPointEvaluator(), startPoint, endPoint);
-        //监听从起始点到终点过程中点的变化,并获取点然后重新绘制界面
-        leftAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                leftNum = getRandom();
-                leftPoint = (MyPoint) animation.getAnimatedValue();
-                isMiddleNumInvalidate = true;
-                invalidate();
-            }
-        });
-        leftAnim.setDuration(300);
-        leftAnim.setRepeatCount(ValueAnimator.INFINITE);
-        leftAnim.start();
-    }
-
-    /**
-     * 开始动画
-     */
-    private void startMiddleAnimation() {
+    public void startMiddleAnimation(int duration) {
         //初始化中间数字的开始点的位置
         final MyPoint startPoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2, getMeasuredHeight() / 2 - roundRadius);
         //初始化中间数字的结束点的位置
@@ -196,50 +198,43 @@ public class ScrollAnimView extends View {
         middleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                middleNum = getRandom();
                 middlePoint = (MyPoint) animation.getAnimatedValue();
+                float fraction = animation.getAnimatedFraction();
+                if (fraction > 0.9) {
+                    count++;
+                    if (count > 9) {
+                        count = 0;
+                    }
+                }
                 isMiddleNumInvalidate = true;
-                invalidate();
+                postInvalidate();
             }
         });
-        middleAnim.setDuration(450);
+        middleAnim.setDuration(duration);
         middleAnim.setRepeatCount(ValueAnimator.INFINITE);
         middleAnim.start();
     }
 
     /**
-     * 开始动画
+     * 停止动画
      */
-    private void startRightAnimation() {
-        //初始化中间数字的开始点的位置
-        final MyPoint startPoint = new MyPoint(getMeasuredWidth() / 2 + roundRadius / 2 - textRect.width() / 2,
-                getMeasuredHeight() / 2 - roundRadius / 2);
-        //初始化中间数字的结束点的位置
-        final MyPoint endPoint = new MyPoint(getMeasuredWidth() / 2 + roundRadius / 2 - textRect.width() / 2,
-                getMeasuredHeight() / 2 + roundRadius / 2);
-        rightAnim = ValueAnimator.ofObject(new CustomPointEvaluator(), startPoint, endPoint);
-        //监听从起始点到终点过程中点的变化,并获取点然后重新绘制界面
-        rightAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                rightNum = getRandom();
-                rightPoint = (MyPoint) animation.getAnimatedValue();
-                isMiddleNumInvalidate = true;
-                invalidate();
-            }
-        });
-        rightAnim.setDuration(600);
-        rightAnim.setRepeatCount(ValueAnimator.INFINITE);
-        rightAnim.start();
+    public void stopMiddleAnimation() {
+        middleAnim.cancel();
+        this.clearAnimation();
     }
 
     /**
      * 获取0-9之间的随机数
      *
-     * @return
+     * @return 1-9 随机数
      */
     private String getRandom() {
-        int random = (int) (Math.random() * 9);
-        return String.valueOf(random);
+        Random random = new Random();
+        int num = random.nextInt(10);
+        return String.valueOf(num);
+    }
+
+    public void setWinningNum(String winningNum) {
+        this.winningNum = winningNum;
     }
 }

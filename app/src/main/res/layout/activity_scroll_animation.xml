@@ -4,17 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_color"
     tools:context="com.example.zy.myanimation.activity.ScrollAnimationActivity">
 
     <com.example.zy.myanimation.view.scroll.ScrollAnimView
-        android:id="@+id/scroll_view"
+        android:id="@+id/scroll_view1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:round_color="@color/colorPrimary"
         app:text_color="@color/white"
-        app:text_size="22sp"
-        app:round_radius="100dp"
-        android:layout_centerInParent="true"/>
+        app:text_size="22sp" />
+
+    <com.example.zy.myanimation.view.scroll.ScrollAnimView
+        android:id="@+id/scroll_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scroll_view1"
+        app:round_color="@color/colorPrimary"
+        app:text_color="@color/white"
+        app:text_size="22sp" />
+
+    <com.example.zy.myanimation.view.scroll.ScrollAnimView
+        android:id="@+id/scroll_view3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scroll_view2"
+        app:round_color="@color/colorPrimary"
+        app:text_color="@color/white"
+        app:text_size="22sp" />
+
+    <com.example.zy.myanimation.view.scroll.ScrollAnimView
+        android:id="@+id/scroll_view4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scroll_view3"
+        app:round_color="@color/colorPrimary"
+        app:text_color="@color/white"
+        app:text_size="22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,16 +51,16 @@
             android:id="@+id/start_anim_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/start_anim"
-            android:textSize="14sp"
-            android:layout_weight="1"/>
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/end_anim_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/end_anim"
-            android:textSize="14sp"
-            android:layout_weight="1"/>
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>
