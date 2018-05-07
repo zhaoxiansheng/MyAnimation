@@ -18,6 +18,8 @@ import com.example.zy.myanimation.view.scroll.ScrollAnimView;
  */
 public class ScrollAnimationActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ScrollAnimView scrollAnimView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,19 +28,23 @@ public class ScrollAnimationActivity extends AppCompatActivity implements View.O
     }
 
     private void initView() {
-        ScrollAnimView scrollAnimView = (ScrollAnimView) findViewById(R.id.scroll_view);
-        Button startBtn = (Button) findViewById(R.id.start_anim_btn);
-        Button endBtn = (Button) findViewById(R.id.end_anim_btn);
+        scrollAnimView = findViewById(R.id.scroll_view1);
+        Button startBtn = findViewById(R.id.start_anim_btn);
+        Button endBtn = findViewById(R.id.end_anim_btn);
         startBtn.setOnClickListener(this);
         endBtn.setOnClickListener(this);
+
+        scrollAnimView.setWinningNum("5");
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_anim_btn:
+                scrollAnimView.startMiddleAnimation(100);
                 break;
             case R.id.end_anim_btn:
+                scrollAnimView.clearAnimation();
                 break;
             default:
                 break;

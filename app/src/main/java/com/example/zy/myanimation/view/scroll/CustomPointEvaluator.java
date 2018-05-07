@@ -3,7 +3,7 @@ package com.example.zy.myanimation.view.scroll;
 import android.animation.TypeEvaluator;
 
 /**
- * Created on 2017/10/31.
+ * Created on 2018/5/4.
  *
  * @author zhaoy
  */
@@ -22,7 +22,6 @@ public class CustomPointEvaluator implements TypeEvaluator {
         MyPoint endPoint = (MyPoint) endValue;
         float x = startPoint.getX() + fraction * (endPoint.getX() - startPoint.getX());
         float y = startPoint.getY() + fraction * (endPoint.getY() - startPoint.getY());
-        MyPoint point = new MyPoint(x, y);
-        return point;
+        return new MyPoint(x, y);
     }
 }
