@@ -195,20 +195,17 @@ public class ScrollAnimView extends View {
         final MyPoint endPoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2, getMeasuredHeight() / 2 + roundRadius);
         middleAnim = ValueAnimator.ofObject(new CustomPointEvaluator(), startPoint, endPoint);
         //监听从起始点到终点过程中点的变化,并获取点然后重新绘制界面
-        middleAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                middlePoint = (MyPoint) animation.getAnimatedValue();
-                float fraction = animation.getAnimatedFraction();
-                if (fraction > 0.9) {
-                    count++;
-                    if (count > 9) {
-                        count = 0;
-                    }
+        middleAnim.addUpdateListener((animator) -> {
+            middlePoint = (MyPoint) animator.getAnimatedValue();
+            float fraction = animator.getAnimatedFraction();
+            if (fraction > 0.9) {
+                count++;
+                if (count > 9) {
+                    count = 0;
                 }
-                isMiddleNumInvalidate = true;
-                postInvalidate();
             }
+            isMiddleNumInvalidate = true;
+            postInvalidate();
         });
         middleAnim.setDuration(duration);
         middleAnim.setRepeatCount(ValueAnimator.INFINITE);
