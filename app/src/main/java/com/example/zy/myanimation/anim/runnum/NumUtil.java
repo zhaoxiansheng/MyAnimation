@@ -1,9 +1,10 @@
-package com.example.zy.myanimation.anim;
+package com.example.zy.myanimation.anim.runnum;
 
 import java.text.DecimalFormat;
 
 /**
  * @author zhaoy
+ * 数字格式化
  */
 public class NumUtil {
 
