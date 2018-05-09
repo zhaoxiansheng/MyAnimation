@@ -15,32 +15,12 @@
         app:text_color="@color/white"
         app:text_size="22sp" />
 
-    <com.example.zy.myanimation.view.scroll.ScrollAnimView
-        android:id="@+id/scroll_view2"
+    <com.example.zy.myanimation.view.scroll.Triangle
+        android:id="@+id/triangle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll_view1"
-        app:round_color="@color/colorPrimary"
-        app:text_color="@color/white"
-        app:text_size="22sp" />
-
-    <com.example.zy.myanimation.view.scroll.ScrollAnimView
-        android:id="@+id/scroll_view3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll_view2"
-        app:round_color="@color/colorPrimary"
-        app:text_color="@color/white"
-        app:text_size="22sp" />
-
-    <com.example.zy.myanimation.view.scroll.ScrollAnimView
-        android:id="@+id/scroll_view4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scroll_view3"
-        app:round_color="@color/colorPrimary"
-        app:text_color="@color/white"
-        app:text_size="22sp" />
+        android:layout_below="@+id/scroll_view1">
+    </com.example.zy.myanimation.view.scroll.Triangle>
 
     <LinearLayout
         android:layout_width="match_parent"
