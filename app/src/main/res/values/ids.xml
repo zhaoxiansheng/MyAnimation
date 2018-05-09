@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="mcv_pager" type="id"/>
+
+    <item name="scrollAnimView0" type="id"/>
+    <item name="scrollAnimView1" type="id"/>
+    <item name="scrollAnimView2" type="id"/>
+    <item name="scrollAnimView3" type="id"/>
+    <item name="scrollAnimView4" type="id"/>
+    <item name="scrollAnimView5" type="id"/>
+    <item name="scrollAnimView6" type="id"/>
+    <item name="scrollAnimView7" type="id"/>
+    <item name="scrollAnimView8" type="id"/>
+    <item name="scrollAnimView9" type="id"/>
+    <item name="scrollAnimView10" type="id"/>
+    <item name="scrollAnimView11" type="id"/>
+    <item name="scrollAnimView12" type="id"/>
+    <item name="scrollAnimView13" type="id"/>
+    <item name="scrollAnimView14" type="id"/>
 </resources>

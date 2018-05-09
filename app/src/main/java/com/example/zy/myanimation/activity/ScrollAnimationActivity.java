@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.view.scroll.ScrollAnimView;
+import com.example.zy.myanimation.view.scroll.Triangle;
 
 /**
  * Create on 17/10/31
@@ -29,6 +30,7 @@ public class ScrollAnimationActivity extends AppCompatActivity implements View.O
 
     private void initView() {
         scrollAnimView = findViewById(R.id.scroll_view1);
+        Triangle triangle = findViewById(R.id.triangle);
         Button startBtn = findViewById(R.id.start_anim_btn);
         Button endBtn = findViewById(R.id.end_anim_btn);
         startBtn.setOnClickListener(this);
