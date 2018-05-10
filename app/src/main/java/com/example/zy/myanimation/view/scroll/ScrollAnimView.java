@@ -62,7 +62,6 @@ public class ScrollAnimView extends View {
      */
     private MyPoint middlePoint;
 
-    private String middleNum = "0";
     private String winningNum = "5";
 
     /**
@@ -80,6 +79,7 @@ public class ScrollAnimView extends View {
      * 中间数字滚动的次数
      */
     private int count;
+    private OnItemClickListener onItemClickListener;
 
     public ScrollAnimView(Context context) {
         super(context);
@@ -108,7 +108,15 @@ public class ScrollAnimView extends View {
         mPaint.setTextSize(textSize);
         textRect = new Rect();
         //得到数字矩形的宽高，以用来画数字的时候纠正数字的位置
-        mPaint.getTextBounds(middleNum, 0, middleNum.length(), textRect);
+        mPaint.getTextBounds(winningNum, 0, winningNum.length(), textRect);
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null){
+                    onItemClickListener.onClickListener(v);
+                }
+            }
+        });
     }
 
     @Override
@@ -220,18 +228,16 @@ public class ScrollAnimView extends View {
         this.clearAnimation();
     }
 
-    /**
-     * 获取0-9之间的随机数
-     *
-     * @return 1-9 随机数
-     */
-    private String getRandom() {
-        Random random = new Random();
-        int num = random.nextInt(10);
-        return String.valueOf(num);
-    }
-
     public void setWinningNum(String winningNum) {
         this.winningNum = winningNum;
+        postInvalidate();
+    }
+
+    public interface OnItemClickListener {
+        void onClickListener(View view);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }
