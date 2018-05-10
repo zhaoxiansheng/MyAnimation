@@ -130,75 +130,32 @@ public class Triangle extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         //子控件的个数
         int count = getChildCount();
-        //ViewParent宽度(包含padding)
-        int width = getWidth();
-        //ViewParent 的右边x的布局限制值
-        int rightLimit =  width - getPaddingRight();
-
-        //存储基准的left top (子类.layout(),里的坐标是基于父控件的坐标，所以 x应该是从0+父控件左内边距开始，y从0+父控件上内边距开始)
-        int baseLeft = getPaddingLeft();
-        int baseTop = getPaddingTop();
-        //存储现在的left top
-        int curLeft = baseLeft;
-        int curTop = baseTop;
 
         //子View
         View child;
         //子view用于layout的 l t r b
-        int viewL,viewT,viewR,viewB;
-        //子View的LayoutParams
-        MarginLayoutParams params;
-        //子View Layout需要的宽高(包含margin)，用于计算是否越界
-        int childWidth;
-        int childHeight;
+        int viewL, viewT, viewR, viewB;
         //子View 本身的宽高
-        int childW,childH;
+        int childW, childH;
 
-        //临时增加一个temp 存储上一个View的高度 解决过长的两行View导致显示不正确的bug
-        int lastChildHeight =0;
 
         for (int i = 0; i < count; i++) {
             child = getChildAt(i);
-            //如果gone，不布局了
-            if (View.GONE == child.getVisibility()) {
-                continue;
-            }
             //获取子View本身的宽高:
             childW = child.getMeasuredWidth();
             childH = child.getMeasuredHeight();
-            //获取子View的LayoutParams，用于获取其margin
-            params = (MarginLayoutParams) child.getLayoutParams();
-            //子View需要的宽高 为 本身宽高+marginLeft + marginRight
-            childWidth =  childW + params.leftMargin + params.rightMargin;
-            childHeight = childH + params.topMargin + params.bottomMargin;
 
-            //这里要考虑padding，所以右边界为 ViewParent宽度(包含padding) -ViewParent右内边距
-            if (curLeft + childWidth > rightLimit ) {
-                //如果当前行已经放不下该子View了 需要换行放置：
-                //在新的一行布局子View，左x就是baseLeft，上y是 top +前一行高(这里假设的是每一行行高一样)，
-                curTop = curTop + lastChildHeight;
-                //layout时要考虑margin
-                viewL = baseLeft +params.leftMargin;
-                viewT = curTop + params.topMargin;
-                viewR = viewL + childW;
-                viewB = viewT + childH;
-                curLeft = baseLeft + childWidth;
+            //当前行可以放下子View:
+            viewL = childW * i;
+            viewT = childH * i;
+            viewR = viewL + childW;
+            viewB = viewT + childH;
 
-            } else {
-                //当前行可以放下子View:
-                viewL = curLeft +params.leftMargin;
-                viewT = curTop + params.topMargin;
-                viewR = viewL + childW;
-                viewB = viewT + childH;
-
-                curLeft = curLeft + childWidth;
-            }
-            lastChildHeight = childHeight;
+            System.out.println(viewL + "/" + viewT + "/" + viewR + "/" + viewB);
             //布局子View
-            child.layout(viewL,viewT,viewR,viewB);
+            child.layout(viewL, viewT, viewR, viewB);
         }
     }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -213,35 +170,26 @@ public class Triangle extends ViewGroup {
         int totalHeight;
 
         int count = getChildCount();
-        int lineNum = (int) ((1 + Math.sqrt(1 + 4 * count)) / 2);
+        int lineNum = (int) Math.ceil((1 + Math.sqrt(1 + 4 * count)) / 2);
 
         View childView;
-
-        //存储子View的LayoutParams
-        MarginLayoutParams params;
         //子View Layout需要的宽高(包含margin)，用于计算是否越界
         int childWidth;
         int childHeight;
 
+        for (int i = 0; i < count; i++) {
+            childView = getChildAt(i);
+            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
+        }
+
         childView = getChildAt(0);
-
-        measureChild(childView, widthMeasureSpec, heightMeasureSpec);
-
-        // 获取子View的LayoutParams，
-        // (子View的LayoutParams的对象类型，
-        // 取决于其ViewGroup的generateLayoutParams()方法的返回的对象类型，
-        // 这里返回的是MarginLayoutParams)
-        params = (MarginLayoutParams) childView.getLayoutParams();
-        //子View需要的宽度 为 子View 本身宽度+marginLeft + marginRight
-        childWidth = childView.getMeasuredWidth() + params.leftMargin + params.rightMargin;
-        childHeight = childView.getMeasuredHeight() + params.topMargin + params.bottomMargin;
-
+        childWidth = childView.getMeasuredWidth();
+        childHeight = childView.getMeasuredHeight();
         maxWidth = lineNum * childWidth;
         totalHeight = lineNum * childHeight;
+        System.out.println(maxWidth + "/" + totalHeight);
 
-        setMeasuredDimension(
-                widthMode != MeasureSpec.EXACTLY ? maxWidth + getPaddingLeft() + getPaddingRight() : widthMeasure,
-                heightMode != MeasureSpec.EXACTLY ? totalHeight + getPaddingTop() + getPaddingBottom() : heightMeasure);
+        setMeasuredDimension(maxWidth, totalHeight);
     }
 
     public void setWinningNum(ArrayList<String> winningNum) {
