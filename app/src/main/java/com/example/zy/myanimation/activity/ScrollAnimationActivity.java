@@ -33,6 +33,7 @@ public class ScrollAnimationActivity extends AppCompatActivity implements View.O
     private void initView() {
         Triangle triangle = findViewById(R.id.triangle);
         triangle.setWinningNum(winningNum);
+        triangle.setAnimation(true);
         Button startBtn = findViewById(R.id.start_anim_btn);
         Button endBtn = findViewById(R.id.end_anim_btn);
         startBtn.setOnClickListener(this);

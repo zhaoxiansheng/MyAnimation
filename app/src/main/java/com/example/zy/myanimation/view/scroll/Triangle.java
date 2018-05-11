@@ -26,6 +26,7 @@ public class Triangle extends ViewGroup {
 
     private ArrayList<ScrollAnimView> scrollAnimViews;
     private ArrayList<Integer> nums;
+    private boolean isAnimation;
 
     public Triangle(Context context) {
         super(context);
@@ -159,6 +160,12 @@ public class Triangle extends ViewGroup {
         setMeasuredDimension(maxWidth, totalHeight);
     }
 
+    /**
+     * 初始化所需控件
+     *
+     * @param context        上下文
+     * @param scrollAnimView View
+     */
     private void initView(Context context, ScrollAnimView scrollAnimView) {
         scrollAnimViews.add(scrollAnimView);
         addView(scrollAnimView);
@@ -168,9 +175,9 @@ public class Triangle extends ViewGroup {
     }
 
     /**
-     * 设置中奖号码
+     * 设置号码
      *
-     * @param winningNum 中奖号码
+     * @param winningNum 号码
      */
     public void setWinningNum(ArrayList<String> winningNum) {
         if (winningNum.size() > 0) {
@@ -181,11 +188,25 @@ public class Triangle extends ViewGroup {
     }
 
     /**
-     * 点击小球弹出弹窗
+     * 设置动画是否执行
      *
-     * @param context        上下文
-     * @param scrollAnimView 点击的view
+     * @param animation true or false
      */
+    public void setAnimation(boolean animation) {
+        if (scrollAnimViews.size() > 0) {
+            for (int i = 0; i < scrollAnimViews.size(); i++) {
+                scrollAnimViews.get(i).setAnimation(animation);
+            }
+        }
+    }
+
+        /**
+         * 点击小球弹出弹窗
+         *
+         * @param context        上下文
+         * @param scrollAnimView 点击的view
+         */
+
     private void popupChooseNum(Context context, ScrollAnimView scrollAnimView) {
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_window_layout, null);
 
