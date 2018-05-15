@@ -37,4 +37,8 @@
             android:textSize="18sp"
             android:text="111111"/>
 
+        <com.example.zy.myanimation.view.picker.StringBaseScrollPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 </LinearLayout>
