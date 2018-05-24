@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.anim.runnum.AutoIncrementUtil;
+import com.example.zy.myanimation.anim.runnum.NumUtil;
 import com.example.zy.myanimation.bean.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         messengerBtn.setOnClickListener(this);
 
         TextView runText = findViewById(R.id.run_text);
-        AutoIncrementUtil.startAnimation(AutoIncrementUtil.INTTYPE, runText, 153261.93f, false, "公里", 1500);
+        AutoIncrementUtil.startAnimation(AutoIncrementUtil.INT_TYPE, runText, "41532601", true, "元", 1500);
     }
 
     @Override
