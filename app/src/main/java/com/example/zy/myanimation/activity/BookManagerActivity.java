@@ -27,14 +27,17 @@ public class BookManagerActivity extends Activity {
 
     private static final String TAG = "BookManagerActivity";
 
+    // TODO: 2018/5/28  
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             IBookManager bookManager = IBookManager.Stub.asInterface(iBinder);
             try {
                 List<Book> list = bookManager.getBookList();
-                Logger.d(TAG, "query book list, list type:" + list.getClass().getCanonicalName());
-                Logger.d(TAG, "query book list:" + list.toString());
+                Book newBook = new Book(3, "Android开发艺术探索");
+                list.add(newBook);
+                List<Book> newList = bookManager.getBookList();
+                Logger.d(TAG, "query book list:" + newList.toString());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

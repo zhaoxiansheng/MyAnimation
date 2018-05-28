@@ -1,5 +1,6 @@
 package com.example.zy.myanimation.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,6 +34,7 @@ public class MessengerActivity extends Activity {
     private Messenger mService;
     private Messenger mGetReplyMessenger = new Messenger(new MessengerHandle());
 
+    @SuppressLint("HandlerLeak")
     private class MessengerHandle extends Handler {
         @Override
         public void handleMessage(Message msg) {
