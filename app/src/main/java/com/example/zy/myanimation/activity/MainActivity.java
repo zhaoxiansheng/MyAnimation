@@ -8,11 +8,7 @@ import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.anim.runnum.AutoIncrementUtil;
-import com.example.zy.myanimation.anim.runnum.NumUtil;
-import com.example.zy.myanimation.bean.Test;
-
-import java.math.BigDecimal;
-import java.util.List;
+import com.example.zy.myanimation.utils.ToolUtils;
 
 /**
  * Create on 17/10/31
@@ -44,13 +40,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.scroll_anim_btn:
-                ScrollAnimationActivity.startActivity(this);
+                ToolUtils.startActivity(this, ScrollAnimationActivity.class);
                 break;
             case R.id.calendar_view:
-                CalendarActivity.startActivity(this);
+                ToolUtils.startActivity(this, CalendarActivity.class);
                 break;
             case R.id.messenger_btn:
-                MessengerActivity.startActivity(this);
+                ToolUtils.startActivity(this, MessengerActivity.class);
+                break;
+            case R.id.aidl_btn:
+                ToolUtils.startActivity(this, BookManagerActivity.class);
                 break;
             default:
                 break;

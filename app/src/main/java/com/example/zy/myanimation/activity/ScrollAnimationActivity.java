@@ -70,9 +70,4 @@ public class ScrollAnimationActivity extends AppCompatActivity implements View.O
                 break;
         }
     }
-
-    public static void startActivity(Activity activity) {
-        Intent intent = new Intent(activity, ScrollAnimationActivity.class);
-        activity.startActivity(intent);
-    }
 }

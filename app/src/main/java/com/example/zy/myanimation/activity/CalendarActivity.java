@@ -25,9 +25,4 @@ public class CalendarActivity extends AppCompatActivity {
                 + wheelCalendar.hour + "/" + wheelCalendar.minute + "/" + wheelCalendar.week + "/"
                 + wheelCalendar.weekDay, Toast.LENGTH_SHORT).show();
     }
-
-    public static void startActivity(Activity activity) {
-        Intent intent = new Intent(activity, CalendarActivity.class);
-        activity.startActivity(intent);
-    }
 }

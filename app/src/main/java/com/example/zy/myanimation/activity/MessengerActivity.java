@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.bean.MyConstants;
 import com.example.zy.myanimation.service.MessengerService;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created on 2017/12/1.
@@ -37,7 +38,7 @@ public class MessengerActivity extends Activity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MyConstants.MSG_FROM_CLIENT:
-                    Log.i(TAG, "receive msg from server:" + msg.getData().getString("reply"));
+                    Logger.d(TAG, "receive msg from server:" + msg.getData().getString("reply"));
                     responseText.setText(msg.getData().getString("reply"));
                     break;
                 default:
@@ -82,10 +83,5 @@ public class MessengerActivity extends Activity {
     protected void onDestroy() {
         unbindService(mConnection);
         super.onDestroy();
-    }
-
-    public static void startActivity(Activity activity) {
-        Intent intent = new Intent(activity, MessengerActivity.class);
-        activity.startActivity(intent);
     }
 }

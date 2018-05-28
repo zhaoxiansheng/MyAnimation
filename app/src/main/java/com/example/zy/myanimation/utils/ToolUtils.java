@@ -1,6 +1,10 @@
 package com.example.zy.myanimation.utils;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
+
+import com.example.zy.myanimation.activity.ScrollAnimationActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -141,5 +145,16 @@ public class ToolUtils {
      */
     private static boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    /**
+     * 页面跳转
+     * @param activity 当前的activity
+     * @param tClass 即将跳转的activity
+     * @param <T>
+     */
+    public static<T extends Activity> void startActivity(Activity activity, Class<T> tClass) {
+        Intent intent = new Intent(activity, tClass);
+        activity.startActivity(intent);
     }
 }

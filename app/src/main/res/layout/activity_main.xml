@@ -30,12 +30,17 @@
             android:text="@string/messenger"
             android:textSize="14sp" />
 
+        <Button
+            android:id="@+id/aidl_btn"
+            android:layout_width="wrap_content"
+            android:text="@string/aidl"
+            android:textSize="14sp"/>
+
         <TextView
             android:id="@+id/run_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="111111"/>
+            android:textSize="18sp"/>
 
         <com.example.zy.myanimation.view.picker.StringBaseScrollPicker
             android:layout_width="wrap_content"
