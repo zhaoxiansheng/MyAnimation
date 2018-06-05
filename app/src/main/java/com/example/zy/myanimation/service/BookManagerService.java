@@ -25,7 +25,7 @@ public class BookManagerService extends Service {
 
     private static final String TAG = "BMS";
 
-    private AtomicBoolean mIsServiceDestoryed = new AtomicBoolean(false);
+    private AtomicBoolean mIsServiceDestroyed = new AtomicBoolean(false);
 
     private CopyOnWriteArrayList<Book> mBookList = new CopyOnWriteArrayList<>();
 
@@ -95,7 +95,7 @@ public class BookManagerService extends Service {
     private class ServiceWorker implements Runnable {
         @Override
         public void run() {
-            while (!mIsServiceDestoryed.get()){
+            while (!mIsServiceDestroyed.get()){
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
