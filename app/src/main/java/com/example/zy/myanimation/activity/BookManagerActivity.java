@@ -11,10 +11,6 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.example.zy.myanimation.aidl.Book;
-import com.example.zy.myanimation.aidl.IBookManager;
-import com.example.zy.myanimation.service.BookManagerService;
-
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.aidl.Book;
 import com.example.zy.myanimation.aidl.IBookManager;
@@ -32,7 +28,7 @@ public class BookManagerActivity extends Activity {
 
     private static final String TAG = "BookManagerActivity";
 
-    // TODO: 2018/5/28  
+    // TODO: 2018/5/28
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {

@@ -1,17 +1,18 @@
 package com.example.zy.myanimation.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.view.scroll.ScrollAnimView;
 import com.example.zy.myanimation.view.scroll.Triangle;
 
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Create on 17/10/31
@@ -19,28 +20,28 @@ import java.util.ArrayList;
  *
  * @author zhaoy
  */
-public class ScrollAnimationActivity extends AppCompatActivity implements View.OnClickListener {
+public class ScrollAnimationActivity extends AppCompatActivity {
 
+    @BindView(R.id.triangle)
+    Triangle triangle;
+    @BindView(R.id.start_anim_btn)
+    Button startAnimBtn;
+    @BindView(R.id.end_anim_btn)
+    Button endAnimBtn;
     private ArrayList<String> winningNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll_animation);
+        ButterKnife.bind(this);
         initData();
         initView();
     }
 
     private void initView() {
-        scrollAnimView = findViewById(R.id.scroll_view1);
-        Triangle triangle = findViewById(R.id.triangle);
         triangle.setWinningNum(winningNum);
         triangle.setAnimation(true);
-
-        Button startBtn = findViewById(R.id.start_anim_btn);
-        Button endBtn = findViewById(R.id.end_anim_btn);
-        startBtn.setOnClickListener(this);
-        endBtn.setOnClickListener(this);
     }
 
     private void initData() {
@@ -62,8 +63,8 @@ public class ScrollAnimationActivity extends AppCompatActivity implements View.O
         winningNum.add("4");
     }
 
-    @Override
-    public void onClick(View view) {
+    @OnClick({R.id.start_anim_btn, R.id.end_anim_btn})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.start_anim_btn:
                 break;

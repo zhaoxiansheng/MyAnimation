@@ -7,44 +7,46 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.adapter.TestAdapter;
 import com.example.zy.myanimation.anim.AutoIncrementUtil;
-import com.example.zy.myanimation.bean.Test;
+import com.example.zy.myanimation.utils.ToolUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.example.zy.myanimation.anim.runnum.AutoIncrementUtil;
-import com.example.zy.myanimation.utils.ToolUtils
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Create on 17/10/31
  *
  * @author zhaoy
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.scroll_anim_btn)
+    Button scrollAnimBtn;
+    @BindView(R.id.calendar_view)
+    Button calendarView;
+    @BindView(R.id.messenger_btn)
+    Button messengerBtn;
+    @BindView(R.id.aidl_btn)
+    Button aidlBtn;
+    @BindView(R.id.run_text)
+    TextView runText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         initView();
     }
 
     private void initView() {
-        Button scrollBtn = findViewById(R.id.scroll_anim_btn);
-        Button calendarBtn = findViewById(R.id.calendar_view);
-        Button messengerBtn = findViewById(R.id.messenger_btn);
-        scrollBtn.setOnClickListener(this);
-        calendarBtn.setOnClickListener(this);
-        messengerBtn.setOnClickListener(this);
-
-        TextView runText = findViewById(R.id.run_text);
-        AutoIncrementUtil.startAnimation(AutoIncrementUtil.INTTYPE, runText, 153261.93f, false, "公里", 1500);
         AutoIncrementUtil.startAnimation(AutoIncrementUtil.INT_TYPE, runText, "41532601", true, "元", 1500);
     }
 
-    @Override
-    public void onClick(View view) {
+
+    @OnClick({R.id.scroll_anim_btn, R.id.calendar_view, R.id.messenger_btn, R.id.aidl_btn})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.scroll_anim_btn:
                 ToolUtils.startActivity(this, ScrollAnimationActivity.class);

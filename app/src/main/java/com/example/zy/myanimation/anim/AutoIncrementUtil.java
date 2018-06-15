@@ -9,25 +9,33 @@ import android.widget.TextView;
  */
 public class AutoIncrementUtil {
 
-    public static final String FLOATTYPE = "FloatType";
-    public static final String INTTYPE = "IntType";
+    public static final String FLOAT_TYPE = "FloatType";
+    public static final String INT_TYPE = "IntType";
 
-    public static void startAnimation(String type, final TextView tvView, float floatValue
-            , boolean isRoundUp, final String danwei, int duration) {
+    public static void startAnimation(String type, final TextView tvView, String floatValue
+            , boolean isRoundUp, final String unit, int duration) {
         ValueAnimator animator = null;
-        if (type.equals(FLOATTYPE)) {
-            animator = ValueAnimator.ofFloat(0, floatValue);
+        if (type.equals(FLOAT_TYPE)) {
+            animator = ValueAnimator.ofFloat(0, Float.parseFloat(floatValue));
             animator.addUpdateListener((valueAnimator) -> {
                 float curValue = (float) valueAnimator.getAnimatedValue();
-                tvView.setText(NumUtil.formatFloat(curValue) + danwei);
+                if (curValue == Float.parseFloat(floatValue)) {
+                    tvView.setText(floatValue + unit);
+                } else {
+                    tvView.setText(NumUtil.formatFloat(curValue) + unit);
+                }
             });
-        } else if (type.equals(INTTYPE)) {
-            String targetValueString = NumUtil.formatRoundUp(isRoundUp, floatValue);
+        } else if (type.equals(INT_TYPE)) {
+            String targetValueString = NumUtil.formatRoundUp(isRoundUp, Float.parseFloat(floatValue));
             animator = ValueAnimator.ofInt(0, Integer.parseInt(targetValueString));
 
             animator.addUpdateListener((valueAnimator) -> {
                 int curValue = (int) valueAnimator.getAnimatedValue();
-                tvView.setText(curValue + danwei);
+                if (curValue == Integer.valueOf(targetValueString)) {
+                    tvView.setText(NumUtil.formatString(floatValue) + unit);
+                } else {
+                    tvView.setText(curValue + unit);
+                }
             });
         }
         animator.setDuration(duration);

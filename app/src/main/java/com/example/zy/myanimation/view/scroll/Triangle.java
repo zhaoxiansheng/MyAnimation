@@ -1,11 +1,5 @@
 package com.example.zy.myanimation.view.scroll;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +14,7 @@ import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.adapter.TriangleRecyclerAdapter;
 import com.example.zy.myanimation.view.recycler.LeftAndRightDecoration;
 import com.example.zy.myanimation.view.recycler.TopAndBottomDecoration;
+
 import java.util.ArrayList;
 
 /**
@@ -29,14 +24,6 @@ import java.util.ArrayList;
  */
 public class Triangle extends ViewGroup {
 
-    private ArrayList<String> winningNum;
-
-    private ScrollAnimView scrollAnimView0;
-    private ScrollAnimView scrollAnimView1;
-    private ScrollAnimView scrollAnimView2;
-    private ScrollAnimView scrollAnimView3;
-    private ScrollAnimView scrollAnimView4;
-    private ScrollAnimView scrollAnimView5;
     private ArrayList<ScrollAnimView> scrollAnimViews;
     private ArrayList<Integer> nums;
     private boolean isAnimation;
@@ -120,13 +107,6 @@ public class Triangle extends ViewGroup {
             childW = child.getMeasuredWidth();
             childH = child.getMeasuredHeight();
 
-            //当前行可以放下子View:
-            viewL = childW * i;
-            viewT = childH * i;
-            viewR = viewL + childW;
-            viewB = viewT + childH;
-
-            System.out.println(viewL + "/" + viewT + "/" + viewR + "/" + viewB);
             currentLineNum = (int) Math.ceil(((-1) + Math.sqrt(1 + 8 * (i + 1))) / 2);
 
             if (currentLineNum > lineNum) {
@@ -176,13 +156,8 @@ public class Triangle extends ViewGroup {
         childHeight = childView.getMeasuredHeight();
         maxWidth = lineNum * childWidth;
         totalHeight = lineNum * childHeight;
-        System.out.println(maxWidth + "/" + totalHeight);
 
         setMeasuredDimension(maxWidth, totalHeight);
-    }
-
-    public void setWinningNum(ArrayList<String> winningNum) {
-        this.winningNum = winningNum;
     }
 
     /**
@@ -191,11 +166,14 @@ public class Triangle extends ViewGroup {
      * @param context        上下文
      * @param scrollAnimView View
      */
-    private void initView(Context context, ScrollAnimView scrollAnimView) {
+    private void initView(final Context context, final ScrollAnimView scrollAnimView) {
         scrollAnimViews.add(scrollAnimView);
         addView(scrollAnimView);
-        scrollAnimView.setOnItemClickListener(view -> {
-            popupChooseNum(context, scrollAnimView);
+        scrollAnimView.setOnItemClickListener(new ScrollAnimView.OnItemClickListener() {
+            @Override
+            public void onClickListener(View view) {
+                popupChooseNum(context, scrollAnimView);
+            }
         });
     }
 
@@ -225,14 +203,14 @@ public class Triangle extends ViewGroup {
         }
     }
 
-        /**
-         * 点击小球弹出弹窗
-         *
-         * @param context        上下文
-         * @param scrollAnimView 点击的view
-         */
+    /**
+     * 点击小球弹出弹窗
+     *
+     * @param context        上下文
+     * @param scrollAnimView 点击的view
+     */
 
-    private void popupChooseNum(Context context, ScrollAnimView scrollAnimView) {
+    private void popupChooseNum(Context context, final ScrollAnimView scrollAnimView) {
         View popupView = LayoutInflater.from(context).inflate(R.layout.popup_window_layout, null);
 
         RecyclerView recyclerView = popupView.findViewById(R.id.recycler_view);
@@ -247,16 +225,19 @@ public class Triangle extends ViewGroup {
         TriangleRecyclerAdapter mAdapter = new TriangleRecyclerAdapter(context, nums);
         recyclerView.setAdapter(mAdapter);
 
-        PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        final PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         popupWindow.setTouchable(true);
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.showAsDropDown(scrollAnimView, 10, 10);
 
-        mAdapter.setOnItemClickListener(num -> {
-            scrollAnimView.setWinningNum(String.valueOf(num));
-            popupWindow.dismiss();
+        mAdapter.setOnItemClickListener(new TriangleRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onClickListener(int num) {
+                scrollAnimView.setWinningNum(String.valueOf(num));
+                popupWindow.dismiss();
+            }
         });
     }
 }
