@@ -71,4 +71,8 @@
             <enum name="right" value="3"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="PercentTextView">
+        <attr name="baseScreenHeight" format="integer" />
+    </declare-styleable>
 </resources>
