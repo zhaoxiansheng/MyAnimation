@@ -2,10 +2,6 @@ package com.example.zy.myanimation.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +13,8 @@ import com.example.zy.myanimation.bean.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.zy.myanimation.anim.runnum.AutoIncrementUtil;
+import com.example.zy.myanimation.utils.ToolUtils
 
 /**
  * Create on 17/10/31
@@ -42,19 +40,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView runText = findViewById(R.id.run_text);
         AutoIncrementUtil.startAnimation(AutoIncrementUtil.INTTYPE, runText, 153261.93f, false, "公里", 1500);
+        AutoIncrementUtil.startAnimation(AutoIncrementUtil.INT_TYPE, runText, "41532601", true, "元", 1500);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.scroll_anim_btn:
-                ScrollAnimationActivity.startActivity(this);
+                ToolUtils.startActivity(this, ScrollAnimationActivity.class);
                 break;
             case R.id.calendar_view:
-                CalendarActivity.startActivity(this);
+                ToolUtils.startActivity(this, CalendarActivity.class);
                 break;
             case R.id.messenger_btn:
-                MessengerActivity.startActivity(this);
+                ToolUtils.startActivity(this, MessengerActivity.class);
+                break;
+            case R.id.aidl_btn:
+                ToolUtils.startActivity(this, BookManagerActivity.class);
                 break;
             default:
                 break;

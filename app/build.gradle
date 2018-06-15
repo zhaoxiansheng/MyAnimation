@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.zy.myanimation"
         minSdkVersion 17
@@ -45,4 +45,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     implementation 'org.greenrobot:eventbus:3.1.0-RC'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -16,8 +16,6 @@ import android.view.View;
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.utils.ToolUtils;
 
-import java.util.Random;
-
 /**
  * Created  on 2018/5/4.
  *
@@ -62,7 +60,6 @@ public class ScrollAnimView extends View {
      */
     private MyPoint middlePoint;
 
-    private String middleNum = "0";
     private String winningNum = "5";
 
     /**
@@ -80,6 +77,11 @@ public class ScrollAnimView extends View {
      * 中间数字滚动的次数
      */
     private int count;
+    private OnItemClickListener onItemClickListener;
+    /**
+     * 动画是否执行
+     */
+    private boolean isAnimation;
 
     public ScrollAnimView(Context context) {
         super(context);
@@ -108,7 +110,12 @@ public class ScrollAnimView extends View {
         mPaint.setTextSize(textSize);
         textRect = new Rect();
         //得到数字矩形的宽高，以用来画数字的时候纠正数字的位置
-        mPaint.getTextBounds(middleNum, 0, middleNum.length(), textRect);
+        mPaint.getTextBounds(winningNum, 0, winningNum.length(), textRect);
+        setOnClickListener(view -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onClickListener(view);
+            }
+        });
     }
 
     @Override
@@ -118,11 +125,35 @@ public class ScrollAnimView extends View {
         }
         long currentTime = System.currentTimeMillis();
 
-        //10秒后停止
-        if (currentTime - firstTime > 1000) {
+        if (isAnimation){
+            if (currentTime - firstTime > 2000) {
+                mPaint.setAntiAlias(true);
+                //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
+                mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+                mPaint.setDither(true);
+                mPaint.setColor(roundColor);
+                canvas.drawCircle(circleCenter.x, circleCenter.y, roundRadius, mPaint);
+
+                mPaint.setColor(textColor);
+                mPaint.setTextSize(textSize);
+                canvas.drawText(winningNum, circleCenter.x - textRect.width() / 2, circleCenter.y + textRect.height() / 2, mPaint);
+                stopMiddleAnimation();
+            } else {
+                if (isFirstInit) {
+                    middlePoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2,
+                            getMeasuredHeight() / 2 - roundRadius + textRect.height());
+                    drawText(canvas);
+                    //开始动画
+                    startMiddleAnimation(100);
+                    isFirstInit = false;
+                } else {
+                    drawText(canvas);
+                }
+            }
+        } else {
             mPaint.setAntiAlias(true);
-            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
             //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，
+            mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
             mPaint.setDither(true);
             mPaint.setColor(roundColor);
             canvas.drawCircle(circleCenter.x, circleCenter.y, roundRadius, mPaint);
@@ -130,20 +161,7 @@ public class ScrollAnimView extends View {
             mPaint.setColor(textColor);
             mPaint.setTextSize(textSize);
             canvas.drawText(winningNum, circleCenter.x - textRect.width() / 2, circleCenter.y + textRect.height() / 2, mPaint);
-            stopMiddleAnimation();
-        } else {
-            if (isFirstInit) {
-                middlePoint = new MyPoint(getMeasuredWidth() / 2 - textRect.width() / 2,
-                        getMeasuredHeight() / 2 - roundRadius + textRect.height());
-                drawText(canvas);
-                //开始动画
-                startMiddleAnimation(100);
-                isFirstInit = false;
-            } else {
-                drawText(canvas);
-            }
         }
-
     }
 
     /**
@@ -220,18 +238,20 @@ public class ScrollAnimView extends View {
         this.clearAnimation();
     }
 
-    /**
-     * 获取0-9之间的随机数
-     *
-     * @return 1-9 随机数
-     */
-    private String getRandom() {
-        Random random = new Random();
-        int num = random.nextInt(10);
-        return String.valueOf(num);
-    }
-
     public void setWinningNum(String winningNum) {
         this.winningNum = winningNum;
+        postInvalidate();
+    }
+
+    public void setAnimation(boolean animation) {
+        isAnimation = animation;
+    }
+
+    public interface OnItemClickListener {
+        void onClickListener(View view);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

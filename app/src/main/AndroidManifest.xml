@@ -20,12 +20,13 @@
         <activity android:name=".activity.ScrollAnimationActivity" />
         <activity android:name=".activity.CalendarActivity"/>
         <activity android:name=".activity.MessengerActivity"/>
+        <activity android:name=".activity.BookManagerActivity"/>
 
         <service
             android:name=".service.MessengerService"
             android:process=":remote"/>
         <service android:name=".service.BookManagerService"
-            android:process=":remote"/>
+            android:process=":remote2"/>
     </application>
 
 </manifest>

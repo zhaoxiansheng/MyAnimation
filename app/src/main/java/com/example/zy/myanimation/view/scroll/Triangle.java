@@ -6,7 +6,20 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
+import com.example.zy.myanimation.R;
+import com.example.zy.myanimation.adapter.TriangleRecyclerAdapter;
+import com.example.zy.myanimation.view.recycler.LeftAndRightDecoration;
+import com.example.zy.myanimation.view.recycler.TopAndBottomDecoration;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +37,9 @@ public class Triangle extends ViewGroup {
     private ScrollAnimView scrollAnimView3;
     private ScrollAnimView scrollAnimView4;
     private ScrollAnimView scrollAnimView5;
+    private ArrayList<ScrollAnimView> scrollAnimViews;
+    private ArrayList<Integer> nums;
+    private boolean isAnimation;
 
     public Triangle(Context context) {
         super(context);
@@ -40,90 +56,44 @@ public class Triangle extends ViewGroup {
         initAttrs(context);
     }
 
-    @SuppressLint("ResourceType")
     private void initAttrs(Context context) {
+        scrollAnimViews = new ArrayList<>(15);
+        nums = new ArrayList<>(10);
+        for (int i = 0; i < 10; i++) {
+            nums.add(i);
+        }
 
-        scrollAnimView0 = new ScrollAnimView(context);
-        scrollAnimView0.setId(0);
-        RelativeLayout.LayoutParams params0 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params0.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        ScrollAnimView scrollAnimView0 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView1 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView2 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView3 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView4 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView5 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView6 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView7 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView8 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView9 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView10 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView11 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView12 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView13 = new ScrollAnimView(context);
+        ScrollAnimView scrollAnimView14 = new ScrollAnimView(context);
 
-        scrollAnimView1 = new ScrollAnimView(context);
-        scrollAnimView1.setId(1);
-        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params1.addRule(RelativeLayout.BELOW, 0);
-
-        scrollAnimView2 = new ScrollAnimView(context);
-        scrollAnimView2.setId(2);
-        RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params2.addRule(RelativeLayout.BELOW, 0);
-        params0.addRule(RelativeLayout.END_OF, 1);
-
-        scrollAnimView3 = new ScrollAnimView(context);
-        scrollAnimView3.setId(3);
-        RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params3.addRule(RelativeLayout.BELOW, 1);
-
-        scrollAnimView4 = new ScrollAnimView(context);
-        scrollAnimView4.setId(4);
-        RelativeLayout.LayoutParams params4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params4.addRule(RelativeLayout.BELOW, 1);
-        params4.addRule(RelativeLayout.END_OF, 3);
-
-        scrollAnimView5 = new ScrollAnimView(context);
-        scrollAnimView5.setId(5);
-        RelativeLayout.LayoutParams params5 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params5.addRule(RelativeLayout.BELOW, 1);
-        params5.addRule(RelativeLayout.END_OF, 4);
-
-//        ScrollAnimView scrollAnimView6 = new ScrollAnimView(context);
-//        scrollAnimView6.setId(6);
-//
-//        ScrollAnimView scrollAnimView7 = new ScrollAnimView(context);
-//        scrollAnimView7.setId(7);
-//
-//        ScrollAnimView scrollAnimView8 = new ScrollAnimView(context);
-//        scrollAnimView8.setId(8);
-//
-//        ScrollAnimView scrollAnimView9 = new ScrollAnimView(context);
-//        scrollAnimView9.setId(9);
-//
-//        ScrollAnimView scrollAnimView10 = new ScrollAnimView(context);
-//        scrollAnimView10.setId(10);
-//
-//        ScrollAnimView scrollAnimView11 = new ScrollAnimView(context);
-//        scrollAnimView11.setId(11);
-//
-//        ScrollAnimView scrollAnimView12 = new ScrollAnimView(context);
-//        scrollAnimView12.setId(12);
-//
-//        ScrollAnimView scrollAnimView13 = new ScrollAnimView(context);
-//        scrollAnimView13.setId(13);
-//
-//        ScrollAnimView scrollAnimView14 = new ScrollAnimView(context);
-//        scrollAnimView14.setId(14);
-
-        addView(scrollAnimView0, params0);
-        addView(scrollAnimView1, params1);
-        addView(scrollAnimView2, params2);
-        addView(scrollAnimView3, params3);
-        addView(scrollAnimView4, params4);
-        addView(scrollAnimView5, params5);
-//        mLayout.addView(scrollAnimView6);
-//        mLayout.addView(scrollAnimView7);
-//        mLayout.addView(scrollAnimView8);
-//        mLayout.addView(scrollAnimView9);
-//        mLayout.addView(scrollAnimView10);
-//        mLayout.addView(scrollAnimView11);
-//        mLayout.addView(scrollAnimView12);
-//        mLayout.addView(scrollAnimView13);
-//        mLayout.addView(scrollAnimView14);
+        initView(context, scrollAnimView0);
+        initView(context, scrollAnimView1);
+        initView(context, scrollAnimView2);
+        initView(context, scrollAnimView3);
+        initView(context, scrollAnimView4);
+        initView(context, scrollAnimView5);
+        initView(context, scrollAnimView6);
+        initView(context, scrollAnimView7);
+        initView(context, scrollAnimView8);
+        initView(context, scrollAnimView9);
+        initView(context, scrollAnimView10);
+        initView(context, scrollAnimView11);
+        initView(context, scrollAnimView12);
+        initView(context, scrollAnimView13);
+        initView(context, scrollAnimView14);
     }
 
     @Override
@@ -137,7 +107,12 @@ public class Triangle extends ViewGroup {
         int viewL, viewT, viewR, viewB;
         //子View 本身的宽高
         int childW, childH;
-
+        //当前行数
+        int currentLineNum;
+        //上一次的行数
+        int lineNum = 0;
+        //列数
+        int row = 0;
 
         for (int i = 0; i < count; i++) {
             child = getChildAt(i);
@@ -152,6 +127,20 @@ public class Triangle extends ViewGroup {
             viewB = viewT + childH;
 
             System.out.println(viewL + "/" + viewT + "/" + viewR + "/" + viewB);
+            currentLineNum = (int) Math.ceil(((-1) + Math.sqrt(1 + 8 * (i + 1))) / 2);
+
+            if (currentLineNum > lineNum) {
+                row = 0;
+                lineNum = currentLineNum;
+            } else if (currentLineNum == lineNum) {
+                row++;
+            }
+            //当前行可以放下子View:
+            viewL = childW * row + (5 - currentLineNum) * (childW / 2);
+            viewT = childH * (lineNum - 1);
+            viewR = viewL + childW;
+            viewB = viewT + childH;
+
             //布局子View
             child.layout(viewL, viewT, viewR, viewB);
         }
@@ -170,7 +159,7 @@ public class Triangle extends ViewGroup {
         int totalHeight;
 
         int count = getChildCount();
-        int lineNum = (int) Math.ceil((1 + Math.sqrt(1 + 4 * count)) / 2);
+        int lineNum = (int) (int) Math.ceil(((-1) + Math.sqrt(1 + 8 * count)) / 2);
 
         View childView;
         //子View Layout需要的宽高(包含margin)，用于计算是否越界
@@ -194,5 +183,80 @@ public class Triangle extends ViewGroup {
 
     public void setWinningNum(ArrayList<String> winningNum) {
         this.winningNum = winningNum;
+    }
+
+    /**
+     * 初始化所需控件
+     *
+     * @param context        上下文
+     * @param scrollAnimView View
+     */
+    private void initView(Context context, ScrollAnimView scrollAnimView) {
+        scrollAnimViews.add(scrollAnimView);
+        addView(scrollAnimView);
+        scrollAnimView.setOnItemClickListener(view -> {
+            popupChooseNum(context, scrollAnimView);
+        });
+    }
+
+    /**
+     * 设置号码
+     *
+     * @param winningNum 号码
+     */
+    public void setWinningNum(ArrayList<String> winningNum) {
+        if (winningNum.size() > 0) {
+            for (int i = 0; i < winningNum.size(); i++) {
+                scrollAnimViews.get(i).setWinningNum(winningNum.get(i));
+            }
+        }
+    }
+
+    /**
+     * 设置动画是否执行
+     *
+     * @param animation true or false
+     */
+    public void setAnimation(boolean animation) {
+        if (scrollAnimViews.size() > 0) {
+            for (int i = 0; i < scrollAnimViews.size(); i++) {
+                scrollAnimViews.get(i).setAnimation(animation);
+            }
+        }
+    }
+
+        /**
+         * 点击小球弹出弹窗
+         *
+         * @param context        上下文
+         * @param scrollAnimView 点击的view
+         */
+
+    private void popupChooseNum(Context context, ScrollAnimView scrollAnimView) {
+        View popupView = LayoutInflater.from(context).inflate(R.layout.popup_window_layout, null);
+
+        RecyclerView recyclerView = popupView.findViewById(R.id.recycler_view);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(context, 5, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(mLayoutManager);
+        TopAndBottomDecoration topAndBottomDecoration = new TopAndBottomDecoration(context);
+        recyclerView.addItemDecoration(topAndBottomDecoration);
+
+        LeftAndRightDecoration leftAndRightDecoration = new LeftAndRightDecoration(context);
+        recyclerView.addItemDecoration(leftAndRightDecoration);
+
+        TriangleRecyclerAdapter mAdapter = new TriangleRecyclerAdapter(context, nums);
+        recyclerView.setAdapter(mAdapter);
+
+        PopupWindow popupWindow = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        popupWindow.setTouchable(true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAsDropDown(scrollAnimView, 10, 10);
+
+        mAdapter.setOnItemClickListener(num -> {
+            scrollAnimView.setWinningNum(String.valueOf(num));
+            popupWindow.dismiss();
+        });
     }
 }
