@@ -11,4 +11,6 @@
 
     <color name="title_color">#464646</color>
     <color name="hint_color">#c3c3c3</color>
+
+    <color name="colorWave">#433DD9</color>
 </resources>

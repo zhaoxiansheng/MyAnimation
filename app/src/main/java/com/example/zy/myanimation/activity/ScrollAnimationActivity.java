@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.zy.myanimation.R;
+import com.example.zy.myanimation.view.droplet_bubble.DropletBubbles;
 import com.example.zy.myanimation.view.scroll.Triangle;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class ScrollAnimationActivity extends AppCompatActivity {
     Button startAnimBtn;
     @BindView(R.id.end_anim_btn)
     Button endAnimBtn;
+    @BindView(R.id.droplet_bubble)
+    DropletBubbles dropletBubble;
+
     private ArrayList<String> winningNum;
 
     @Override
@@ -42,6 +46,10 @@ public class ScrollAnimationActivity extends AppCompatActivity {
     private void initView() {
         triangle.setWinningNum(winningNum);
         triangle.setAnimation(true);
+
+        dropletBubble.setOnMeasureBaseLineCallback(height ->
+                dropletBubble.setBaseLine(0.7f)
+        );
     }
 
     private void initData() {

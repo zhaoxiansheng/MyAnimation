@@ -75,4 +75,11 @@
     <declare-styleable name="PercentTextView">
         <attr name="baseScreenHeight" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="DropletBubbles">
+        <attr name="innerRadius" format="dimension" />
+        <attr name="outRadius" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="waveColor" format="color" />
+    </declare-styleable>
 </resources>
