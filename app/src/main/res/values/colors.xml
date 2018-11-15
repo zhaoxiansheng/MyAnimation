@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="white">#fff</color>
-    <color name="black">#000</color>
     <color name="sales_text_color">#68cbff</color>
     <color name="bg_color">#D7DCE1</color>
     <color name="gray">#7F7F7F</color>
@@ -13,4 +11,8 @@
     <color name="hint_color">#c3c3c3</color>
 
     <color name="colorWave">#433DD9</color>
+
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="yellow">#ff0</color>
 </resources>

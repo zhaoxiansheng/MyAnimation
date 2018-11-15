@@ -82,4 +82,25 @@
         <attr name="backgroundColor" format="color" />
         <attr name="waveColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="StretchableFloatingButton">
+        <!--字体大小-->
+        <attr name="stretch_text_size" format="float"/>
+        <!--折叠速度-->
+        <attr name="stretch_speed" format="float"/>
+        <!--控件背景颜色-->
+        <attr name="stretch_bg_color" format="color"/>
+        <!--字体颜色-->
+        <attr name="stretch_text_color" format="color"/>
+        <!--小圆颜色-->
+        <attr name="stretch_inner_circle_color" format="color"/>
+        <!--文本-->
+        <attr name="stretch_text" format="string"/>
+        <!--展开图标-->
+        <attr name="stretch_open_icon" format="reference"/>
+        <!--关闭图标-->
+        <attr name="stretch_close_icon" format="reference"/>
+        <!--图标旋转角度-->
+        <attr name="stretch_degrees" format="float"/>
+    </declare-styleable>
 </resources>

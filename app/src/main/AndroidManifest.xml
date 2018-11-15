@@ -3,9 +3,9 @@
     package="com.example.zy.myanimation">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".MyApplication"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -18,15 +18,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ScrollAnimationActivity" />
-        <activity android:name=".activity.CalendarActivity"/>
-        <activity android:name=".activity.MessengerActivity"/>
-        <activity android:name=".activity.BookManagerActivity"/>
+        <activity android:name=".activity.CalendarActivity" />
+        <activity android:name=".activity.MessengerActivity" />
+        <activity android:name=".activity.BookManagerActivity" />
 
         <service
             android:name=".service.MessengerService"
-            android:process=":remote"/>
-        <service android:name=".service.BookManagerService"
-            android:process=":remote2"/>
+            android:process=":remote" />
+        <service
+            android:name=".service.BookManagerService"
+            android:process=":remote2" />
+
+        <activity android:name=".activity.RunTextActivity" />
+        <activity android:name=".activity.DropletBubbleActivity" />
+        <activity android:name=".activity.StretchableActivity"></activity>
     </application>
 
 </manifest>

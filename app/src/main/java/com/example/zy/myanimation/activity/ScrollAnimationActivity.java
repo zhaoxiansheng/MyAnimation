@@ -29,8 +29,6 @@ public class ScrollAnimationActivity extends AppCompatActivity {
     Button startAnimBtn;
     @BindView(R.id.end_anim_btn)
     Button endAnimBtn;
-    @BindView(R.id.droplet_bubble)
-    DropletBubbles dropletBubble;
 
     private ArrayList<String> winningNum;
 
@@ -46,10 +44,6 @@ public class ScrollAnimationActivity extends AppCompatActivity {
     private void initView() {
         triangle.setWinningNum(winningNum);
         triangle.setAnimation(true);
-
-        dropletBubble.setOnMeasureBaseLineCallback(height ->
-                dropletBubble.setBaseLine(0.7f)
-        );
     }
 
     private void initData() {

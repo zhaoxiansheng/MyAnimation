@@ -34,14 +34,4 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <com.example.zy.myanimation.view.droplet_bubble.DropletBubbles
-        android:id="@+id/droplet_bubble"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:outRadius="30dp"
-        app:innerRadius="25dp"
-        app:backgroundColor="@android:color/white"
-        app:waveColor="@color/colorWave"
-        android:layout_below="@+id/triangle"/>
-
 </RelativeLayout>
