@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -62,8 +61,9 @@ public class StretchableFloatingButton extends ViewGroup {
      */
     private boolean isIncrease = true;
 
+    private boolean isMoving = false;
+
     private TextView tvContent;
-    private View child;
     private int tvWidth;
     private int tvHeight;
     /**
@@ -111,8 +111,6 @@ public class StretchableFloatingButton extends ViewGroup {
 
     private FoldListener foldListener;
 
-    private StretchableFloatingButton sfb;
-
     private Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
@@ -130,7 +128,7 @@ public class StretchableFloatingButton extends ViewGroup {
                         y = 0;
                         tx = startCircleRadius * 2 + 5;
                         smallCircleRadius = startCircleRadius;
-                        setEnabled(true);
+                        isMoving = false;
                     }
                     break;
                 //递增状态
@@ -146,7 +144,7 @@ public class StretchableFloatingButton extends ViewGroup {
                         smallCircleRadius = startCircleRadius - (int) y;
                         tx = tvWidth + startCircleRadius * 2 + 10;
                         endCenter.x = width - endCircleRadius;
-                        setEnabled(true);
+                        isMoving = false;
                     }
                     break;
                 default:
@@ -199,7 +197,7 @@ public class StretchableFloatingButton extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        child.layout(startCircleRadius * 2 + 5, (height - tvHeight) / 2, tx,
+        tvContent.layout(startCircleRadius * 2 + 5,  (height - tvHeight) / 2, tx,
                 startCircleRadius + tvHeight / 2);
     }
 
@@ -233,10 +231,9 @@ public class StretchableFloatingButton extends ViewGroup {
             //圆环伸缩比
             y_x = y / (float) endCenter.x;
 
-            child = this.getChildAt(0);
-            measureChild(child, width, height);
-            tvHeight = child.getMeasuredHeight();
-            tvWidth = child.getMeasuredWidth();
+            measureChild(tvContent, width, height);
+            tvHeight = tvContent.getMeasuredHeight();
+            tvWidth = tvContent.getMeasuredWidth();
 
             //文本右侧的位置
             tx = startCircleRadius * 2 + 5 + tvWidth;
@@ -280,6 +277,7 @@ public class StretchableFloatingButton extends ViewGroup {
     }
 
     public void startScroll() {
+        isMoving = true;
         if (isIncrease) {
             startDecrease();
         } else {
@@ -297,8 +295,8 @@ public class StretchableFloatingButton extends ViewGroup {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (foldListener != null && canClick) {
-                    foldListener.onFold(isIncrease, sfb);
+                if (foldListener != null && canClick && !isMoving) {
+                    foldListener.onFold(isIncrease);
                 }
                 break;
             default:
@@ -307,19 +305,18 @@ public class StretchableFloatingButton extends ViewGroup {
         return true;
     }
 
+    /**
+     * 判断是否为点击区域
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     private boolean judgeCanClick(float x, float y) {
         if (isIncrease) {
-            if (x < width && y < height) {
-                return true;
-            } else {
-                return false;
-            }
+            return x < width && y < height;
         } else {
-            if (x < startCenter.x * 2 && y < startCenter.y * 2) {
-                return true;
-            } else {
-                return false;
-            }
+            return x < startCenter.x * 2 && y < startCenter.y * 2;
         }
     }
 
@@ -332,8 +329,7 @@ public class StretchableFloatingButton extends ViewGroup {
          * 监听控件的点击事件，继而增加或者减少
          *
          * @param isIncrease 增加减少的flag
-         * @param sfb        控件参数
          */
-        void onFold(boolean isIncrease, StretchableFloatingButton sfb);
+        void onFold(boolean isIncrease);
     }
 }

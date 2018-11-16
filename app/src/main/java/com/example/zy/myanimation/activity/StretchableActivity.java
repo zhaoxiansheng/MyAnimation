@@ -21,7 +21,7 @@ public class StretchableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stretchable);
         ButterKnife.bind(this);
 
-        stretchFloatBtn.setFoldListener((isIncrease, sfb) -> {
+        stretchFloatBtn.setFoldListener((isIncrease) -> {
             stretchFloatBtn.startScroll();
         });
     }
