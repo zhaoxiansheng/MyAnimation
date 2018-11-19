@@ -22,9 +22,12 @@ public class DropletBubbleActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         dropletBubble.setOnMeasureBaseLineCallback(height ->
                 dropletBubble.setBaseLine(0.7f)
         );
+        dropletBubble.setOnClickListener(view -> {
+            dropletBubble.setBaseLine(0.5f);
+        });
     }
 }

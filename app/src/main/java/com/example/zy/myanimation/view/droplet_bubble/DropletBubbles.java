@@ -1,6 +1,9 @@
 package com.example.zy.myanimation.view.droplet_bubble;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -46,6 +49,7 @@ public class DropletBubbles extends View {
      * 基线，用于控制水位上涨的
      */
     private float baseLine = 0;
+    private float lastBaseLine = 0;
     /**
      * 波浪的最高度
      */
@@ -57,7 +61,8 @@ public class DropletBubbles extends View {
     /**
      * 偏移量
      */
-    private float offset = 0f;
+    private float xOffset = 0f;
+    private float yOffset = 0f;
     private int width = 0;
     private int height = 0;
     private int mBackgroundColor;
@@ -142,6 +147,7 @@ public class DropletBubbles extends View {
         mBubblesPath.reset();
 
         //设置渐变色
+        @SuppressLint("DrawAllocation")
         Shader shader = new LinearGradient(mResultWidth / 2, mResultWidth / 2 - mInnerRadius,
                 mResultWidth / 2, mResultWidth / 2 + mInnerRadius, Color.parseColor("#9592FB"),
                 Color.parseColor("#3831D4"), Shader.TileMode.CLAMP);
@@ -160,15 +166,14 @@ public class DropletBubbles extends View {
         canvas.drawPath(mBackgroundPath, mBackgroundPaint);
         canvas.drawCircle(mResultWidth / 2, mResultWidth / 2, mOutRadius, mBackgroundPaint);
         Log.d(TAG, "cx: " + mResultWidth / 2);
-//        //切割画布，画水波
-//        canvas.save();
+        //切割画布，画水波
+        canvas.save();
         mBubblesPath.addCircle(mResultWidth / 2, mResultWidth / 2, mInnerRadius, Path.Direction.CCW);
-//        //将画布裁剪成内部气泡的样子
+        //将画布裁剪成内部气泡的样子
         canvas.clipPath(mBubblesPath);
 
         canvas.drawPath(getPath(), mBubblesPaint);
-//        canvas.restore();
-
+        canvas.restore();
     }
 
 
@@ -181,15 +186,34 @@ public class DropletBubbles extends View {
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.addUpdateListener(animation -> {
             //不断的设置偏移量，并重画
-            offset = (float) animation.getAnimatedValue();
+            xOffset = (float) animation.getAnimatedValue();
             postInvalidate();
         });
         mAnimator.setDuration(1800);
         mAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mAnimator.start();
-
     }
 
+    private void updateBaseLine() {
+        ValueAnimator mAnimator = ValueAnimator.ofFloat(lastBaseLine, baseLine);
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.addUpdateListener(animation -> {
+            yOffset = (float) animation.getAnimatedValue();
+            //由于由一个大的值到一个小的值所以,
+            lastBaseLine = yOffset;
+            postInvalidate();
+        });
+        //监听结束，是为了确保最后值相同
+        mAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                lastBaseLine = baseLine;
+            }
+        });
+        mAnimator.setDuration(1000);
+        mAnimator.start();
+    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -197,7 +221,6 @@ public class DropletBubbles extends View {
         width = mResultWidth;
         height = mResultHeight;
         waveWidth = width;
-//        setBaseLine(height/2);
         if (mCallback != null) {
             mCallback.measureHeightResult(height);
         }
@@ -205,8 +228,20 @@ public class DropletBubbles extends View {
     }
 
     public void setBaseLine(float value) {
+        if (value > 1) {
+            value = 1.0f;
+        }
+        if (value < 0) {
+            value = 0f;
+        }
         baseLine = height - value * height;
-        invalidate();
+        if (lastBaseLine == 0) {
+            lastBaseLine = baseLine;
+            invalidate();
+        } else {
+            updateBaseLine();
+        }
+//        invalidate();
     }
 
     private OnMeasureBaseLineCallback mCallback;
@@ -221,7 +256,6 @@ public class DropletBubbles extends View {
         mCallback = measureBaseLineCallback;
     }
 
-
     /**
      * 核心代码，计算path
      *
@@ -232,20 +266,23 @@ public class DropletBubbles extends View {
         int itemWidth = waveWidth / 2;
         Path mPath = new Path();
         //起始坐标
-        mPath.moveTo(-itemWidth * 3, baseLine);
-        Log.d(TAG, "getPath: " + baseLine);
+        mPath.moveTo(-itemWidth * 2, lastBaseLine);
 
-        //核心的代码就是这里
-        for (int i = -3; i < 2; i++) {
+        //核心的代码
+        for (int i = -2; i < 2; i++) {
             int startX = i * itemWidth;
             mPath.quadTo(
-                    startX + itemWidth / 2 + offset,//控制点的X,（起始点X + itemWidth/2 + offset)
-                    getWaveHeight(i),//控制点的Y
-                    startX + itemWidth + offset,//结束点的X
-                    baseLine//结束点的Y
-            );//只需要处理完半个波长，剩下的有for循环自已就添加了。
+                    //控制点的X,（起始点X + itemWidth/2 + xOffset)
+                    startX + itemWidth / 2 + xOffset,
+                    //控制点的Y
+                    getWaveHeight(i),
+                    //结束点的X
+                    startX + itemWidth + xOffset,
+                    //结束点的Y
+                    lastBaseLine
+            );
         }
-        //下面这三句话很重要，它是形成了一封闭区间，让曲线以下的面积填充一种颜色，大家可以把这3句话注释了看看效果。
+        //让曲线以下的面积填充一种颜色
         mPath.lineTo(width, height);
         mPath.lineTo(0, height);
         mPath.close();
@@ -257,8 +294,8 @@ public class DropletBubbles extends View {
      */
     private float getWaveHeight(int num) {
         if (num % 2 == 0) {
-            return baseLine + waveHeight;
+            return lastBaseLine + waveHeight;
         }
-        return baseLine - waveHeight;
+        return lastBaseLine - waveHeight;
     }
 }
