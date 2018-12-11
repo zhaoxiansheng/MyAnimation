@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     Button dropletBtn;
     @BindView(R.id.stretch_btn)
     Button stretchBtn;
+    @BindView(R.id.lottie_btn)
+    Button lottieBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @OnClick({R.id.scroll_anim_btn, R.id.calendar_view, R.id.messenger_btn, R.id.aidl_btn, R.id.run_btn
-            , R.id.droplet_btn, R.id.stretch_btn})
+            , R.id.droplet_btn, R.id.stretch_btn, R.id.lottie_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.scroll_anim_btn:
@@ -66,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.stretch_btn:
                 ToolUtils.startActivity(this, StretchableActivity.class);
+                break;
+            case R.id.lottie_btn:
+                ToolUtils.startActivity(this, LottieTestActivity.class);
                 break;
             default:
                 break;

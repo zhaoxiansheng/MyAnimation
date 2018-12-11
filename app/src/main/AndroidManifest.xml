@@ -31,7 +31,8 @@
 
         <activity android:name=".activity.RunTextActivity" />
         <activity android:name=".activity.DropletBubbleActivity" />
-        <activity android:name=".activity.StretchableActivity"></activity>
+        <activity android:name=".activity.StretchableActivity" />
+        <activity android:name=".activity.LottieTestActivity"></activity>
     </application>
 
 </manifest>
