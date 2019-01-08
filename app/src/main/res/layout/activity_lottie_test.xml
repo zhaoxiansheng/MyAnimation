@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LottieTestActivity">
+    tools:context=".activity.LottieActivity">
     
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:lottie_loop="true"
-        app:lottie_fileName="hello-world.json"
+        app:lottie_fileName="LottieLogos2.json"
         app:lottie_autoPlay="true"/>
 
 </android.support.constraint.ConstraintLayout>

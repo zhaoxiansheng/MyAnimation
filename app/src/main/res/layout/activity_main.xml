@@ -64,4 +64,11 @@
         android:text="@string/lottie"
         android:textSize="14sp"/>
 
+    <Button
+        android:id="@+id/gpu_image_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gpu_image"
+        android:textSize="14sp"/>
+
 </LinearLayout>

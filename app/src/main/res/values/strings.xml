@@ -9,6 +9,7 @@
     <string name="droplet_bubble">droplet</string>
     <string name="stretchable">stretchable</string>
     <string name="lottie">lottie</string>
+    <string name="gpu_image">GPUImage</string>
 
     <string name="start_anim">开始动画</string>
     <string name="end_anim">结束动画</string>

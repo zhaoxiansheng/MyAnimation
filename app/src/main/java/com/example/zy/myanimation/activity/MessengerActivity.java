@@ -12,13 +12,12 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.bean.MyConstants;
 import com.example.zy.myanimation.service.MessengerService;
-import com.orhanobut.logger.Logger;
 
 /**
  * Created on 2017/12/1.
@@ -27,62 +26,91 @@ import com.orhanobut.logger.Logger;
  */
 public class MessengerActivity extends Activity {
 
-    private static final String TAG = "MessengerActivity";
+    private static final int MSG_FROM_CLIENT = 0x10001;
+    private static final int MSG_TO_CLIENT = 0x10002;
 
-    private TextView responseText;
+    private static final String IS_LOGIN = "isLogin";
+    private static final String NICK_NAME = "nickName";
+    private static final String USER_ID = "userId";
+
+    private boolean isConn;
     private Messenger mService;
-    private Messenger mGetReplyMessenger = new Messenger(new MessengerHandle());
+
+    private TextView tv_state;
+    private TextView tv_message;
+    private Button btn_send;
 
     @SuppressLint("HandlerLeak")
-    private class MessengerHandle extends Handler {
+    private Messenger mMessenger = new Messenger(new Handler() {
+        @SuppressLint("SetTextI18n")
         @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MyConstants.MSG_FROM_CLIENT:
-                    Logger.d(TAG, "receive msg from server:" + msg.getData().getString("reply"));
-                    responseText.setText(msg.getData().getString("reply"));
+        public void handleMessage(Message msgFromServer) {
+            switch (msgFromServer.what) {
+                case MSG_TO_CLIENT:
+                    Bundle data = msgFromServer.getData();
+                    tv_message.setText("服务器返回内容\n" +
+                            data.get(NICK_NAME) + "\n" +
+                            data.get(USER_ID) + "\n" +
+                            data.get(IS_LOGIN) + "\n");
                     break;
                 default:
-                    super.handleMessage(msg);
                     break;
             }
+            super.handleMessage(msgFromServer);
         }
-    }
+    });
 
-    private ServiceConnection mConnection = new ServiceConnection() {
+
+    private ServiceConnection mConn = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            mService = new Messenger(iBinder);
-            Message msg = Message.obtain(null, MyConstants.MSG_FROM_CLIENT);
-            Bundle data = new Bundle();
-            data.putString("msg", "hello, this is client");
-            msg.setData(data);
-            msg.replyTo = mGetReplyMessenger;
-            try {
-                mService.send(msg);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mService = new Messenger(service);
+            isConn = true;
+            tv_state.setText("连接状态：connected!");
         }
 
         @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+            isConn = false;
+            tv_state.setText("连接状态：disconnected!");
         }
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
-        responseText = findViewById(R.id.server_response_text);
-        Intent intent = new Intent(this, MessengerService.class);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        tv_state = findViewById(R.id.tv_state);
+        tv_message = findViewById(R.id.tv_message);
+        btn_send = findViewById(R.id.btn_send);
+
+        //开始绑定服务
+        bindServiceInvoked();
+
+        btn_send.setOnClickListener(view -> {
+            Message msgFromClient = new Message();
+            msgFromClient.what = MSG_FROM_CLIENT;
+            msgFromClient.replyTo = mMessenger;
+            if (isConn) {
+                //往服务端发送消息
+                try {
+                    mService.send(msgFromClient);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
-        unbindService(mConnection);
         super.onDestroy();
+        unbindService(mConn);
+    }
+
+    private void bindServiceInvoked() {
+        Intent intent = new Intent(this, MessengerService.class);
+        bindService(intent, mConn, Context.BIND_AUTO_CREATE);
     }
 }

@@ -11,7 +11,7 @@ import com.example.zy.myanimation.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LottieTestActivity extends AppCompatActivity {
+public class LottieActivity extends AppCompatActivity {
 
     @BindView(R.id.lottie)
     LottieAnimationView lottie;
