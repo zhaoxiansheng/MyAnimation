@@ -6,9 +6,12 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.Layout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
@@ -137,6 +140,33 @@ public abstract class BaseScrollPickerView<T> extends View {
      * 是否绘制每个item(包括在边界外的item)
      */
     private boolean mDrawAllItem = false;
+
+    protected TextPaint mPaint;
+    /**
+     * 最小的字体
+     */
+    protected int mMinTextSize = 24;
+    /**
+     * 最大的字体
+     */
+    protected int mMaxTextSize = 32;
+    /**
+     * 字体渐变颜色
+     * 中间选中item的颜色
+     */
+    protected int mStartColor = Color.BLACK;
+    /**
+     * 上下两边的颜色
+     */
+    protected int mEndColor = Color.GRAY;
+    /**
+     * 最大的行宽,默认为itemWidth.超过后文字自动换行
+     */
+    protected int mMaxLineWidth = -1;
+    /**
+     * 对齐方式,默认居中
+     */
+    protected Layout.Alignment mAlignment = Layout.Alignment.ALIGN_CENTER;
 
     public BaseScrollPickerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);

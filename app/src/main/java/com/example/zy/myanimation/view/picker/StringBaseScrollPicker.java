@@ -24,34 +24,6 @@ import java.util.List;
  */
 public class StringBaseScrollPicker extends BaseScrollPickerView<CharSequence> {
 
-    private TextPaint mPaint;
-    /**
-     * 最小的字体
-     */
-    private int mMinTextSize = 24;
-    /**
-     * 最大的字体
-     */
-    private int mMaxTextSize = 32;
-    /**
-     * 字体渐变颜色
-     * 中间选中item的颜色
-     */
-    private int mStartColor = Color.BLACK;
-    /**
-     * 上下两边的颜色
-     */
-    private int mEndColor = Color.GRAY;
-    /**
-     * 最大的行宽,默认为itemWidth.超过后文字自动换行
-     */
-    private int mMaxLineWidth = -1;
-    /**
-     * 对齐方式,默认居中
-     */
-    private Layout.Alignment mAlignment = Layout.Alignment.ALIGN_CENTER;
-
-
     public StringBaseScrollPicker(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -65,10 +37,8 @@ public class StringBaseScrollPicker extends BaseScrollPickerView<CharSequence> {
         mPaint.setColor(Color.BLACK);
         init(attrs);
 
-        setData(new ArrayList<CharSequence>(Arrays.asList(new String[]{
-                "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"
-        })));
-
+        setData(new ArrayList<CharSequence>(Arrays.asList("one", "two", "three", "four", "five", "six",
+                "seven", "eight", "nine", "ten", "eleven", "twelve")));
     }
 
 
@@ -149,11 +119,6 @@ public class StringBaseScrollPicker extends BaseScrollPickerView<CharSequence> {
         mMaxLineWidth = maxLineWidth;
     }
 
-    /**
-     * 最大的行宽,默认为itemWidth.超过后文字自动换行
-     *
-     * @return
-     */
     public Layout.Alignment getAlignment() {
         return mAlignment;
     }

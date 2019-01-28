@@ -72,6 +72,24 @@
         </attr>
     </declare-styleable>
 
+    <!--图片选择器-->
+    <declare-styleable name="ImageBaseScrollPicker">
+        <!--文字渐变大小-->
+        <attr name="isp_min_text_size" format="dimension" />
+        <attr name="isp_max_text_size" format="dimension" />
+        <!--文字渐变颜色-->
+        <attr name="isp_start_color" format="color" />
+        <attr name="isp_end_color" format="color" />
+        <!--文字最大行宽-->
+        <attr name="isp_max_line_width" format="dimension" />
+        <!--文字对齐方式-->
+        <attr name="isp_alignment" format="enum">
+            <enum name="center" value="1" />
+            <enum name="left" value="2" />
+            <enum name="right" value="3" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="PercentTextView">
         <attr name="baseScreenHeight" format="integer" />
     </declare-styleable>

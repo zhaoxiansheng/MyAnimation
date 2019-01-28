@@ -7,9 +7,11 @@
     android:background="@color/colorPrimary"
     tools:context="com.example.zy.myanimation.activity.CalendarActivity">
 
-    <com.example.zy.myanimation.view.picker.StringBaseScrollPicker
+    <com.example.zy.myanimation.view.picker.ImageBaseScrollPicker
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:isp_max_text_size="24sp"
+        app:isp_min_text_size="16sp" />
 
     <!--<com.example.zy.myanimation.view.calendar.CalendarView-->
         <!--android:id="@+id/calendar_view"-->
