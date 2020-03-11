@@ -2,12 +2,13 @@ package com.example.zy.myanimation.view.jumptext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.example.zy.myanimation.R;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * 2018/06/13

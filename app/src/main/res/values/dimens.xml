@@ -11,4 +11,34 @@
     <dimen name="touch_raise">10dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_width">1dp</dimen>
+
+    <dimen name="app_icon_size">136dp</dimen>
+    <dimen name="icon_text_gap">8dp</dimen>
+    <dimen name="click_area">192dp</dimen>
+
+    <dimen name="vertical_gap">16dp</dimen>
+    <dimen name="horizontal_gap">16dp</dimen>
+    <dimen name="half_gap">8dp</dimen>
+
+    <dimen name="margin_left">52dp</dimen>
+    <dimen name="margin_right">52dp</dimen>
+    <dimen name="margin_top">56dp</dimen>
+    <dimen name="margin_bottom">56dp</dimen>
+
+    <dimen name="marker_margin_left">90dp</dimen>
+    <dimen name="marker_width">6dp</dimen>
+    <dimen name="marker_long_length">64dp</dimen>
+    <dimen name="marker_short_length">32dp</dimen>
+    <dimen name="marker_gap">32dp</dimen>
+    <dimen name="marker_height">56dp</dimen>
+
+    <dimen name="icon_text_size">32sp</dimen>
+    <dimen name="text_max_length">192dp</dimen>
+
+    <dimen name="vertical_scroll_margin_left">96dp</dimen>
+    <dimen name="vertical_scroll_margin_top">0dp</dimen>
+
+    <dimen name="limit_height">816dp</dimen>
+    <dimen name="limit_width">1416dp</dimen>
+    <dimen name="limit_high_width">1720dp</dimen>
 </resources>

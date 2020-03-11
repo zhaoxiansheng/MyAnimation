@@ -5,20 +5,17 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
 
 import com.example.zy.myanimation.aidl.Book;
 import com.example.zy.myanimation.aidl.IBookManager;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.example.zy.myanimation.aidl.IOnNewBookArrivedListener;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created on 2017/12/4.
@@ -49,7 +46,7 @@ public class BookManagerService extends Service {
         @Override
 
         public void registerListener(IOnNewBookArrivedListener listener) {
-            if (!mListenerList.contains(listener)){
+            if (!mListenerList.contains(listener)) {
                 mListenerList.add(listener);
             } else {
                 Logger.d(TAG, "already exists");
@@ -59,7 +56,7 @@ public class BookManagerService extends Service {
 
         @Override
         public void unregisterListener(IOnNewBookArrivedListener listener) {
-            if (!mListenerList.contains(listener)){
+            if (!mListenerList.contains(listener)) {
                 mListenerList.remove(listener);
                 Logger.d(TAG, "unregister listener succeed");
             } else {
@@ -91,7 +88,7 @@ public class BookManagerService extends Service {
     private void onNewBookArrived(Book book) throws RemoteException {
         mBookList.add(book);
         Logger.d(TAG, "onNewBookArrived, notify listeners:" + mListenerList.size());
-        for (int i = 0; i< mListenerList.size(); i++){
+        for (int i = 0; i < mListenerList.size(); i++) {
             IOnNewBookArrivedListener listener = mListenerList.get(i);
             listener.onNewBookArrived(book);
         }
@@ -100,7 +97,7 @@ public class BookManagerService extends Service {
     private class ServiceWorker implements Runnable {
         @Override
         public void run() {
-            while (!mIsServiceDestroyed.get()){
+            while (!mIsServiceDestroyed.get()) {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

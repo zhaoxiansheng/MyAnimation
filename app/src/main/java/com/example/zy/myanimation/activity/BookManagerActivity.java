@@ -8,7 +8,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.zy.myanimation.R;
@@ -18,6 +17,8 @@ import com.example.zy.myanimation.service.BookManagerService;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created on 2017/12/4.

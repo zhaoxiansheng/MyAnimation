@@ -1,12 +1,12 @@
 package com.example.zy.myanimation.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.anim.AutoIncrementUtil;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

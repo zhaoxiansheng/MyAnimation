@@ -2,8 +2,6 @@ package com.example.zy.myanimation.view.scroll;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +14,9 @@ import com.example.zy.myanimation.view.recycler.LeftAndRightDecoration;
 import com.example.zy.myanimation.view.recycler.TopAndBottomDecoration;
 
 import java.util.ArrayList;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created on 2018/5/7.

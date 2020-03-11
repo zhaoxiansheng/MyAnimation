@@ -3,17 +3,17 @@ package com.example.zy.myanimation.activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSeekBar;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.example.zy.myanimation.R;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSeekBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.co.cyberagent.android.gpuimage.GPUImage;
-import jp.co.cyberagent.android.gpuimage.filter.GPUImageSaturationFilter;
+//import jp.co.cyberagent.android.gpuimage.GPUImage;
+//import jp.co.cyberagent.android.gpuimage.filter.GPUImageSaturationFilter;
 
 public class GpuImageActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class GpuImageActivity extends AppCompatActivity {
     ImageView gpuImage;
     @BindView(R.id.gpu_image_seek_bar)
     AppCompatSeekBar gpuImageSeekBar;
-    private GPUImage gpuImg;
+//    private GPUImage gpuImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class GpuImageActivity extends AppCompatActivity {
         gpuImageSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                gpuImage.setImageBitmap(getGpuImage(i));
+//                gpuImage.setImageBitmap(getGpuImage(i));
             }
 
             @Override
@@ -50,15 +50,15 @@ public class GpuImageActivity extends AppCompatActivity {
 
             }
         });
-        gpuImage.setImageBitmap(getGpuImage(0));
+//        gpuImage.setImageBitmap(getGpuImage(0));
     }
 
-    private Bitmap getGpuImage(int progress) {
-        gpuImg = new GPUImage(this);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
-        gpuImg.setImage(bitmap);
-        gpuImg.setFilter(new GPUImageSaturationFilter(progress));
-        bitmap = gpuImg.getBitmapWithFilterApplied();
-        return bitmap;
-    }
+//    private Bitmap getGpuImage(int progress) {
+//        gpuImg = new GPUImage(this);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
+//        gpuImg.setImage(bitmap);
+//        gpuImg.setFilter(new GPUImageSaturationFilter(progress));
+//        bitmap = gpuImg.getBitmapWithFilterApplied();
+//        return bitmap;
+//    }
 }

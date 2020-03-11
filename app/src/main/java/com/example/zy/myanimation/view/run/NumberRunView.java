@@ -3,10 +3,11 @@ package com.example.zy.myanimation.view.run;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 import java.math.BigDecimal;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * 顶部title,显示销量数字跑动效果View

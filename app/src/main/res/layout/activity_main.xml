@@ -7,12 +7,11 @@
     android:orientation="vertical"
     tools:context="com.example.zy.myanimation.activity.MainActivity">
 
-    <Button
-        android:id="@+id/scroll_anim_btn"
+    <ListView
+        android:id="@+id/listview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/scroll_anim"
-        android:textSize="14sp" />
+        android:layout_height="match_parent">
+    </ListView>
 
     <Button
         android:id="@+id/calendar_view"
@@ -20,7 +19,6 @@
         android:layout_height="wrap_content"
         android:text="@string/calendar"
         android:textSize="14sp" />
-
 
     <Button
         android:id="@+id/messenger_btn"
@@ -69,6 +67,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gpu_image"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/applist_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/applist"
         android:textSize="14sp"/>
 
 </LinearLayout>

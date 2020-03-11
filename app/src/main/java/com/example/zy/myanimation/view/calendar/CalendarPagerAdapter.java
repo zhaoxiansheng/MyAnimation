@@ -1,11 +1,13 @@
 package com.example.zy.myanimation.view.calendar;
 
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.viewpager.widget.PagerAdapter;
+
 /**
  * Created zhaoy on 2017/11/30.
+ *
  * @author zhaoy
  */
 public class CalendarPagerAdapter<V extends CalendarViewPager> extends PagerAdapter {

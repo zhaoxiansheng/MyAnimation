@@ -1,81 +1,91 @@
 package com.example.zy.myanimation.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.widget.ListView;
 
 import com.example.zy.myanimation.R;
+import com.example.zy.myanimation.adapter.ListViewAdapter;
 import com.example.zy.myanimation.utils.ToolUtils;
 
+import java.util.ArrayList;
+
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Create on 17/10/31
  *
  * @author zhaoy
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListViewAdapter.ItemClickListener {
 
-    @BindView(R.id.scroll_anim_btn)
-    Button scrollAnimBtn;
-    @BindView(R.id.calendar_view)
-    Button calendarView;
-    @BindView(R.id.messenger_btn)
-    Button messengerBtn;
-    @BindView(R.id.aidl_btn)
-    Button aidlBtn;
-    @BindView(R.id.run_btn)
-    Button runText;
-    @BindView(R.id.droplet_btn)
-    Button dropletBtn;
-    @BindView(R.id.stretch_btn)
-    Button stretchBtn;
-    @BindView(R.id.lottie_btn)
-    Button lottieBtn;
-    @BindView(R.id.gpu_image_btn)
-    Button gpuImageBtn;
+    @BindView(R.id.listview)
+    ListView listview;
+
+    private int[] text = {
+            R.string.scroll_anim,
+            R.string.calendar, // TODO: 2020/3/11 未完成 
+            R.string.messenger,
+            R.string.aidl,  // TODO: 2020/3/11 更新之后崩溃
+            R.string.run_text,
+            R.string.droplet_bubble,
+            R.string.stretchable,
+            R.string.lottie,  // TODO: 2020/3/11 更新之后崩溃
+            R.string.gpu_image,  // TODO: 2020/3/11 更新之后崩溃
+            R.string.applist,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        init();
     }
 
+    private void init() {
+        ArrayList<String> data = new ArrayList<>();
+        for (int i = 0; i < text.length; i++) {
+            data.add(getString(text[i]));
+        }
+        ListViewAdapter adapter = new ListViewAdapter(MainActivity.this, data);
+        listview.setAdapter(adapter);
+        adapter.setItemClickListener(this);
+    }
 
-    @OnClick({R.id.scroll_anim_btn, R.id.calendar_view, R.id.messenger_btn, R.id.aidl_btn, R.id.run_btn
-            , R.id.droplet_btn, R.id.stretch_btn, R.id.lottie_btn, R.id.gpu_image_btn})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.scroll_anim_btn:
+    @Override
+    public void onItemClick(int position) {
+        switch (position) {
+            case 0:
                 ToolUtils.startActivity(this, ScrollAnimationActivity.class);
                 break;
-            case R.id.calendar_view:
+            case 1:
                 ToolUtils.startActivity(this, CalendarActivity.class);
                 break;
-            case R.id.messenger_btn:
+            case 2:
                 ToolUtils.startActivity(this, MessengerActivity.class);
                 break;
-            case R.id.aidl_btn:
+            case 3:
                 ToolUtils.startActivity(this, BookManagerActivity.class);
                 break;
-            case R.id.run_btn:
+            case 4:
                 ToolUtils.startActivity(this, RunTextActivity.class);
                 break;
-            case R.id.droplet_btn:
+            case 5:
                 ToolUtils.startActivity(this, DropletBubbleActivity.class);
                 break;
-            case R.id.stretch_btn:
+            case 6:
                 ToolUtils.startActivity(this, StretchableActivity.class);
                 break;
-            case R.id.lottie_btn:
+            case 7:
                 ToolUtils.startActivity(this, LottieActivity.class);
                 break;
-            case R.id.gpu_image_btn:
+            case 8:
                 ToolUtils.startActivity(this, GpuImageActivity.class);
+                break;
+            case 9:
+                ToolUtils.startActivity(this, RecyclerViewActivity.class);
                 break;
             default:
                 break;

@@ -1,16 +1,15 @@
 package com.example.zy.myanimation.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.view.droplet_bubble.DropletBubbles;
 import com.example.zy.myanimation.view.scroll.Triangle;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

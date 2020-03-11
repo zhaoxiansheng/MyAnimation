@@ -8,13 +8,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.utils.ToolUtils;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created  on 2018/5/4.
@@ -125,7 +126,7 @@ public class ScrollAnimView extends View {
         }
         long currentTime = System.currentTimeMillis();
 
-        if (isAnimation){
+        if (isAnimation) {
             if (currentTime - firstTime > 2000) {
                 mPaint.setAntiAlias(true);
                 //设置是否抖动，如果不设置感觉就会有一些僵硬的线条，如果设置图像就会看的更柔和一些，

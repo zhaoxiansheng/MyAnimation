@@ -33,7 +33,8 @@
         <activity android:name=".activity.DropletBubbleActivity" />
         <activity android:name=".activity.StretchableActivity" />
         <activity android:name=".activity.LottieActivity" />
-        <activity android:name=".activity.GpuImageActivity"></activity>
+        <activity android:name=".activity.GpuImageActivity" />
+        <activity android:name=".activity.RecyclerViewActivity"/>
     </application>
 
 </manifest>

@@ -1,13 +1,11 @@
 package com.example.zy.myanimation.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-import com.airbnb.lottie.Cancellable;
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieComposition;
 import com.example.zy.myanimation.R;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
