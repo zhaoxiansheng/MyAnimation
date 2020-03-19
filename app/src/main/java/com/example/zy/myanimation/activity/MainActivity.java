@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.lottie,  // TODO: 2020/3/11 更新之后崩溃
             R.string.gpu_image,  // TODO: 2020/3/11 更新之后崩溃
             R.string.applist,
+            R.string.reversal,
     };
 
     @Override
@@ -87,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             case 9:
                 ToolUtils.startActivity(this, RecyclerViewActivity.class);
                 break;
+            case 10:
+                ToolUtils.startActivity(this, ReversalActivity.class);
             default:
                 break;
         }

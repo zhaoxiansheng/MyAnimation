@@ -113,9 +113,9 @@ public class CustomLinearLayout extends LinearLayout implements View.OnClickList
 
     public void setShowBadge(boolean showBadge) {
         if (showBadge) {
-            mImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.launcher_icon_soft_manager_red));
+//            mImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.launcher_icon_soft_manager_red));
         } else {
-            mImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.launcher_icon_soft_manager));
+//            mImageView.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.launcher_icon_soft_manager));
         }
     }
 
