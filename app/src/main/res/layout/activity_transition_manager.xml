@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.zy.myanimation.view.lifecycle.CustomLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CustomLinearLayout="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    CustomLinearLayout:animationType="fade"
+    android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/scene1_img1_bg"
+            android:visibility="gone" />
+
+        <com.example.zy.myanimation.view.lifecycle.CustomImageView
+            android:id="@+id/img1"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/scene1_img2_bg" />
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/scene1_img1_bg"
+            android:visibility="gone" />
+
+</com.example.zy.myanimation.view.lifecycle.CustomLinearLayout>

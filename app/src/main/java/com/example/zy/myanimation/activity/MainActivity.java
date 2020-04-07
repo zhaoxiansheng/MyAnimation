@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.gpu_image,  // TODO: 2020/3/11 更新之后崩溃
             R.string.applist,
             R.string.reversal,
+            R.string.transition_manager_test,
     };
 
     @Override
@@ -90,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 break;
             case 10:
                 ToolUtils.startActivity(this, ReversalActivity.class);
+            case 11:
+                ToolUtils.startActivity(this, TransitionManagerActivity.class);
+                break;
             default:
                 break;
         }

@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ReversalActivity"></activity>
+        <activity android:name=".activity.TransitionManagerActivity" />
+        <activity android:name=".activity.ReversalActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +23,13 @@
         <activity android:name=".activity.CalendarActivity" />
         <activity android:name=".activity.MessengerActivity" />
         <activity android:name=".activity.BookManagerActivity" />
-
         <activity android:name=".activity.RunTextActivity" />
         <activity android:name=".activity.DropletBubbleActivity" />
-
         <activity android:name=".activity.StretchableActivity" />
         <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.GpuImageActivity" />
         <activity android:name=".activity.RecyclerViewActivity" />
+
         <service
             android:name=".service.MessengerService"
             android:process=":remote" />

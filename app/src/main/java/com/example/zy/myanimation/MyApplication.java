@@ -12,6 +12,8 @@ import com.orhanobut.logger.Logger;
  */
 public class MyApplication extends Application {
 
+    public static boolean isStart;
+
     @Override
     public void onCreate() {
         super.onCreate();
