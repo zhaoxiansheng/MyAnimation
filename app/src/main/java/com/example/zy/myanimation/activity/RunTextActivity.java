@@ -14,6 +14,8 @@ public class RunTextActivity extends AppCompatActivity {
 
     @BindView(R.id.run_text)
     TextView runText;
+    @BindView(R.id.run_text1)
+    TextView runText1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +23,6 @@ public class RunTextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_run_text);
         ButterKnife.bind(this);
         AutoIncrementUtil.startAnimation(AutoIncrementUtil.INT_TYPE, runText, "41532601", true, "元", 1500);
+        AutoIncrementUtil.startAnimation(AutoIncrementUtil.INT_TYPE, runText1, "41532601", true, "元", 1500);
     }
 }
