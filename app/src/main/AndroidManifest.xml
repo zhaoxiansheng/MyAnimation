@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.BaiduShiTuActivity"></activity>
+        <activity android:name=".activity.AnimationDemoActivity" />
         <activity android:name=".activity.TransitionManagerActivity" />
         <activity android:name=".activity.ReversalActivity" />
         <activity android:name=".activity.MainActivity">

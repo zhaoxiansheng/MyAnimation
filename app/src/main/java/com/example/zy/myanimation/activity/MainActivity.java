@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.applist,
             R.string.reversal,
             R.string.transition_manager_test,
+            R.string.animator_demo,
+            R.string.baidu_shitu,
     };
 
     @Override
@@ -94,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             case 11:
                 ToolUtils.startActivity(this, TransitionManagerActivity.class);
                 break;
+            case 12:
+                ToolUtils.startActivity(this, AnimationDemoActivity.class);
+            case 13:
+                ToolUtils.startActivity(this, BaiduShiTuActivity.class);
             default:
                 break;
         }

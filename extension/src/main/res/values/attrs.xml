@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomLinearLayout">
+        <attr name="animationDuration" format="integer" />
+        <attr name="animationType">
+            <flag name="fade" value="0x0001" />
+            <flag name="slide" value="0x0002" />
+            <flag name="auto_transition" value="0x0003" />
+            <flag name="changeBounds" value="0x0004"/>
+            <flag name="changeTransform" value="0x0005"/>
+            <flag name="explode" value="0x0006"/>
+        </attr>
+        <attr name="updateView" format="reference" />
+        <attr name="unUpdateView" format="reference" />
+    </declare-styleable>
+</resources>
