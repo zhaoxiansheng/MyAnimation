@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".activity.GpuImageActivity">
 
-    <android.support.v7.widget.AppCompatSeekBar
+    <SeekBar
         android:id="@+id/gpu_image_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

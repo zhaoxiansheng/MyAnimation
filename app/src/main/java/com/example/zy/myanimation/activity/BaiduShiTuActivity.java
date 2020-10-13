@@ -10,8 +10,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.example.zy.myanimation.R;
-import com.example.zy.myanimation.view.longbitmap.CustomLinearLayout;
 import com.example.zy.myanimation.view.longbitmap.CustomImageView;
+import com.example.zy.myanimation.view.longbitmap.CustomLinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -79,8 +79,8 @@ public class BaiduShiTuActivity extends AppCompatActivity {
         content.addView(customImageView2);
         content.addView(customImageView3);
 
-        setFoldMode();
-//        setExpendMode();
+//        setFoldMode();
+        setExpendMode();
 
         customImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class BaiduShiTuActivity extends AppCompatActivity {
                 customImageView2.handlerScale(mScale, 1f);
                 customImageView3.handlerScale(mScale, 1f);
 
-                /*content.postDelayed(new Runnable() {
+                content.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         WindowManager.LayoutParams params1 =  getWindow().getAttributes();
@@ -111,7 +111,18 @@ public class BaiduShiTuActivity extends AppCompatActivity {
                         setFoldMode();
 //                        setExpendMode();
                     }
-                }, 2000);*/
+                }, 2000);
+
+                content.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        WindowManager.LayoutParams params1 =  getWindow().getAttributes();
+                        params1.width = (int) (params1.width / mScale);
+                        getWindow().setAttributes(params1);
+
+                        setExpendMode();
+                    }
+                }, 5000);
             }
         });
 

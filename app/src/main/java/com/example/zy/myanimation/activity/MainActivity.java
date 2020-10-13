@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 break;
             case 10:
                 ToolUtils.startActivity(this, ReversalActivity.class);
+                break;
             case 11:
                 ToolUtils.startActivity(this, TransitionManagerActivity.class);
                 break;
