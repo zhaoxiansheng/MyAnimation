@@ -27,16 +27,17 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.scroll_anim,
             R.string.calendar, // TODO: 2020/3/11 未完成 
             R.string.messenger,
-            R.string.aidl,  // TODO: 2020/3/11 更新之后崩溃
+            R.string.aidl,
             R.string.run_text,
             R.string.droplet_bubble,
             R.string.stretchable,
-            R.string.lottie,  // TODO: 2020/3/11 更新之后崩溃
-            R.string.gpu_image,  // TODO: 2020/3/11 更新之后崩溃
+            R.string.lottie,
+            R.string.gpu_image,
             R.string.applist,
             R.string.reversal,
             R.string.transition_manager_test,
             R.string.animator_demo,
+            R.string.toolbar,
             R.string.baidu_shitu,
     };
 
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 ToolUtils.startActivity(this, AnimationDemoActivity.class);
                 break;
             case 13:
-                ToolUtils.startActivity(this, BaiduShiTuActivity.class);
+                ToolUtils.startActivity(this, ToolBarActivity.class);
                 break;
             default:
                 break;

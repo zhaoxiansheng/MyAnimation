@@ -14,6 +14,7 @@
     <string name="reversal">reversalCard</string>
     <string name="transition_manager_test">TransitionManager Test</string>
     <string name="animator_demo">animator demo</string>
+    <string name="toolbar">ToolBar</string>
     <string name="baidu_shitu">百度识图</string>
 
     <string name="start_anim">开始动画</string>

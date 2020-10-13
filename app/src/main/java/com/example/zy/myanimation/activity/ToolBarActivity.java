@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class BaiduShiTuActivity extends AppCompatActivity {
+public class ToolBarActivity extends AppCompatActivity {
 
     private float mScale = 0.5f;
 
@@ -41,7 +41,7 @@ public class BaiduShiTuActivity extends AppCompatActivity {
         getWindow().setAttributes(windowParams);
 
 
-        setContentView(R.layout.activity_baidu_shi_tu);
+        setContentView(R.layout.activity_toolbar);
         ButterKnife.bind(this);
 
         content.setClipChildren(false);
@@ -96,7 +96,7 @@ public class BaiduShiTuActivity extends AppCompatActivity {
                 content.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        WindowManager.LayoutParams params1 =  getWindow().getAttributes();
+                        WindowManager.LayoutParams params1 = getWindow().getAttributes();
                         params1.width = (int) (params1.width * mScale);
                         getWindow().setAttributes(params1);
 
@@ -116,7 +116,7 @@ public class BaiduShiTuActivity extends AppCompatActivity {
                 content.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        WindowManager.LayoutParams params1 =  getWindow().getAttributes();
+                        WindowManager.LayoutParams params1 = getWindow().getAttributes();
                         params1.width = (int) (params1.width / mScale);
                         getWindow().setAttributes(params1);
 
@@ -125,21 +125,13 @@ public class BaiduShiTuActivity extends AppCompatActivity {
                 }, 5000);
             }
         });
-
-      /*  Observable observable = HttpRequest.getCategories();
-        observable.subscribe(new BaseObserver<Test>(MyApplication.getContext(), false) {
-            @Override
-            protected void onSuccess(Test o) {
-
-            }
-        });*/
     }
 
     public void setExpendMode() {
         customImageView.setVisibility(VISIBLE);
         customImageView1.setVisibility(VISIBLE);
 
-       if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             Fade fade = new Fade();
             fade.addTarget(customImageView2);
             fade.addTarget(customImageView3);
