@@ -1,4 +1,4 @@
-package com.example.zhaoy.eyepetizer.net
+package com.example.zy.myanimation.net
 
 import com.example.zy.myanimation.bean.Test
 import io.reactivex.Observable

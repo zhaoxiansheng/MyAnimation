@@ -29,13 +29,12 @@ public class ToolUtils {
         int specSize = View.MeasureSpec.getSize(widthMeasureSpec);
 
         if (specMode == View.MeasureSpec.AT_MOST) {
-            return result;
+            return Math.min(result, specSize);
         } else if (specMode == View.MeasureSpec.EXACTLY) {
-            result = specSize;
+            return specSize;
         } else {
-            result = specSize;
+            return result;
         }
-        return result;
     }
 
     /**
@@ -50,13 +49,16 @@ public class ToolUtils {
         int specSize = View.MeasureSpec.getSize(heightMeasureSpec);
 
         if (specMode == View.MeasureSpec.AT_MOST) {
-            return result;
+            if (result <= specSize) {
+                return result;
+            } else {
+                return specSize;
+            }
         } else if (specMode == View.MeasureSpec.EXACTLY) {
-            result = specSize;
+            return specSize;
         } else {
-            result = specSize;
+            return result;
         }
-        return result;
     }
 
     /**

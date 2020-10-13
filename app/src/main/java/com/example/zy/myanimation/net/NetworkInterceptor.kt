@@ -1,8 +1,7 @@
-package com.example.zhaoy.eyepetizer.net
+package com.example.zy.myanimation.net
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 
 /**
  * Created on 2018/2/25.

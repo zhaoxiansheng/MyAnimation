@@ -82,4 +82,15 @@ public class AnimatorDemo {
         prop.setDuration(1000);
         prop.start();
     }
+
+    public static void animatorCustomProperty(View view) {
+        // 自定义Property和Evaluator
+        CustomEvaluator customEvaluator = new CustomEvaluator();
+        CustomProperty customProperty = new CustomProperty(String.class, "text");
+        PropertyValuesHolder customHolder = PropertyValuesHolder.ofObject(customProperty, customEvaluator, "1", "10");
+
+        ObjectAnimator prop = ObjectAnimator.ofPropertyValuesHolder(view, customHolder);
+        prop.setDuration(1000);
+        prop.start();
+    }
 }

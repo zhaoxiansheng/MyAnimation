@@ -1,6 +1,5 @@
 package com.example.zy.myanimation.net;
 
-import com.example.zhaoy.eyepetizer.net.RetrofitFactory;
 import com.example.zy.myanimation.MyApplication;
 import com.example.zy.myanimation.bean.Test;
 
@@ -13,8 +12,8 @@ import io.reactivex.Observable;
  */
 public class HttpRequest {
 
-    public static Observable<Test> getCategories() {
+   /* public static Observable<Test> getCategories() {
         Observable<Test> categories = MyApplication.iApi.getBaiduShitu();
         return RetrofitFactory.INSTANCE.doHttpRequest(categories);
-    }
+    }*/
 }

@@ -20,6 +20,8 @@ public class AnimationDemoActivity extends AppCompatActivity {
     TextView text1;
     @BindView(R.id.text2)
     TextView text2;
+    @BindView(R.id.custom_text)
+    TextView customText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,7 @@ public class AnimationDemoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    private void startAnimation() {
-        AnimatorDemo.animators(text);
-    }
-
-    @OnClick({R.id.text, R.id.text1, R.id.text2})
+    @OnClick({R.id.text, R.id.text1, R.id.text2, R.id.custom_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text:
@@ -43,6 +41,9 @@ public class AnimationDemoActivity extends AppCompatActivity {
                 break;
             case R.id.text2:
                 AnimatorDemo.animatorKeyFrameInterpolator(text2);
+                break;
+            case R.id.custom_text:
+                AnimatorDemo.animatorCustomProperty(customText);
                 break;
         }
     }

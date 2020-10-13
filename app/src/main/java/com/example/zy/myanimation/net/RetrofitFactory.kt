@@ -1,4 +1,4 @@
-package com.example.zhaoy.eyepetizer.net
+package com.example.zy.myanimation.net
 
 import com.orhanobut.logger.Logger
 import io.reactivex.Observable

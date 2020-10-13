@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 break;
             case 12:
                 ToolUtils.startActivity(this, AnimationDemoActivity.class);
+                break;
             case 13:
                 ToolUtils.startActivity(this, BaiduShiTuActivity.class);
+                break;
             default:
                 break;
         }
