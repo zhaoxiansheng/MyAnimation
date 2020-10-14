@@ -128,10 +128,10 @@ public class CustomImageView extends View {
             mScaleY = scaleY;
 
             // TODO: 2020/10/12 使用width 或者 setX 选一
-//            mWidth = (int) (mWidth * (1f / scaleX));
-//            mHeight = (int) (mHeight * (1f / scaleY));
-            setX(getX() * (1f / scaleX));
-            setY(getY() * (1f / scaleY));
+            mWidth = (int) (mWidth * (1f / scaleX));
+            mHeight = (int) (mHeight * (1f / scaleY));
+//            setX(getX() * (1f / scaleX));
+//            setY(getY() * (1f / scaleY));
 
             mDstRect.left = (int) ((mCenterX - mOriginalImage.getWidth() / 2) / mScaleX);
             mDstRect.top = (int) ((mCenterY - mOriginalImage.getHeight() / 2) / mScaleY);
@@ -169,20 +169,20 @@ public class CustomImageView extends View {
 
     public void reset() {
         if (isChanged) {
-//            mWidth = (int) (mWidth * mScaleX);
-//            mHeight = (int) (mHeight * mScaleY);
-            setX(getX() * mScaleX);
-            setY(getY() * mScaleY);
+            mWidth = (int) (mWidth * mScaleX);
+            mHeight = (int) (mHeight * mScaleY);
+//            setX(getX() * mScaleX);
+//            setY(getY() * mScaleY);
 
             mDstRect.left = mCenterX - mOriginalImage.getWidth() / 2;
             mDstRect.top = mCenterY - mOriginalImage.getHeight() / 2;
             mDstRect.right = mCenterX + mOriginalImage.getWidth() / 2;
             mDstRect.bottom = mCenterY + mOriginalImage.getHeight() / 2;
 
-            mBackgroundRect.left = (int) (mBackgroundRect.left / mScaleX);
-            mBackgroundRect.top = (int) (mBackgroundRect.top / mScaleY);
-            mBackgroundRect.right = (int) (mBackgroundRect.right / mScaleX);
-            mBackgroundRect.bottom = (int) (mBackgroundRect.bottom / mScaleY);
+            mBackgroundRect.left = (int) (mBackgroundRect.left * mScaleX);
+            mBackgroundRect.top = (int) (mBackgroundRect.top * mScaleY);
+            mBackgroundRect.right = (int) (mBackgroundRect.right * mScaleX);
+            mBackgroundRect.bottom = (int) (mBackgroundRect.bottom * mScaleY);
 
             mScaleX = 1f;
             mScaleY = 1f;
