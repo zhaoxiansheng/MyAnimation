@@ -38,6 +38,8 @@ public class CustomImageView extends View {
 
     private String mName;
     private ColorDrawable mBackground;
+    private int mSrcCenterX;
+    private int mSrcCenterY;
 
     public CustomImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -94,10 +96,23 @@ public class CustomImageView extends View {
             mCenterX = mWidth / 2;
             mCenterY = mHeight / 2;
 
-            mDstRect.left = mCenterX - mOriginalImage.getWidth() / 2;
-            mDstRect.top = mCenterY - mOriginalImage.getHeight() / 2;
-            mDstRect.right = mCenterX + mOriginalImage.getWidth() / 2;
-            mDstRect.bottom = mCenterY + mOriginalImage.getHeight() / 2;
+            mSrcCenterX = mOriginalImage.getWidth() / 2;
+            mSrcCenterY = mOriginalImage.getHeight() / 2;
+
+            if (mCenterX >= mSrcCenterX) {
+                mDstRect.left = mCenterX - mSrcCenterX;
+                mDstRect.right = mCenterX + mSrcCenterX;
+            } else {
+                mDstRect.left = 0;
+                mDstRect.right = mWidth;
+            }
+            if (mCenterY >= mSrcCenterY) {
+                mDstRect.top = mCenterY - mSrcCenterY;
+                mDstRect.bottom = mCenterY + mSrcCenterY;
+            } else {
+                mDstRect.top = 0;
+                mDstRect.bottom = mHeight;
+            }
 
             mBackgroundRect.left = 0;
             mBackgroundRect.right = mWidth;
@@ -128,22 +143,34 @@ public class CustomImageView extends View {
             mScaleY = scaleY;
 
             // TODO: 2020/10/12 使用width 或者 setX 选一
-            mWidth = (int) (mWidth * (1f / scaleX));
-            mHeight = (int) (mHeight * (1f / scaleY));
+            mWidth = (int) (mWidth / scaleX);
+            mHeight = (int) (mHeight / scaleY);
 //            setX(getX() * (1f / scaleX));
 //            setY(getY() * (1f / scaleY));
 
-            mDstRect.left = (int) ((mCenterX - mOriginalImage.getWidth() / 2) / mScaleX);
-            mDstRect.top = (int) ((mCenterY - mOriginalImage.getHeight() / 2) / mScaleY);
-            mDstRect.right = (int) ((mCenterX + mOriginalImage.getWidth() / 2) / mScaleX);
-            mDstRect.bottom = (int) ((mCenterY + mOriginalImage.getHeight() / 2) / mScaleY);
+
+            if (mCenterX >= mSrcCenterX) {
+                mDstRect.left = (int) ((mCenterX - mSrcCenterX) / mScaleX);
+                mDstRect.right = (int) ((mCenterX + mSrcCenterX) / mScaleX);
+            } else {
+                mDstRect.left = 0;
+                mDstRect.right = mWidth;
+            }
+
+            if (mCenterY >= mSrcCenterY) {
+                mDstRect.top = (int) ((mCenterY - mSrcCenterY) / mScaleY);
+                mDstRect.bottom = (int) ((mCenterY + mSrcCenterY) / mScaleY);
+            } else {
+                mDstRect.top = 0;
+                mDstRect.bottom = mHeight;
+            }
 
             isChanged = true;
 
-            mBackgroundRect.left = (int) (mBackgroundRect.left * (1f / scaleX));
-            mBackgroundRect.top = (int) (mBackgroundRect.top * (1f / scaleY));
-            mBackgroundRect.right = (int) (mBackgroundRect.right * (1f / scaleX));
-            mBackgroundRect.bottom = (int) (mBackgroundRect.bottom * (1f / scaleY));
+            mBackgroundRect.left = (int) (mBackgroundRect.left / scaleX);
+            mBackgroundRect.top = (int) (mBackgroundRect.top / scaleY);
+            mBackgroundRect.right = (int) (mBackgroundRect.right / scaleX);
+            mBackgroundRect.bottom = (int) (mBackgroundRect.bottom / scaleY);
 
             requestLayout();
         }
@@ -174,10 +201,20 @@ public class CustomImageView extends View {
 //            setX(getX() * mScaleX);
 //            setY(getY() * mScaleY);
 
-            mDstRect.left = mCenterX - mOriginalImage.getWidth() / 2;
-            mDstRect.top = mCenterY - mOriginalImage.getHeight() / 2;
-            mDstRect.right = mCenterX + mOriginalImage.getWidth() / 2;
-            mDstRect.bottom = mCenterY + mOriginalImage.getHeight() / 2;
+            if (mCenterX >= mSrcCenterX) {
+                mDstRect.left = mCenterX - mSrcCenterX;
+                mDstRect.right = mCenterX + mSrcCenterX;
+            } else {
+                mDstRect.left = 0;
+                mDstRect.right = mWidth;
+            }
+            if (mCenterY >= mSrcCenterY) {
+                mDstRect.top = mCenterY - mSrcCenterY;
+                mDstRect.bottom = mCenterY + mSrcCenterY;
+            } else {
+                mDstRect.top = 0;
+                mDstRect.bottom = mHeight;
+            }
 
             mBackgroundRect.left = (int) (mBackgroundRect.left * mScaleX);
             mBackgroundRect.top = (int) (mBackgroundRect.top * mScaleY);

@@ -37,7 +37,7 @@ public class ToolBarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         WindowManager.LayoutParams windowParams = getWindow().getAttributes();
-        windowParams.width = 800;
+        windowParams.width = 200;
         getWindow().setAttributes(windowParams);
 
 
@@ -86,7 +86,7 @@ public class ToolBarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 content.setScaleX(mScale);
-                content.setPivotX(800);
+                content.setPivotX(200);
 
                 customImageView.handlerScale(mScale, 1f);
                 customImageView1.handlerScale(mScale, 1f);
