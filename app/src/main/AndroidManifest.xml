@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ToolBarActivity"></activity>
+        <activity android:name=".activity.ScreenShotActivity"></activity>
+        <activity android:name=".activity.RecyclerBitmapActivity" />
+        <activity android:name=".activity.ToolBarActivity" />
         <activity android:name=".activity.AnimationDemoActivity" />
         <activity android:name=".activity.TransitionManagerActivity" />
         <activity android:name=".activity.ReversalActivity" />
@@ -39,5 +41,9 @@
             android:name=".service.BookManagerService"
             android:process=":remote2" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

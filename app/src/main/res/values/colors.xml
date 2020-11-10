@@ -27,4 +27,7 @@
     <color name="colorRed">#b52913</color>
     <color name="colorGreen">#009687</color>
     <color name="colorOrange">#ff5505</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="quarter_transparent">#7f000000</color>
 </resources>

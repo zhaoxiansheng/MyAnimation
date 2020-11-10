@@ -15,7 +15,8 @@
     <string name="transition_manager_test">TransitionManager Test</string>
     <string name="animator_demo">animator demo</string>
     <string name="toolbar">ToolBar</string>
-    <string name="baidu_shitu">百度识图</string>
+    <string name="recycler_bitmap">bitmap复用</string>
+    <string name="screen_shot">截图</string>
 
     <string name="start_anim">开始动画</string>
     <string name="end_anim">结束动画</string>

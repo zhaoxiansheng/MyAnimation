@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.transition_manager_test,
             R.string.animator_demo,
             R.string.toolbar,
-            R.string.baidu_shitu,
+            R.string.recycler_bitmap,
+            R.string.screen_shot,
     };
 
     @Override
@@ -103,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 break;
             case 13:
                 ToolUtils.startActivity(this, ToolBarActivity.class);
+                break;
+            case 14:
+                ToolUtils.startActivity(this, RecyclerBitmapActivity.class);
+                break;
+            case 15:
+                ToolUtils.startActivity(this, ScreenShotActivity.class);
                 break;
             default:
                 break;
