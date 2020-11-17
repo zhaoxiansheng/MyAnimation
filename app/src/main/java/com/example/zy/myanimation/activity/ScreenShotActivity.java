@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -47,6 +48,9 @@ public class ScreenShotActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
+
         setContentView(R.layout.activity_screen_shot);
         ButterKnife.bind(this);
 

@@ -12,7 +12,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -63,6 +62,9 @@ public class MarkSizeView extends View {
     private boolean isValid = false;
     private boolean isUp = false;
     private boolean isMoveMode = false;
+    /**
+     * 是否是大小调整
+     */
     private boolean isAdjustMode = false;
     private boolean isButtonClicked = false;
     private int adjustNum = 0;
@@ -73,6 +75,12 @@ public class MarkSizeView extends View {
 
     private boolean isMarkRect = true;
     private GraphicPath mGraphicPath;
+
+    private Bitmap mBitmap;
+
+    private boolean ltr, ttb;
+
+    private boolean isConfirmOrientation;
 
     public MarkSizeView(Context context) {
         super(context);
@@ -105,7 +113,7 @@ public class MarkSizeView extends View {
 
         markPaint = new Paint();
         markPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        markPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+        markPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
         markPaint.setColor(markedColor);
         markPaint.setStrokeWidth(strokeWidth);
         markPaint.setAntiAlias(true);
@@ -139,18 +147,18 @@ public class MarkSizeView extends View {
     protected void onDraw(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
-        //draw unmarked
+
+        if (mBitmap != null) {
+            canvas.drawBitmap(mBitmap, 0, 0, mBitPaint);
+        }
+
         canvas.drawRect(0, 0, width, height, unMarkPaint);
 
         //draw marked
         if (isMarkRect) {
             if (isValid || !isEnabled()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    canvas.saveLayerAlpha(markedArea.left, markedArea.top, markedArea.right, markedArea.bottom, 0);
-                    canvas.drawRect(markedArea, markPaint);
-                    canvas.restore();
-                } else {
-                    canvas.drawRect(markedArea, markPaint);
+                if (mBitmap != null) {
+                    canvas.drawBitmap(mBitmap, markedArea, markedArea, mBitPaint);
                 }
             }
             if (!isEnabled()) {
@@ -211,210 +219,203 @@ public class MarkSizeView extends View {
         if (!isEnabled()) {
             return false;
         }
-        int x = (int) event.getX();
-        int y = (int) event.getY();
 
         if (isMarkRect) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    isUp = false;
-                    isAdjustMode = false;
-                    isMoveMode = false;
-                    isButtonClicked = false;
-                    isValid = false;
-                    adjustNum = 0;
-                    downX = x;
-                    downY = y;
-                    if (mOnClickListener != null) {
-                        mOnClickListener.onTouch();
-                    }
-                    if (isAreaContainPoint(confirmArea, x, y)) {
-                        isButtonClicked = true;
-                        isValid = true;
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onConfirm(markedArea);
-                        }
-                    } else if (isAreaContainPoint(cancelArea, x, y)) {
-                        isButtonClicked = true;
-                        isValid = true;
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onCancel();
-                            isValid = false;
-                            startX = startY = endX = endY = 0;
-                            adjustMark(0, 0);
-                        }
-                    } else if (isAreaContainPoint(ltVer, x, y)) {
-                        isAdjustMode = true;
-                        adjustNum = 1;
-                    } else if (isAreaContainPoint(rtVer, x, y)) {
-                        isAdjustMode = true;
-                        adjustNum = 2;
-                    } else if (isAreaContainPoint(lbVer, x, y)) {
-                        isAdjustMode = true;
-                        adjustNum = 3;
-                    } else if (isAreaContainPoint(rbVer, x, y)) {
-                        isAdjustMode = true;
-                        adjustNum = 4;
-                    } else if (markedArea.contains(x, y)) {
-                        isMoveMode = true;
-                    } else {
-                        isMoveMode = false;
-                        startX = (int) event.getX();
-                        startY = (int) event.getY();
-                        endX = startX;
-                        endY = startY;
-                    }
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (isButtonClicked) {
-                        break;
-                    }
-                    adjustMark(x, y);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    isUp = true;
-                    if (isButtonClicked) {
-                        break;
-                    }
-                    adjustMark(x, y);
-                    startX = markedArea.left;
-                    startY = markedArea.top;
-                    endX = markedArea.right;
-                    endY = markedArea.bottom;
-
-                    if (markedArea.width() > confirmBitmap.getWidth() * 3 + mActionGap * 3 && markedArea.height() > confirmBitmap.getHeight() * 5) {
-                        //显示在选区的内底部
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, endY - mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY - mActionGap);
-                    } else if (endY > getHeight() - confirmBitmap.getHeight() * 3) {
-                        //显示在选区的上面
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, startY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, startY - mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, startY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, startY - mActionGap);
-                    } else {
-                        //显示在选区的下面
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY + mActionGap, endX - mActionGap, endY + confirmBitmap.getHeight() + mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY + mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY + confirmBitmap.getHeight() + mActionGap);
-                    }
-
-                    if (cancelArea.left < 0) {
-                        int cancelAreaLeftMargin = Math.abs(cancelArea.left) + mActionGap;
-                        cancelArea.left = cancelArea.left + cancelAreaLeftMargin;
-                        cancelArea.right = cancelArea.right + cancelAreaLeftMargin;
-                        confirmArea.left = confirmArea.left + cancelAreaLeftMargin;
-                        confirmArea.right = confirmArea.right + cancelAreaLeftMargin;
-                    }
-
-                    if (!isValid) {
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onCancel();
-                        }
-                    }
-
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                    isUp = true;
-                    break;
-            }
+            isMarkEvent(event);
         } else {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    isUp = false;
-                    isAdjustMode = false;
-                    isMoveMode = false;
-                    isButtonClicked = false;
-                    isValid = false;
-                    adjustNum = 0;
-                    downX = x;
-                    downY = y;
-                    if (mOnClickListener != null) {
-                        mOnClickListener.onTouch();
-                    }
-                    if (isAreaContainPoint(confirmArea, x, y)) {
-                        isButtonClicked = true;
-                        isValid = true;
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onConfirm(mGraphicPath);
-                        }
-                    } else if (isAreaContainPoint(cancelArea, x, y)) {
-                        isButtonClicked = true;
-                        isValid = true;
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onCancel();
-                            isValid = false;
-                            startX = startY = endX = endY = 0;
-                            adjustMark(0, 0);
-                        }
-                        mGraphicPath.clear();
-                    } else {
-                        isMoveMode = false;
-                        startX = (int) event.getX();
-                        startY = (int) event.getY();
-                        endX = startX;
-                        endY = startY;
-                        mGraphicPath.clear();
-                        mGraphicPath.addPath(x, y);
-
-                    }
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (isButtonClicked) {
-                        break;
-                    }
-                    mGraphicPath.addPath(x, y);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    isUp = true;
-                    if (isButtonClicked) {
-                        break;
-                    }
-                    mGraphicPath.addPath(x, y);
-
-                    startX = mGraphicPath.getLeft();
-                    startY = mGraphicPath.getTop();
-                    endX = mGraphicPath.getRight();
-                    endY = mGraphicPath.getBottom();
-
-                    if ((endX - startX) * (endY - startY) > 200) {
-                        isValid = true;
-                    }
-                    markedArea.set(startX, startY, endX, endY);
-                    if (endY < getHeight() - confirmBitmap.getHeight() * 3) {
-                        //显示在选区的下面
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY + mActionGap, endX - mActionGap, endY + confirmBitmap.getHeight() + mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY + mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY + confirmBitmap.getHeight() + mActionGap);
-                    } else if (startY > confirmBitmap.getHeight() * 3) {
-                        //显示在选区的上面
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, startY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, startY - mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, startY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, startY - mActionGap);
-                    } else
-//                    if (markedArea.width() > confirmBitmap.getWidth() * 3 + mActionGap * 3 && markedArea.height() > confirmBitmap.getHeight() * 5)
-                    {
-                        //显示在选区的内底部
-                        confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, endY - mActionGap);
-                        cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY - mActionGap);
-                    }
-
-                    if (cancelArea.left < 0) {
-                        int cancelAreaLeftMargin = Math.abs(cancelArea.left) + mActionGap;
-                        cancelArea.left = cancelArea.left + cancelAreaLeftMargin;
-                        cancelArea.right = cancelArea.right + cancelAreaLeftMargin;
-                        confirmArea.left = confirmArea.left + cancelAreaLeftMargin;
-                        confirmArea.right = confirmArea.right + cancelAreaLeftMargin;
-                    }
-                    if (!isValid) {
-                        if (mOnClickListener != null) {
-                            mOnClickListener.onCancel();
-                        }
-                    }
-
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                    isUp = true;
-                    break;
-            }
+            notMarkEvent(event);
         }
         postInvalidate();
         return true;
+    }
+
+    private void isMarkEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isUp = false;
+                isAdjustMode = false;
+                isMoveMode = false;
+                isButtonClicked = false;
+                adjustNum = 0;
+                downX = x;
+                downY = y;
+                if (mOnClickListener != null) {
+                    mOnClickListener.onTouch();
+                }
+                if (isAreaContainPoint(confirmArea, x, y)) {
+                    isButtonClicked = true;
+                    isValid = true;
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onConfirm(markedArea);
+                    }
+                } else if (isAreaContainPoint(cancelArea, x, y)) {
+                    isButtonClicked = true;
+                    isValid = true;
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onCancel();
+                        isValid = false;
+                        startX = startY = endX = endY = 0;
+                        adjustMark(0, 0);
+                    }
+                } else if (isAreaContainPoint(ltVer, x, y)) {
+                    isAdjustMode = true;
+                    adjustNum = 1;
+                } else if (isAreaContainPoint(rtVer, x, y)) {
+                    isAdjustMode = true;
+                    adjustNum = 2;
+                } else if (isAreaContainPoint(lbVer, x, y)) {
+                    isAdjustMode = true;
+                    adjustNum = 3;
+                } else if (isAreaContainPoint(rbVer, x, y)) {
+                    isAdjustMode = true;
+                    adjustNum = 4;
+                } else if (markedArea.contains(x, y)) {
+                    isMoveMode = true;
+                } else {
+                    isMoveMode = false;
+                    startX = (int) event.getX();
+                    startY = (int) event.getY();
+                    endX = startX;
+                    endY = startY;
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (isButtonClicked) {
+                    break;
+                }
+                adjustMark(x, y);
+                break;
+            case MotionEvent.ACTION_UP:
+                isUp = true;
+                if (isButtonClicked) {
+                    break;
+                }
+                adjustMark(x, y);
+
+                confirmOrientation();
+
+                startX = markedArea.left;
+                startY = markedArea.top;
+                endX = markedArea.right;
+                endY = markedArea.bottom;
+
+                confirmButtonArea();
+
+                if (!isValid) {
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onCancel();
+                    }
+                }
+
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                isUp = true;
+                break;
+        }
+    }
+
+    private void notMarkEvent(MotionEvent event) {
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                isUp = false;
+                isAdjustMode = false;
+                isMoveMode = false;
+                isButtonClicked = false;
+                adjustNum = 0;
+                downX = x;
+                downY = y;
+                if (mOnClickListener != null) {
+                    mOnClickListener.onTouch();
+                }
+                if (isAreaContainPoint(confirmArea, x, y)) {
+                    isButtonClicked = true;
+                    isValid = true;
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onConfirm(mGraphicPath);
+                    }
+                } else if (isAreaContainPoint(cancelArea, x, y)) {
+                    isButtonClicked = true;
+                    isValid = true;
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onCancel();
+                        isValid = false;
+                        startX = startY = endX = endY = 0;
+                        adjustMark(0, 0);
+                    }
+                    mGraphicPath.clear();
+                } else {
+                    isMoveMode = false;
+                    startX = (int) event.getX();
+                    startY = (int) event.getY();
+                    endX = startX;
+                    endY = startY;
+                    mGraphicPath.clear();
+                    mGraphicPath.addPath(x, y);
+
+                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (isButtonClicked) {
+                    break;
+                }
+                mGraphicPath.addPath(x, y);
+                break;
+            case MotionEvent.ACTION_UP:
+                isUp = true;
+                if (isButtonClicked) {
+                    break;
+                }
+                mGraphicPath.addPath(x, y);
+
+                startX = mGraphicPath.getLeft();
+                startY = mGraphicPath.getTop();
+                endX = mGraphicPath.getRight();
+                endY = mGraphicPath.getBottom();
+
+                if ((endX - startX) * (endY - startY) > 200) {
+                    isValid = true;
+                }
+                markedArea.set(startX, startY, endX, endY);
+                if (endY < getHeight() - confirmBitmap.getHeight() * 3) {
+                    //显示在选区的下面
+                    confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY + mActionGap, endX - mActionGap, endY + confirmBitmap.getHeight() + mActionGap);
+                    cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY + mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY + confirmBitmap.getHeight() + mActionGap);
+                } else if (startY > confirmBitmap.getHeight() * 3) {
+                    //显示在选区的上面
+                    confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, startY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, startY - mActionGap);
+                    cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, startY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, startY - mActionGap);
+                } else
+//                    if (markedArea.width() > confirmBitmap.getWidth() * 3 + mActionGap * 3 && markedArea.height() > confirmBitmap.getHeight() * 5)
+                {
+                    //显示在选区的内底部
+                    confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, endY - mActionGap);
+                    cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY - mActionGap);
+                }
+
+                if (cancelArea.left < 0) {
+                    int cancelAreaLeftMargin = Math.abs(cancelArea.left) + mActionGap;
+                    cancelArea.left = cancelArea.left + cancelAreaLeftMargin;
+                    cancelArea.right = cancelArea.right + cancelAreaLeftMargin;
+                    confirmArea.left = confirmArea.left + cancelAreaLeftMargin;
+                    confirmArea.right = confirmArea.right + cancelAreaLeftMargin;
+                }
+                if (!isValid) {
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onCancel();
+                    }
+                }
+
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                isUp = true;
+                break;
+        }
     }
 
     private boolean isAreaContainPoint(Rect area, int x, int y) {
@@ -469,6 +470,10 @@ public class MarkSizeView extends View {
             endY = y;
         }
         markedArea.set(Math.min(startX, endX), Math.min(startY, endY), Math.max(startX, endX), Math.max(startY, endY));
+
+        markedArea.set(Math.max(markedArea.left, getLeft()), Math.max(markedArea.top, getTop())
+                , Math.min(markedArea.right, getRight()), Math.min(markedArea.bottom, getBottom()));
+
         ltVer.set(markedArea.left - (vertexWidth >> 1), markedArea.top - (vertexWidth >> 1), markedArea.left + (vertexWidth >> 1), markedArea.top + (vertexWidth >> 1));
         rtVer.set(markedArea.right - (vertexWidth >> 1), markedArea.top - (vertexWidth >> 1), markedArea.right + (vertexWidth >> 1), markedArea.top + (vertexWidth >> 1));
         lbVer.set(markedArea.left - (vertexWidth >> 1), markedArea.bottom - (vertexWidth >> 1), markedArea.left + (vertexWidth >> 1), markedArea.bottom + (vertexWidth >> 1));
@@ -496,21 +501,94 @@ public class MarkSizeView extends View {
         invalidate();
     }
 
+    public void setMarkedColor(int markedColor) {
+        this.markedColor = markedColor;
+        markPaint.setColor(markedColor);
+        invalidate();
+    }
+
+    public void setBitmap(Bitmap mBitmap) {
+        this.mBitmap = mBitmap;
+        invalidate();
+    }
+
+    public Bitmap getBitmap() {
+        return mBitmap;
+    }
+
     public void reset() {
         isUp = false;
         isValid = false;
         startX = startY = endX = endY = 0;
         mGraphicPath = new GraphicPath();
         adjustMark(0, 0);
+        mBitmap = null;
+        isConfirmOrientation = false;
     }
 
     public void setIsMarkRect(boolean isMarkRect) {
         this.isMarkRect = isMarkRect;
     }
 
+    private void confirmOrientation() {
+        if (!isConfirmOrientation) {
+            isConfirmOrientation = true;
+            ltr = startX <= endX;
+            ttb = startY <= endY;
+        }
+    }
+
+    private void confirmButtonArea() {
+        if (ltr && ttb) {
+            if (getBottom() - endY < confirmBitmap.getHeight() + mActionGap) {
+                //显示在选区的内底部
+                confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, endY - mActionGap);
+                cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY - mActionGap);
+            } else {
+                //显示在选区的下面
+                confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY + mActionGap, endX - mActionGap, endY + confirmBitmap.getHeight() + mActionGap);
+                cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY + mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY + confirmBitmap.getHeight() + mActionGap);
+            }
+        }
+        if (ltr && !ttb) {
+            if (startY - getTop() < confirmBitmap.getHeight() + mActionGap) {
+                //显示在选区的内底部
+                confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, endY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, endY - mActionGap);
+                cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, endY - mActionGap);
+            } else {
+                //显示在选区的上面
+                confirmArea.set(endX - confirmBitmap.getWidth() - mActionGap, startY - confirmBitmap.getHeight() - mActionGap, endX - mActionGap, startY - mActionGap);
+                cancelArea.set(endX - 2 * confirmBitmap.getWidth() - mActionGap * 2, startY - confirmBitmap.getHeight() - mActionGap, endX - confirmBitmap.getWidth() - mActionGap * 2, startY - mActionGap);
+            }
+        }
+
+        if (!ltr && ttb) {
+            if (getBottom() - endY < confirmBitmap.getHeight() + mActionGap) {
+                //显示在选区的内底部
+                confirmArea.set(startX + mActionGap, endY - confirmBitmap.getHeight() - mActionGap, startX + confirmBitmap.getWidth() + mActionGap, endY - mActionGap);
+                cancelArea.set(startX + confirmBitmap.getWidth() + mActionGap * 2, endY - confirmBitmap.getHeight() - mActionGap, startX + 2 * confirmBitmap.getWidth() + mActionGap * 2, endY - mActionGap);
+            } else {
+                //显示在选区的下面
+                confirmArea.set(startX + mActionGap, endY + mActionGap, startX + confirmBitmap.getWidth() + mActionGap, endY + confirmBitmap.getHeight() + mActionGap);
+                cancelArea.set(startX + confirmBitmap.getWidth() + mActionGap * 2, endY + mActionGap, startX + confirmBitmap.getWidth() * 2 + mActionGap * 2, endY + confirmBitmap.getHeight() + mActionGap);
+            }
+        }
+        if (!ltr && !ttb) {
+            if (startY - getTop() < confirmBitmap.getHeight() + mActionGap) {
+                //显示在选区的内底部
+                confirmArea.set(startX + mActionGap, startY + mActionGap, startX + confirmBitmap.getWidth() + mActionGap, startY + confirmBitmap.getHeight() + mActionGap);
+                cancelArea.set(startX + confirmBitmap.getWidth() + mActionGap * 2, startY + mActionGap, startX + 2 * confirmBitmap.getWidth() + mActionGap * 2, startY + confirmBitmap.getHeight() + mActionGap);
+            } else {
+                //显示在选区的上面
+                confirmArea.set(startX + mActionGap, startY - confirmBitmap.getHeight() - mActionGap, startX + confirmBitmap.getWidth() + mActionGap, startY - mActionGap);
+                cancelArea.set(startX + confirmBitmap.getWidth() + mActionGap * 2, startY - confirmBitmap.getHeight() - mActionGap, startX + 2 * confirmBitmap.getWidth() + mActionGap * 2, startY - mActionGap);
+            }
+        }
+    }
+
     public static class GraphicPath implements Parcelable {
 
-        protected GraphicPath(Parcel in) {
+        GraphicPath(Parcel in) {
             int size = in.readInt();
             int[] x = new int[size];
             int[] y = new int[size];
@@ -519,12 +597,12 @@ public class MarkSizeView extends View {
             pathX = new ArrayList<>();
             pathY = new ArrayList<>();
 
-            for (int i = 0; i < x.length; i++) {
-                pathX.add(x[i]);
+            for (int item : x) {
+                pathX.add(item);
             }
 
-            for (int i = 0; i < y.length; i++) {
-                pathY.add(y[i]);
+            for (int value : y) {
+                pathY.add(value);
             }
         }
 
@@ -552,10 +630,10 @@ public class MarkSizeView extends View {
             dest.writeIntArray(getYArray());
         }
 
-        public List<Integer> pathX;
-        public List<Integer> pathY;
+        List<Integer> pathX;
+        List<Integer> pathY;
 
-        public GraphicPath() {
+        GraphicPath() {
             pathX = new ArrayList<>();
             pathY = new ArrayList<>();
         }
@@ -576,7 +654,7 @@ public class MarkSizeView extends View {
             return y;
         }
 
-        public void addPath(int x, int y) {
+        void addPath(int x, int y) {
             pathX.add(x);
             pathY.add(y);
         }
@@ -629,6 +707,5 @@ public class MarkSizeView extends View {
         public int size() {
             return pathY.size();
         }
-
     }
 }
