@@ -1,3 +1,4 @@
+include ':leetcode'
 include ':app'
 include ':pipeline-annotations', ':pipeline-compiler'
 include ':extension'
