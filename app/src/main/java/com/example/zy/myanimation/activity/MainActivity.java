@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.toolbar,
             R.string.recycler_bitmap,
             R.string.screen_shot,
+            R.string.navigation_demo,
     };
 
     @Override
@@ -111,6 +112,8 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             case 15:
                 ToolUtils.startActivity(this, ScreenShotActivity.class);
                 break;
+            case 16:
+                ToolUtils.startActivity(this, NavigationActivity.class);
             default:
                 break;
         }

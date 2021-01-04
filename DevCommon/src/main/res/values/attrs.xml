@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundedFrameLayout">
+        <attr name="radius" format="dimension" />
+        <attr name="topLeftRadius" format="dimension" />
+        <attr name="topRightRadius" format="dimension" />
+        <attr name="bottomLeftRadius" format="dimension" />
+        <attr name="bottomRightRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="PercentAttr">
+        <attr name="percent_width" format="fraction" />
+        <attr name="percent_height" format="fraction" />
+        <attr name="percent_marginLeft" format="fraction" />
+        <attr name="percent_marginRight" format="fraction" />
+        <attr name="percent_marginTop" format="fraction" />
+        <attr name="percent_marginBottom" format="fraction" />
+    </declare-styleable>
+
+    <declare-styleable name="LightProgressView">
+        <attr name="lpv_halo_height" format="dimension" />
+        <attr name="lpv_halo_width" format="dimension" />
+        <attr name="lpv_num_of_halo" format="integer" />
+        <attr name="lpv_magicnum" format="float" />
+        <attr name="lpv_moon_color" format="color" />
+        <attr name="lpv_halo_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="VolumeProgressView">
+        <attr name="vpv_halo_height" format="dimension" />
+        <attr name="vpv_halo_width" format="dimension" />
+        <attr name="vpv_num_of_halo" format="integer" />
+        <attr name="vpv_volume_low" format="integer" />
+        <attr name="vpv_volume_medium" format="integer" />
+        <attr name="vpv_volume_high" format="integer" />
+        <attr name="vpv_halo_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MarkSizeView">
+        <attr name="markedColor" format="color"/>
+        <attr name="unMarkedColor" format="color"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="vertexColor" format="color"/>
+        <attr name="vertexWidth" format="dimension"/>
+        <attr name="confirmButtonRes" format="reference"/>
+        <attr name="cancleButtonRes" format="reference"/>
+    </declare-styleable>
+</resources>

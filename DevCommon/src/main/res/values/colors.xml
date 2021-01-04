@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launcher_bg_color_home_start">#93959D</color>
+    <color name="launcher_bg_color_home_end">#332E33</color>
+    <color name="launcher_bg_color_media_start">#F05F7C</color>
+    <color name="launcher_bg_color_media_end">#30324A</color>
+    <color name="launcher_bg_color_navi_start">#5FB6A9</color>
+    <color name="launcher_bg_color_navi_end">#5A385F</color>
+
+    <color name="dock_bg_color_home_start">#9597A0</color>
+    <color name="dock_bg_color_home_end">#343035</color>
+    <color name="dock_bg_color_media_start">#E85E7A</color>
+    <color name="dock_bg_color_media_end">#4D4F60</color>
+    <color name="dock_bg_color_navi_start">#61F4CD</color>
+    <color name="dock_bg_color_navi_end">#5A3860</color>
+
+    <color name="text_black">#000000</color>
+
+    <color name="quarter_transparent">#7f000000</color>
+</resources>

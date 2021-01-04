@@ -41,9 +41,9 @@ public class RecyclerBitmapActivity extends AppCompatActivity {
         arrayList.add(getResources().getDrawable(R.drawable.micphone));
         arrayList.add(getResources().getDrawable(R.drawable.car));
         arrayList.add(getResources().getDrawable(R.drawable.camera));
-//        arrayList.add(getResources().getDrawable(R.drawable.bg));
+        arrayList.add(getResources().getDrawable(R.drawable.bg));
 
-        Observable<Drawable> listObservable = Observable.fromIterable(arrayList);
+      /*  Observable<Drawable> listObservable = Observable.fromIterable(arrayList);
         Observable<Long> timeObservable = Observable.interval(300, TimeUnit.MILLISECONDS);
         Observable.zip(listObservable, timeObservable, new BiFunction<Drawable, Long, Object>() {
             @Override
@@ -53,7 +53,7 @@ public class RecyclerBitmapActivity extends AppCompatActivity {
                 return aLong;
             }
         }).observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe();*/
     }
 
     @Override

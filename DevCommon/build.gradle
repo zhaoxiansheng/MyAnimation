@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+
+    compileOnly files('libs/fakeframework.jar')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //implementation(name: 'libReflection', ext: 'aar')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(path: ':smartcard')
+    implementation group: 'org.ujmp', name: 'ujmp-core', version: '0.3.0'
+    implementation 'top.zibin:Luban:1.1.8'
+
+    implementation 'com.github.razerdp:BasePopup:2.2.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+}

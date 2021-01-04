@@ -41,4 +41,6 @@
     <dimen name="limit_height">816dp</dimen>
     <dimen name="limit_width">1416dp</dimen>
     <dimen name="limit_high_width">1720dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
 </resources>

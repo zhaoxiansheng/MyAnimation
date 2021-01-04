@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zinc.libpermission">
+
+    <application>
+        <activity
+            android:name="com.fusion.ajpermission.JPermissionActivity"
+            android:theme="@style/LauncherTranslucent"/>
+    </application>
+</manifest>
