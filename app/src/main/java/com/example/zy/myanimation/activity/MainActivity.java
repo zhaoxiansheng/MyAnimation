@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 ToolUtils.startActivity(this, ScreenShotActivity.class);
                 break;
             case 16:
-                ToolUtils.startActivity(this, NavigationActivity.class);
+                ToolUtils.startActivity(this, JetpackActivity.class);
             default:
                 break;
         }

@@ -3,14 +3,12 @@ package com.example.zy.myanimation.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.zy.myanimation.R;
 
-public class NavigationActivity extends AppCompatActivity {
+public class JetpackActivity extends AppCompatActivity {
 
-    private static final String TAG = NavigationActivity.class.getSimpleName();
-    private int[] mData = new int[]{8, 4, 5, 10, 9, 6, 12, 7, 3, 11};
+    private static final String TAG = JetpackActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
