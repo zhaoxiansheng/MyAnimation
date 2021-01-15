@@ -8,8 +8,6 @@ import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.view.reversal.EasyFlipView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ReversalActivity extends AppCompatActivity {
 
@@ -20,14 +18,14 @@ public class ReversalActivity extends AppCompatActivity {
         }
     });
 
-    @BindView(R.id.flip_view)
     EasyFlipView flipView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reversal);
-        ButterKnife.bind(this);
+        flipView = findViewById(R.id.flip_view);
+
         flipView.setFlipTypeFromLeft();
     }
 

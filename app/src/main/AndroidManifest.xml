@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.JetpackActivity" />
         <activity android:name=".activity.ScreenShotActivity" />
         <activity android:name=".activity.RecyclerBitmapActivity" />
         <activity android:name=".activity.ToolBarActivity" />
@@ -33,7 +32,6 @@
         <activity android:name=".activity.StretchableActivity" />
         <activity android:name=".activity.LottieActivity" />
         <activity android:name=".activity.GpuImageActivity" />
-        <activity android:name=".activity.RecyclerViewActivity" />
 
         <service
             android:name=".service.MessengerService"

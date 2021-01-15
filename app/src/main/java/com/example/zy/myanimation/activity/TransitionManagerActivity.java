@@ -1,7 +1,6 @@
 package com.example.zy.myanimation.activity;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -23,20 +22,14 @@ import com.example.zy.myanimation.view.lifecycle.scene.CustomChoreographer;
 import java.util.ArrayList;
 
 import androidx.annotation.RequiresApi;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.transition.TransitionSet.ORDERING_TOGETHER;
 
 public class TransitionManagerActivity extends Activity {
 
-    @BindView(R.id.view_container)
     CustomLinearLayout viewContainer;
-    @BindView(R.id.img)
     ImageView img;
-    @BindView(R.id.img1)
     CustomImageView img1;
-    @BindView(R.id.img2)
     ImageView img2;
 
     private boolean mTemp;
@@ -64,7 +57,11 @@ public class TransitionManagerActivity extends Activity {
         winParams.gravity = Gravity.LEFT;
         getWindow().setAttributes(winParams);
         setContentView(R.layout.activity_transition_manager);
-        ButterKnife.bind(this);
+
+        viewContainer = findViewById(R.id.view_container);
+        img = findViewById(R.id.img);
+        img1 = findViewById(R.id.img1);
+        img2 = findViewById(R.id.img2);
 
         init();
 

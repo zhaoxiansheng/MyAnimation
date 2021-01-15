@@ -2,7 +2,6 @@ package com.example.zy.myanimation.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,20 +24,15 @@ import com.example.zy.myanimation.view.recycler.utils.Utils;
 import java.lang.reflect.Field;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ScreenShotActivity extends AppCompatActivity {
 
     private final int REQUEST_MEDIA_PROJECTION = 1;
-    @BindView(R.id.image)
+
     ImageView image;
-    @BindView(R.id.screen_shot)
     Button screenShot;
-    @BindView(R.id.screen_get)
     Button screenGet;
-    @BindView(R.id.mark_size)
     MarkSizeView markSizeView;
 
     private boolean isMarkRect = true;
@@ -52,7 +46,14 @@ public class ScreenShotActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
 
         setContentView(R.layout.activity_screen_shot);
-        ButterKnife.bind(this);
+
+        image = findViewById(R.id.image);
+
+        screenShot = findViewById(R.id.screen_shot);
+
+        screenGet = findViewById(R.id.screen_get);
+
+        markSizeView = findViewById(R.id.mark_size);
 
         ScreenShotUtils.requestMediaProjection(this, REQUEST_MEDIA_PROJECTION);
 

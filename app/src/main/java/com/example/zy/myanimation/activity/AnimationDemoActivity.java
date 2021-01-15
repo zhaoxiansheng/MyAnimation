@@ -9,10 +9,8 @@ import com.example.zy.myanimation.anim.demo.AnimatorDemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class AnimationDemoActivity extends AppCompatActivity {
+public class AnimationDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.text)
     TextView text;
@@ -27,11 +25,20 @@ public class AnimationDemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation_demo);
-        ButterKnife.bind(this);
+
+        text1 = findViewById(R.id.text1);
+        text2 = findViewById(R.id.text2);
+        text = findViewById(R.id.text);
+        customText = findViewById(R.id.custom_text);
+
+        text.setOnClickListener(this);
+        text1.setOnClickListener(this);
+        text2.setOnClickListener(this);
+        customText.setOnClickListener(this);
     }
 
-    @OnClick({R.id.text, R.id.text1, R.id.text2, R.id.custom_text})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.text:
                 AnimatorDemo.animatorProperties(text);

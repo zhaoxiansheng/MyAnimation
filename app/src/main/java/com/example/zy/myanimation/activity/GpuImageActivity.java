@@ -9,16 +9,12 @@ import android.widget.SeekBar;
 import com.example.zy.myanimation.R;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageSaturationFilter;
 
 public class GpuImageActivity extends AppCompatActivity {
 
-    @BindView(R.id.gpu_image)
     ImageView gpuImage;
-    @BindView(R.id.gpu_image_seek_bar)
     SeekBar gpuImageSeekBar;
     private GPUImage gpuImg;
 
@@ -26,7 +22,10 @@ public class GpuImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpu_image);
-        ButterKnife.bind(this);
+
+        gpuImage = findViewById(R.id.gpu_image);
+
+        gpuImageSeekBar = findViewById(R.id.gpu_image_seek_bar);
 
         init();
     }

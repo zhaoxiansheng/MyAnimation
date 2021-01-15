@@ -1,7 +1,11 @@
 package com.example.leetcode.pattern;
 
+import android.util.Log;
+
 //策略模式
 public class StrategyPattern {
+
+    private static final String TAG = StrategyPattern.class.getSimpleName();
 
     public abstract class Duck {
 
@@ -70,7 +74,13 @@ public class StrategyPattern {
 
         public MallardDuck() {
             flyBehavior = new FlyWithWings();
-            QuackBehavior = new Quack();
+            quackBehavior = new Quack();
+        }
+
+        @Override
+        protected void display() {
+            flyBehavior.fly();
+            quackBehavior.quack();
         }
     }
 }

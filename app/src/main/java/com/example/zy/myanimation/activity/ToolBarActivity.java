@@ -14,8 +14,6 @@ import com.example.zy.myanimation.view.longbitmap.CustomImageView;
 import com.example.zy.myanimation.view.longbitmap.CustomLinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -24,7 +22,6 @@ public class ToolBarActivity extends AppCompatActivity {
 
     private float mScale = 0.5f;
 
-    @BindView(R.id.content)
     CustomLinearLayout content;
 
     private CustomImageView customImageView;
@@ -42,7 +39,9 @@ public class ToolBarActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_toolbar);
-        ButterKnife.bind(this);
+
+
+        content = findViewById(R.id.content);
 
         content.setClipChildren(false);
 

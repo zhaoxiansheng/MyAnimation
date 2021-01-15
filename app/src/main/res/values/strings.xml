@@ -17,7 +17,6 @@
     <string name="toolbar">ToolBar</string>
     <string name="recycler_bitmap">bitmap复用</string>
     <string name="screen_shot">截图</string>
-    <string name="navigation_demo">jetpack</string>
 
     <string name="start_anim">开始动画</string>
     <string name="end_anim">结束动画</string>

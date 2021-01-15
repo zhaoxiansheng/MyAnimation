@@ -10,9 +10,6 @@ import com.example.zy.myanimation.view.scroll.Triangle;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Create on 17/10/31
@@ -20,13 +17,12 @@ import butterknife.OnClick;
  *
  * @author zhaoy
  */
-public class ScrollAnimationActivity extends AppCompatActivity {
+public class ScrollAnimationActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.triangle)
     Triangle triangle;
-    @BindView(R.id.start_anim_btn)
+
     Button startAnimBtn;
-    @BindView(R.id.end_anim_btn)
+
     Button endAnimBtn;
 
     private ArrayList<String> winningNum;
@@ -35,12 +31,18 @@ public class ScrollAnimationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scroll_animation);
-        ButterKnife.bind(this);
         initData();
         initView();
     }
 
     private void initView() {
+        triangle = findViewById(R.id.triangle);
+        startAnimBtn = findViewById(R.id.start_anim_btn);
+        endAnimBtn = findViewById(R.id.end_anim_btn);
+
+        startAnimBtn.setOnClickListener(this);
+        endAnimBtn.setOnClickListener(this);
+
         triangle.setWinningNum(winningNum);
         triangle.setAnimation(true);
     }
@@ -64,8 +66,8 @@ public class ScrollAnimationActivity extends AppCompatActivity {
         winningNum.add("4");
     }
 
-    @OnClick({R.id.start_anim_btn, R.id.end_anim_btn})
-    public void onViewClicked(View view) {
+    @Override
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.start_anim_btn:
                 break;

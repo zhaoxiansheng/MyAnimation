@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAnimation">
-        <activity android:name=".LeetCodeActivity">
+        <activity android:name=".View.LeetCodeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends AppCompatActivity implements ListViewAdapter.ItemClickListener {
 
-    @BindView(R.id.listview)
     ListView listview;
 
     private int[] text = {
@@ -40,18 +39,18 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             R.string.toolbar,
             R.string.recycler_bitmap,
             R.string.screen_shot,
-            R.string.navigation_demo,
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         init();
     }
 
     private void init() {
+        listview = findViewById(R.id.listview);
+
         ArrayList<String> data = new ArrayList<>();
         for (int i = 0; i < text.length; i++) {
             data.add(getString(text[i]));
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
                 ToolUtils.startActivity(this, GpuImageActivity.class);
                 break;
             case 9:
-                ToolUtils.startActivity(this, RecyclerViewActivity.class);
+//                ToolUtils.startActivity(this, RecyclerViewActivity.class);
                 break;
             case 10:
                 ToolUtils.startActivity(this, ReversalActivity.class);
@@ -112,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements ListViewAdapter.I
             case 15:
                 ToolUtils.startActivity(this, ScreenShotActivity.class);
                 break;
-            case 16:
-                ToolUtils.startActivity(this, JetpackActivity.class);
             default:
                 break;
         }
