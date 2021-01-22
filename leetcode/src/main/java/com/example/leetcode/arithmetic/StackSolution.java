@@ -1,7 +1,6 @@
-package com.example.leetcode.utils;
+package com.example.leetcode.arithmetic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Stack;
 
 public class StackSolution {

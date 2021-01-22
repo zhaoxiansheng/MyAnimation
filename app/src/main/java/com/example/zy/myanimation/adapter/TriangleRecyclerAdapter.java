@@ -11,8 +11,6 @@ import com.example.zy.myanimation.R;
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 三角形点击事件弹窗适配器
@@ -56,12 +54,11 @@ public class TriangleRecyclerAdapter extends RecyclerView.Adapter<TriangleRecycl
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_num)
         TextView tvNum;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            tvNum = itemView.findViewById(R.id.tv_num);
         }
     }
 

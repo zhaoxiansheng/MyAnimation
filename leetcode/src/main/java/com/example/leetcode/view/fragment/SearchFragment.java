@@ -1,4 +1,4 @@
-package com.example.leetcode.View;
+package com.example.leetcode.view.fragment;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.leetcode.R;
 
-public class StackFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -18,11 +18,11 @@ public class StackFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public StackFragment() {
+    public SearchFragment() {
     }
 
-    public static StackFragment newInstance(String param1, String param2) {
-        StackFragment fragment = new StackFragment();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -42,6 +42,7 @@ public class StackFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_stack, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 }

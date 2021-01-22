@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.kunminx.puremusic.ui.page.MainFragment"
+        android:name="com.example.leetcode.view.fragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
 
@@ -35,8 +35,40 @@
             app:popExitAnim="@anim/h_fragment_pop_exit" />
 
         <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            android:id="@+id/action_mainFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_stackFragment"
+            app:destination="@id/stackFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_dpFragment"
+            app:destination="@id/dpFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_stringFragment"
+            app:destination="@id/stringFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_patternFragment"
+            app:destination="@id/patternFragment"
             app:enterAnim="@anim/h_fragment_enter"
             app:exitAnim="@anim/h_fragment_exit"
             app:popEnterAnim="@anim/h_fragment_pop_enter"
@@ -45,17 +77,41 @@
     </fragment>
 
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.kunminx.puremusic.ui.page.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search">
-
+        android:id="@+id/dpFragment"
+        android:name="com.example.leetcode.view.fragment.DpFragment"
+        android:label="fragment_dp"
+        tools:layout="@layout/fragment_dp">
     </fragment>
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.kunminx.puremusic.ui.page.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" />
+        android:id="@+id/searchFragment"
+        android:name="com.example.leetcode.view.fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+    </fragment>
+
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.example.leetcode.view.fragment.SortFragment"
+        android:label="fragment_sort"
+        tools:layout="@layout/fragment_sort" />
+
+    <fragment
+        android:id="@+id/stackFragment"
+        android:name="com.example.leetcode.view.fragment.StackFragment"
+        android:label="fragment_stack"
+        tools:layout="@layout/fragment_stack" />
+
+    <fragment
+        android:id="@+id/stringFragment"
+        android:name="com.example.leetcode.view.fragment.StringFragment"
+        android:label="fragment_string"
+        tools:layout="@layout/fragment_string" />
+
+    <fragment
+        android:id="@+id/patternFragment"
+        android:name="com.example.leetcode.view.fragment.PatternFragment"
+        android:label="fragment_pattern"
+        tools:layout="@layout/fragment_pattern" />
 
 </navigation>

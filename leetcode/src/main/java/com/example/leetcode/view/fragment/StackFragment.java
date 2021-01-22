@@ -1,4 +1,4 @@
-package com.example.leetcode.View;
+package com.example.leetcode.view.fragment;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.leetcode.R;
 
-public class SortFragment extends Fragment {
+public class StackFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -18,11 +18,11 @@ public class SortFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SortFragment() {
+    public StackFragment() {
     }
 
-    public static SortFragment newInstance(String param1, String param2) {
-        SortFragment fragment = new SortFragment();
+    public static StackFragment newInstance(String param1, String param2) {
+        StackFragment fragment = new StackFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -42,7 +42,6 @@ public class SortFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sort, container, false);
+        return inflater.inflate(R.layout.fragment_stack, container, false);
     }
 }

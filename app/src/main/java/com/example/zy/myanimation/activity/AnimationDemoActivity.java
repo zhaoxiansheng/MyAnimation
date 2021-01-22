@@ -8,17 +8,12 @@ import com.example.zy.myanimation.R;
 import com.example.zy.myanimation.anim.demo.AnimatorDemo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
 
 public class AnimationDemoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.text)
     TextView text;
-    @BindView(R.id.text1)
     TextView text1;
-    @BindView(R.id.text2)
     TextView text2;
-    @BindView(R.id.custom_text)
     TextView customText;
 
     @Override

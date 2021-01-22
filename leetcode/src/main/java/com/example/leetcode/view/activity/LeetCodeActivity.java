@@ -1,18 +1,21 @@
-package com.example.leetcode.View;
+package com.example.leetcode.view.activity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.example.leetcode.R;
-import com.example.leetcode.utils.BinarySearch;
-import com.example.leetcode.utils.DP;
-import com.example.leetcode.utils.Sort;
-import com.example.leetcode.utils.StackSolution;
-import com.example.leetcode.utils.StringProblem;
+import com.example.leetcode.arithmetic.BinarySearch;
+import com.example.leetcode.arithmetic.DP;
+import com.example.leetcode.arithmetic.Sort;
+import com.example.leetcode.arithmetic.StackSolution;
+import com.example.leetcode.arithmetic.StringProblem;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class LeetCodeActivity extends AppCompatActivity {
 
@@ -29,9 +32,13 @@ public class LeetCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leet_code);
 
+        initView();
+
         init();
     }
 
+    private void initView() {
+    }
 
     private void init() {
         Sort.quickSort(mData, 0, mData.length - 1);

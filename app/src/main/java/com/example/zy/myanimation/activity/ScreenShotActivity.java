@@ -24,9 +24,8 @@ import com.example.zy.myanimation.view.recycler.utils.Utils;
 import java.lang.reflect.Field;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.OnClick;
 
-public class ScreenShotActivity extends AppCompatActivity {
+public class ScreenShotActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final int REQUEST_MEDIA_PROJECTION = 1;
 
@@ -85,6 +84,9 @@ public class ScreenShotActivity extends AppCompatActivity {
                 markSizeView.setUnmarkedColor(getResources().getColor(R.color.quarter_transparent));
             }
         });
+
+        screenGet.setOnClickListener(this);
+        screenShot.setOnClickListener(this);
     }
 
     @Override
@@ -100,8 +102,7 @@ public class ScreenShotActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.screen_shot, R.id.screen_get})
-    public void onViewClicked(View view) {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.screen_shot:
                 start();

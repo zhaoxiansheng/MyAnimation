@@ -1,4 +1,4 @@
-package com.example.leetcode.utils;
+package com.example.leetcode.arithmetic;
 
 //排序
 public class Sort {

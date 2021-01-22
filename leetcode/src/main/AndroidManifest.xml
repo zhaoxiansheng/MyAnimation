@@ -3,13 +3,14 @@
     package="com.example.leetcode">
 
     <application
+        android:name=".LeetcodeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAnimation">
-        <activity android:name=".View.LeetCodeActivity">
+        <activity android:name=".view.activity.LeetCodeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -10,8 +10,6 @@ import com.example.zy.myanimation.utils.ToolUtils;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Create on 17/10/31

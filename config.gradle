@@ -1,0 +1,41 @@
+ext {
+    android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.2",
+            minSdkVersion    : 23,
+            targetSdkVersion : 30,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    versions = [
+            appcompat       : "1.2.0",
+            recyclerview    : "1.1.0",
+            navigation      : "2.3.2",
+            google_material : "1.2.1",
+            constraintlayout: "2.0.4",
+            junit           : "4.+",
+            cardview        : "1.0.0",
+            multidex        : "1.0.3",
+    ]
+
+    dependencies = [
+            "appcompat"          : "androidx.appcompat:appcompat:${versions["appcompat"]}",
+
+            "navigation-fragment": "androidx.navigation:navigation-fragment:${versions["navigation"]}",
+
+            "navigation-ui"      : "androidx.navigation:navigation-ui:${versions["navigation"]}",
+
+            "google-material"    : "com.google.android.material:material:${versions["google_material"]}",
+
+            "recyclerview"       : "androidx.recyclerview:recyclerview:${versions["recyclerview"]}",
+
+            "constraintlayout"   : "androidx.constraintlayout:constraintlayout:${versions["constraintlayout"]}",
+
+            "junit"              : "junit:junit:${versions["junit"]}",
+
+            "cardview"           : "androidx.cardview:cardview:${versions["cardview"]}",
+
+            "multidex"           : "com.android.support:multidex:${versions["multidex"]}",
+    ]
+}

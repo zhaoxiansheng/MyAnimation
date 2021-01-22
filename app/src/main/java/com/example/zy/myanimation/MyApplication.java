@@ -10,6 +10,8 @@ import com.orhanobut.logger.Logger;
 
 import java.lang.ref.WeakReference;
 
+import androidx.multidex.MultiDex;
+
 /**
  * Created by zhaoy on 2017/11/30.
  *
@@ -39,5 +41,7 @@ public class MyApplication extends Application {
                 AuthService.getAuth();
             }
         }).start();
+
+        MultiDex.install(this);
     }
 }
