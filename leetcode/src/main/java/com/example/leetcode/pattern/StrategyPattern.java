@@ -5,7 +5,7 @@ public class StrategyPattern {
 
     private static final String TAG = StrategyPattern.class.getSimpleName();
 
-    public abstract class Duck {
+    public static abstract class Duck {
 
         FlyBehavior flyBehavior;
         QuackBehavior quackBehavior;
@@ -25,50 +25,50 @@ public class StrategyPattern {
         }
     }
 
-    public interface FlyBehavior {
+    public static interface FlyBehavior {
         void fly();
     }
 
-    public interface QuackBehavior {
+    public static interface QuackBehavior {
         void quack();
     }
 
-    public class FlyWithWings implements FlyBehavior {
+    public static class FlyWithWings implements FlyBehavior {
         @Override
         public void fly() {
             System.out.println("飞飞飞");
         }
     }
 
-    public class FlyNoWay implements FlyBehavior {
+    public static class FlyNoWay implements FlyBehavior {
         @Override
         public void fly() {
             System.out.println("我不会飞");
         }
     }
 
-    public class Quack implements QuackBehavior {
+    public static class Quack implements QuackBehavior {
         @Override
         public void quack() {
             System.out.println("呱呱呱");
         }
     }
 
-    public class Squeak implements QuackBehavior {
+    public static class Squeak implements QuackBehavior {
         @Override
         public void quack() {
             System.out.println("吱吱吱");
         }
     }
 
-    public class MuteQuack implements QuackBehavior {
+    public static class MuteQuack implements QuackBehavior {
         @Override
         public void quack() {
             System.out.println("我不会叫");
         }
     }
 
-    public class MallardDuck extends Duck {
+    public static class MallardDuck extends Duck {
 
         public MallardDuck() {
             flyBehavior = new FlyWithWings();
@@ -76,7 +76,7 @@ public class StrategyPattern {
         }
 
         @Override
-        protected void display() {
+        public void display() {
             flyBehavior.fly();
             quackBehavior.quack();
         }

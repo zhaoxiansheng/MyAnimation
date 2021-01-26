@@ -44,9 +44,6 @@ public class SortFragment extends Fragment {
         }
 
         Sort.quickSort(mData, 0, mData.length - 1);
-        for (int i : mData) {
-            Log.d(TAG, "onCreate: value = " + i);
-        }
     }
 
     @Override

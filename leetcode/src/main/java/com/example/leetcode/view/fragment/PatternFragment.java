@@ -4,11 +4,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.leetcode.R;
+import com.example.leetcode.pattern.DecorationMode;
+import com.example.leetcode.pattern.ObserverPattern;
+import com.example.leetcode.pattern.StrategyPattern;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,6 +56,24 @@ public class PatternFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        StrategyPattern.MallardDuck duck = new StrategyPattern.MallardDuck();
+        duck.display();
+
+        DecorationMode.Mocha mocha = new DecorationMode.Mocha(new DecorationMode.HouseBlend());
+        String description = mocha.getDescription();
+        double cost = mocha.cost();
+        Log.d("DecorationMode", "description: " + description + ", cost: " + cost);
+
+        ObserverPattern.WeatherData weatherData = new ObserverPattern.WeatherData();
+        ObserverPattern.ThirdPartyDisplay thirdPartyDisplay = new ObserverPattern.ThirdPartyDisplay();
+
+        weatherData.registerObserver(thirdPartyDisplay);
+
+        weatherData.setHumidity(10);
+        weatherData.setPressure(100);
+        weatherData.setTemperature(23);
+        weatherData.notifyObserver();
     }
 
     @Override

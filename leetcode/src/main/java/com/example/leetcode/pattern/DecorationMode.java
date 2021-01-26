@@ -1,9 +1,10 @@
 package com.example.leetcode.pattern;
 
+//装饰者模式
 public class DecorationMode {
 
     //抽象组件
-    public abstract class Beverage {
+    public static abstract class Beverage {
         String description = "Unknown Beverage";
 
         public String getDescription() {
@@ -14,12 +15,12 @@ public class DecorationMode {
     }
 
     //抽象装饰者
-    public abstract class CondimentDecorator extends Beverage {
+    public abstract static class CondimentDecorator extends Beverage {
         @Override
         public abstract String getDescription();
     }
 
-    public class Espresso extends Beverage {
+    public static class Espresso extends Beverage {
 
         public Espresso() {
             description = "Espresso";
@@ -32,7 +33,7 @@ public class DecorationMode {
     }
 
     //具体组件
-    public class HouseBlend extends Beverage {
+    public static class HouseBlend extends Beverage {
         public HouseBlend() {
             description = "House Blend Coffee";
         }
@@ -44,7 +45,7 @@ public class DecorationMode {
     }
 
     //具体的装饰者
-    public class Mocha extends CondimentDecorator {
+    public static class Mocha extends CondimentDecorator {
         Beverage beverage;
 
         public Mocha(Beverage beverage) {
@@ -63,7 +64,7 @@ public class DecorationMode {
     }
 
     //具体的装饰者
-    public class Whip extends CondimentDecorator {
+    public static class Whip extends CondimentDecorator {
         Beverage beverage;
 
         public Whip(Beverage beverage) {
@@ -82,7 +83,7 @@ public class DecorationMode {
     }
 
     //具体的装饰者
-    public class Soy extends CondimentDecorator {
+    public static class Soy extends CondimentDecorator {
         Beverage beverage;
 
         public Soy(Beverage beverage) {

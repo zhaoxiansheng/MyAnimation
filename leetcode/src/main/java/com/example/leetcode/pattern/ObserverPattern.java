@@ -1,9 +1,13 @@
 package com.example.leetcode.pattern;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 //观察者模式
 public class ObserverPattern {
+
+    private static final String TAG = ObserverPattern.class.getSimpleName();
 
     //观察者
     public interface Observer {
@@ -23,11 +27,11 @@ public class ObserverPattern {
         void display();
     }
 
-    public class WeatherData implements Observerable {
+    public static class WeatherData implements Observerable {
 
         private ArrayList<Observer> observers = new ArrayList<>();
 
-        private int temmperature;
+        private int temperature;
         private int humidity;
         private int pressure;
 
@@ -44,24 +48,36 @@ public class ObserverPattern {
         @Override
         public void notifyObserver() {
             for (Observer o : observers) {
-                o.update(temmperature, humidity, pressure);
+                o.update(temperature, humidity, pressure);
             }
+        }
+
+        public void setTemperature(int temperature) {
+            this.temperature = temperature;
+        }
+
+        public void setHumidity(int humidity) {
+            this.humidity = humidity;
+        }
+
+        public void setPressure(int pressure) {
+            this.pressure = pressure;
         }
     }
 
-    public class ThirdPartyDisplay implements Display, Observer {
-        private int temmperature;
+    public static class ThirdPartyDisplay implements Display, Observer {
+        private int temperature;
         private int humidity;
         private int pressure;
 
         @Override
         public void display() {
-            //...
+            Log.d(TAG, "display: temperature = " + temperature + ", humidity: " + humidity + ", pressure: " + pressure);
         }
 
         @Override
-        public void update(int temmperature, int humidity, int pressure) {
-            this.temmperature = temmperature;
+        public void update(int temperature, int humidity, int pressure) {
+            this.temperature = temperature;
             this.humidity = humidity;
             this.pressure = pressure;
             display();
