@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.leetcode.R;
+import com.example.leetcode.arithmetic.DP;
+
+import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
 
@@ -36,6 +39,18 @@ public class DpFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        int sum = DP.fibonacciBest(10);
+        System.out.println("fibonacci of sum is : " + sum);
+
+        ArrayList<Integer> values = new ArrayList<>();
+        values.add(5);
+        values.add(2);
+        values.add(1);
+
+        int s = 0;
+        int coinCount = DP.makeChange(values, 11, s);
+        System.out.println("makeChange of coinCount is : " + coinCount);
     }
 
     @Override

@@ -5,10 +5,6 @@ public class BinarySearch {
 
     //二分查找
     public static int commonBinarySearch(int[] array, int key) {
-        if (array.length < 0) {
-            return -1;
-        }
-
         int i = 0;
         int j = array.length - 1;
         int mid;

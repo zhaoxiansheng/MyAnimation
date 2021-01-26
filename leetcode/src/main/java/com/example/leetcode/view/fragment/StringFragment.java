@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.leetcode.R;
+import com.example.leetcode.arithmetic.StringProblem;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,14 +18,17 @@ import com.example.leetcode.R;
  */
 public class StringFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
+    private static final String TAG = StringFragment.class.getSimpleName();
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private final char[] mTarget = new char[]{'a', 'b', 'c', 'b', 'a', 'f', 'g', 'a', 'b', 'c', 'b', 'a', 'x'};
+    private final char[] mMatch = new char[]{'a', 'b', 'c', 'b', 'a', 'x'};
 
     public StringFragment() {
         // Required empty public constructor
@@ -38,7 +42,6 @@ public class StringFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment StringFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static StringFragment newInstance(String param1, String param2) {
         StringFragment fragment = new StringFragment();
         Bundle args = new Bundle();
@@ -55,6 +58,9 @@ public class StringFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        int index = StringProblem.KMPSolution(mTarget, mMatch);
+        System.out.println("KMP of index is: " + index);
     }
 
     @Override

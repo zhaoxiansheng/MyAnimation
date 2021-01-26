@@ -15,6 +15,7 @@ public class DecorationMode {
 
     //抽象装饰者
     public abstract class CondimentDecorator extends Beverage {
+        @Override
         public abstract String getDescription();
     }
 
@@ -24,6 +25,7 @@ public class DecorationMode {
             description = "Espresso";
         }
 
+        @Override
         public double cost() {
             return 1.99;
         }
@@ -35,6 +37,7 @@ public class DecorationMode {
             description = "House Blend Coffee";
         }
 
+        @Override
         public double cost() {
             return 0.99;
         }
@@ -48,10 +51,12 @@ public class DecorationMode {
             this.beverage = beverage;
         }
 
+        @Override
         public String getDescription() {
             return beverage.getDescription() + ", Mocha";
         }
 
+        @Override
         public double cost() {
             return beverage.cost() + 0.2;
         }
@@ -65,10 +70,12 @@ public class DecorationMode {
             this.beverage = beverage;
         }
 
+        @Override
         public String getDescription() {
             return beverage.getDescription() + ", Whip";
         }
 
+        @Override
         public double cost() {
             return beverage.cost() + 0.6;
         }
@@ -82,10 +89,12 @@ public class DecorationMode {
             this.beverage = beverage;
         }
 
+        @Override
         public String getDescription() {
             return beverage.getDescription() + ", Soy";
         }
 
+        @Override
         public double cost() {
             return beverage.cost() + 0.3;
         }

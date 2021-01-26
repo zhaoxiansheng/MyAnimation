@@ -9,14 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.leetcode.R;
+import com.example.leetcode.arithmetic.StackSolution;
+
+import java.util.ArrayList;
 
 public class StackFragment extends Fragment {
+
+    private static final String TAG = StackFragment.class.getSimpleName();
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
+
+    private final String[] mTokens = new String[]{"9", "+", "(", "3", "-", "1", ")", "*", "3", "+", "10", "/", "2"};
 
     public StackFragment() {
     }
@@ -37,6 +44,11 @@ public class StackFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        ArrayList<String> stackRnp = StackSolution.midToSuffix(mTokens);
+
+        int num = StackSolution.evalRPN(stackRnp.toArray(new String[0]));
+        System.out.println("RPN of num is: " + num);
     }
 
     @Override
