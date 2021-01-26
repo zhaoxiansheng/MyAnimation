@@ -6,16 +6,17 @@ import java.util.Stack;
 public class StackSolution {
 
     //逆波兰表达式
+    //遇到数字就进栈，遇到符号就把栈顶的两个数字出栈，然后和符号进行运算之后在将结果进栈，最终得到结果
     public static int evalRPN(String[] tokens) {
         Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < tokens.length; i++) {
+        for (String token : tokens) {
             try {
-                int num = Integer.parseInt(tokens[i]);
+                int num = Integer.parseInt(token);
                 stack.add(num);
             } catch (Exception e) {
                 int b = stack.pop();
                 int a = stack.pop();
-                stack.add(match(a, b, tokens[i]));
+                stack.add(match(a, b, token));
             }
         }
         return stack.pop();
@@ -37,24 +38,25 @@ public class StackSolution {
     }
 
     //中缀表达式转后缀表达式
+    //从左到右，如果是数字直接输出，如果是符号，则判断和栈顶的优先级，是右括号或优先级低于栈顶，则依次输出，并将当前符号进栈。
     public static ArrayList<String> midToSuffix(String[] tokens) {
         Stack<String> stack = new Stack<>();
-        ArrayList<String> stackRPN = new ArrayList<>();
-        for (int i = 0; i < tokens.length; i++) {
+        ArrayList<String> stackRpn = new ArrayList<>();
+        for (String token : tokens) {
             try {
-                int num = Integer.parseInt(tokens[i]);
-                stackRPN.add(tokens[i]);
+                int num = Integer.parseInt(token);
+                stackRpn.add(token);
                 System.out.println(num);
             } catch (Exception e) {
-                match(stack, stackRPN, tokens[i]);
+                match(stack, stackRpn, token);
             }
         }
         while (!stack.empty()) {
             String top = stack.pop();
-            stackRPN.add(top);
+            stackRpn.add(top);
             System.out.println(top);
         }
-        return stackRPN;
+        return stackRpn;
     }
 
     private static void match(Stack<String> stack, ArrayList<String> targetStack, String operator) {
@@ -64,18 +66,9 @@ public class StackSolution {
         }
         switch (operator) {
             case "+":
-                if (stack.peek().equals("*") || stack.peek().equals("/")) {
-                    while (!stack.empty() && !stack.peek().equals("(")) {
-                        String top = stack.pop();
-                        targetStack.add(top);
-                        System.out.println(top);
-                    }
-                }
-                stack.push(operator);
-                break;
             case "-":
-                if (stack.peek().equals("*") || stack.peek().equals("/")) {
-                    while (!stack.empty() && !stack.peek().equals("(")) {
+                if ("*".equals(stack.peek()) || "/".equals(stack.peek())) {
+                    while (!stack.empty() && !"(".equals(stack.peek())) {
                         String top = stack.pop();
                         targetStack.add(top);
                         System.out.println(top);
@@ -93,7 +86,7 @@ public class StackSolution {
                 stack.push(operator);
                 break;
             case ")":
-                while (!stack.empty() && !stack.peek().equals("(")) {
+                while (!stack.empty() && !"(".equals(stack.peek())) {
                     String top = stack.pop();
                     targetStack.add(top);
                     System.out.println(top);

@@ -27,11 +27,12 @@ public class StringFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private final char[] mTarget = new char[]{'a', 'b', 'c', 'b', 'a', 'f', 'g', 'a', 'b', 'c', 'b', 'a', 'x'};
+    private final char[] mTarget = new char[]{'a', 'b', 'c', 'b', 'a', 'a', 'b', 'a', 'b', 'a', 'f', 'g', 'a', 'b', 'c', 'b', 'a', 'x'};
     private final char[] mMatch = new char[]{'a', 'b', 'c', 'b', 'a', 'x'};
+    private final char[] mMatch1 = new char[]{'a', 'a'};
+    private final char[] mMatch2 = new char[]{'a', 'b', 'a', 'b', 'a'};
 
     public StringFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -59,7 +60,7 @@ public class StringFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        int index = StringProblem.KMPSolution(mTarget, mMatch);
+        int index = StringProblem.KMPSolution(mTarget, mMatch2);
         System.out.println("KMP of index is: " + index);
     }
 

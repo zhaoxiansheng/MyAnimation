@@ -43,6 +43,7 @@ public class DpFragment extends Fragment {
         int sum = DP.fibonacciBest(10);
         System.out.println("fibonacci of sum is : " + sum);
 
+        //面值分别是5，2，1
         ArrayList<Integer> values = new ArrayList<>();
         values.add(5);
         values.add(2);

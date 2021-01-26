@@ -57,10 +57,9 @@ public class DP {
     /**
      * @param values    保存每一种硬币的币值的数组  顺序排序
      * @param money     需要找零的面值
-     * @param coinsUsed 保存面值为i的纸币找零所需的最小硬币数
+     * @param useCount 保存面值为i的纸币找零所需的最小硬币数
      */
     public static int makeChange(ArrayList<Integer> values, int money, int useCount) {
-//        coinsUsed[0] = 0;
         for (int i = 0; i < values.size(); i++) {
             if (money - values.get(i) > 0) {
                 useCount++;
