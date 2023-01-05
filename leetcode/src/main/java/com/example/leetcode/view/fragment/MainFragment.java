@@ -1,5 +1,6 @@
 package com.example.leetcode.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ import androidx.navigation.fragment.NavHostFragment;
  */
 public class MainFragment extends Fragment {
 
+    private static final String TAG =  "MainFragment-zhaoy";
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -60,6 +63,12 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -74,6 +83,26 @@ public class MainFragment extends Fragment {
                 mAdapter.setDataList(strings);
             }
         });
+
+        Log.d(TAG, "onCreate: ");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
     }
 
     @Override
@@ -88,6 +117,8 @@ public class MainFragment extends Fragment {
         };
         mBinding.setVariable(BR.adapter, mAdapter);
 
+        Log.d(TAG, "onCreateView: ");
+
         return mBinding.getRoot();
     }
 
@@ -101,15 +132,42 @@ public class MainFragment extends Fragment {
         data.add(getActivity().getString(R.string.pattern));
         data.add(getActivity().getString(R.string.sort));
         data.add(getActivity().getString(R.string.stack));
-        data.add(getActivity().getString(R.string.string));
+        data.add(getActivity().getString(R.string.tree));
 
         mState.list.setValue(data);
+
+        Log.d(TAG, "onViewCreated: ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView: ");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mBinding.unbind();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach: ");
     }
 
     public class Presenter {
@@ -141,6 +199,9 @@ public class MainFragment extends Fragment {
                     break;
                 case "字符串问题":
                     controller.navigate(R.id.action_mainFragment_to_stringFragment);
+                    break;
+                case "Tree问题":
+                    controller.navigate(R.id.action_mainFragment_to_treeFragment);
                     break;
             }
         }

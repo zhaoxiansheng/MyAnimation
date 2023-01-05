@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import com.example.leetcode.R;
 import com.example.leetcode.arithmetic.Sort;
 
+import java.util.ArrayList;
+
 import androidx.fragment.app.Fragment;
 
 public class SortFragment extends Fragment {
@@ -44,6 +46,22 @@ public class SortFragment extends Fragment {
         }
 
         Sort.quickSort(mData, 0, mData.length - 1);
+
+        ArrayList<Integer> arrayListA = new ArrayList<>();
+        arrayListA.add(1);
+        arrayListA.add(2);
+        arrayListA.add(3);
+        arrayListA.add(4);
+
+        ArrayList<Integer> arrayListB = new ArrayList<>();
+
+        arrayListB.addAll(arrayListA);
+
+        arrayListB.remove(0);
+
+        for (int i : arrayListA) {
+            System.out.println(i);
+        }
     }
 
     @Override

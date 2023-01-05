@@ -1,5 +1,10 @@
 package com.example.leetcode.arithmetic;
 
+import com.example.leetcode.basic.Tree;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 //查找
 public class BinarySearch {
 
@@ -23,4 +28,32 @@ public class BinarySearch {
         }
         return -1;
     }
+
+
+//    public static boolean matchString(Tree[][] board, Tree[] match, int x, int y) {
+//        if (x == 0 && y == 0) {
+//            return false;
+//        }
+//
+//        if (board == null) {
+//            return false;
+//        }
+//
+//        if (match == null || match.length == 0) {
+//            return false;
+//        }
+//
+//        for (int i = 0; i < x; i++) {
+//            for (int j = 0; j < y; j++) {
+//                if (match[k].equals(board[i][j].data)) {
+//                    board[i][j].isUse = true;
+//                }
+//            }
+//        }
+//
+//        return true;
+//    }
+
+    static Tree[] matchString;
+    private static int k = 0;
 }

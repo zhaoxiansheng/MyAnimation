@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ReversalActivity extends AppCompatActivity {
 
-    private Handler mHandler = new Handler(new Handler.Callback() {
+    private static Handler mHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message message) {
             return false;
         }
     });
+    // API 30 使用下方的方式在主线程执行
+    //Executor mainExecutor = ContextCompat.getMainExecutor(this);
 
     EasyFlipView flipView;
 

@@ -1,14 +1,11 @@
 package com.example.zy.myanimation;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.blankj.utilcode.util.Utils;
 import com.example.zy.myanimation.utils.shitu.AuthService;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
-
-import java.lang.ref.WeakReference;
 
 import androidx.multidex.MultiDex;
 
@@ -33,7 +30,8 @@ public class MyApplication extends Application {
             }
         });
 
-//        iApi = RetrofitFactory.INSTANCE.getRetrofitGsonService().create(IApi.class);
+//        IApi iApi = RetrofitFactory.INSTANCE.getRetrofitGsonService().create(IApi.class);
+//        iApi.getBaiduShitu();
 
         new Thread(new Runnable() {
             @Override

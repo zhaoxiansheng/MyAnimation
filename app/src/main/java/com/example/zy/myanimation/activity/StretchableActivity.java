@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class StretchableActivity extends AppCompatActivity {
 
     StretchableFloatingButton stretchFloatBtn;
+    private static final String TAG = StretchableActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

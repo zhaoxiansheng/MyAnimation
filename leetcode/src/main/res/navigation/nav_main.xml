@@ -74,6 +74,14 @@
             app:popEnterAnim="@anim/h_fragment_pop_enter"
             app:popExitAnim="@anim/h_fragment_pop_exit" />
 
+        <action
+            android:id="@+id/action_mainFragment_to_treeFragment"
+            app:destination="@id/treeFragment"
+            app:enterAnim="@anim/h_fragment_enter"
+            app:exitAnim="@anim/h_fragment_exit"
+            app:popEnterAnim="@anim/h_fragment_pop_enter"
+            app:popExitAnim="@anim/h_fragment_pop_exit" />
+
     </fragment>
 
     <fragment
@@ -113,5 +121,11 @@
         android:name="com.example.leetcode.view.fragment.PatternFragment"
         android:label="fragment_pattern"
         tools:layout="@layout/fragment_pattern" />
+
+    <fragment
+        android:id="@+id/treeFragment"
+        android:name="com.example.leetcode.view.fragment.TreeFragment"
+        android:label="fragment_tree"
+        tools:layout="@layout/fragment_tree" />
 
 </navigation>
